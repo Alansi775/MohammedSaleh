@@ -1,0 +1,1928 @@
+:root {
+    /* Base Colors for Dark Mode */
+    --background-color: #0d0d0d; /* Slightly off-black for depth */
+    --text-color: #e0e0e0; /* Softer white for readability */
+    --primary-color: #a7a7a7; /* Button/accent base */
+    --primary-text-color: #0d0d0d;
+    --secondary-color: #4CAF50; /* Green accent */
+    --accent-color: #2196F3; /* Bright Blue - Technology, Professionalism */
+    --neutral-color: #B0BEC5; /* Silver Grey - Stability */
+    --hover-color: #ffffff; /* White for hover effects */
+    --gradient-opacity: 0.5;
+    --blur-shadow-color: rgba(255, 255, 255, 0.2); /* Softer blur shadow */
+    --header-bg: rgba(0, 0, 0, 0.5); /* Semi-transparent header */
+    --card-bg: rgba(20, 20, 20, 0.7); /* Slightly darker card background */
+    --card-border: rgba(255, 255, 255, 0.08); /* Subtle card border */
+    --input-bg: rgba(255, 255, 255, 0.05); /* Input background color */
+
+    /* Advanced Shadow/Light Effects */
+    --shadow-light: rgba(255, 255, 255, 0.05);
+    --shadow-dark: rgba(0, 0, 0, 0.4);
+    --inner-shadow: rgba(0, 0, 0, 0.2) inset;
+    --card-hover-scale: 1.02;
+    --card-hover-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+
+body.light-mode {
+    --background-color: #f0f2f5 !important; /* Lighter background */
+    --text-color: #333 !important; /* Darker text */
+    --primary-color: #607D8B !important; /* Darker grey for light mode button */
+    --primary-text-color: white !important;
+    --secondary-color: #388E3C !important; /* Darker green */
+    --accent-color: #1976D2 !important; /* Darker blue */
+    --neutral-color: #90A4AE !important; /* Darker silver-grey */
+    --hover-color: #424242 !important; /* Darker hover */
+    --gradient-opacity: 0.2 !important; /* Less intense gradient in light mode */
+    --blur-shadow-color: rgba(0, 0, 0, 0.1) !important; /* Softer blur shadow */
+    --header-bg: rgba(255, 255, 255, 0.7) !important; /* Semi-transparent light header */
+    --card-bg: rgba(255, 255, 255, 0.85) !important; /* Lighter card background */
+    --card-border: rgba(0, 0, 0, 0.1) !important; /* Subtle card border */
+    --input-bg: rgba(0, 0, 0, 0.03) !important; /* Lighter input background */
+
+    --shadow-light: rgba(255, 255, 255, 0.8) !important;
+    --shadow-dark: rgba(0, 0, 0, 0.15) !important;
+    --inner-shadow: rgba(0, 0, 0, 0.05) inset !important;
+}
+
+/* Universal Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    will-change: background-color, color;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    line-height: 1.6;
+        transition:
+        background-color 0.6s ease,
+        color 0.6s ease,
+        --background-color 0.6s ease,
+        --text-color 0.6s ease,
+        --primary-color 0.6s ease,
+        --header-bg 0.6s ease,
+        --card-bg 0.6s ease; /* Smoother theme transition */
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal scroll from background animation */
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
+header, .card, nav {
+    will-change: background-color, color, border-color;
+}
+
+
+/* Force Y-Shop to full width - */
+.resources-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+}
+
+.resources-grid .resource-item:nth-child(3) {
+    grid-column: 1 / 3 !important;
+    width: 100% !important;
+}
+
+.project-images-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1rem !important;
+    margin-top: 1.5rem !important;
+    padding: 1rem !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 10px !important;
+}
+
+.project-images-grid img {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    object-fit: cover !important;
+    box-shadow: 0 4px 15px var(--shadow-dark) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.project-images-grid img:hover {
+    transform: translateY(-5px) scale(1.05) !important;
+    box-shadow: 0 8px 25px var(--shadow-dark) !important;
+}
+
+
+/* Force Drone to full width - */
+.resources-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+}
+
+.resources-grid .resource-item:nth-child(2) {
+    grid-column: 1 / 3 !important;
+    width: 100% !important;
+}
+
+.project-images-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1rem !important;
+    margin-top: 1.5rem !important;
+    padding: 1rem !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 10px !important;
+}
+
+.project-images-grid img {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    object-fit: cover !important;
+    box-shadow: 0 4px 15px var(--shadow-dark) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.project-images-grid img:hover {
+    transform: translateY(-5px) scale(1.05) !important;
+    box-shadow: 0 8px 25px var(--shadow-dark) !important;
+}
+
+
+/* Force SMART HOME to full width - */
+.resources-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+}
+
+.resources-grid .resource-item:nth-child(1) {
+    grid-column: 1 / 3 !important;
+    width: 100% !important;
+}
+
+.project-images-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1rem !important;
+    margin-top: 1.5rem !important;
+    padding: 1rem !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 10px !important;
+}
+
+.project-images-grid img {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    object-fit: cover !important;
+    box-shadow: 0 4px 15px var(--shadow-dark) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.project-images-grid img:hover {
+    transform: translateY(-5px) scale(1.05) !important;
+    box-shadow: 0 8px 25px var(--shadow-dark) !important;
+}
+
+/* Adjust specific experience card to full width - FORCED */
+.experience-section .docs-grid .full-width-experience {
+    grid-column: 1 / -1 !important; /* Force it to span all columns */
+    width: 100% !important; /* Force full width */
+    max-width: unset !important; /* Force removal of max-width */
+    margin-left: auto !important; /* Force centering */
+    margin-right: auto !important; /* Force centering */
+}
+
+/* Optional: Center content if it feels better in a wide card */
+.full-width-experience {
+    text-align: center !important; /* Force centering text */
+}
+
+.full-width-experience ul {
+    text-align: start !important; /* Force list items aligned left/right */
+    padding-left: 20px !important; /* Force default padding */
+    padding-right: 20px !important; /* Force for RTL support */
+    margin: 0 auto !important; /* Force centering the ul itself */
+    max-width: 800px !important; /* Force max-width */
+}
+
+/* Adjust for RTL (Arabic) if centering the card text - FORCED */
+body.ar .full-width-experience ul {
+    text-align: right !important; /* Force RTL text alignment */
+    padding-left: 0 !important; /* Force no left padding in RTL */
+    padding-right: 20px !important; /* Force right padding in RTL */
+}
+
+/* Specific grid for Languages section to display items side-by-side - FORCED */
+#languages .docs-grid {
+    display: grid !important; /* Force display grid */
+    grid-template-columns: repeat(3, 1fr) !important; /* Force 3 columns */
+    gap: 1.5rem !important; /* Force gap */
+    justify-items: center !important; /* Force centering items */
+    align-items: start !important; /* Force alignment to top */
+}
+
+@media (max-width: 768px) {
+    #languages .docs-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important; /* Force wrapping */
+    }
+}
+
+@media (max-width: 480px) {
+    #languages .docs-grid {
+        grid-template-columns: 1fr !important; /* Force single column */
+    }
+}
+
+
+
+
+/* Specific adjustments for RTL (Arabic) - Font change added here */
+body.ar {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Tajawal', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body.ar header {
+    flex-direction: row-reverse;
+}
+
+body.ar header h1 {
+    order: 3;
+    padding-left: 20px;
+    padding-right: unset;
+}
+
+body.ar nav {
+    order: 2;
+}
+
+body.ar .header-actions {
+    order: 1;
+}
+
+body.ar .content {
+    text-align: right; /* Default right alignment for RTL content */
+}
+/* Re-center specific elements if needed in RTL */
+body.ar .hero-section .description,
+body.ar .buttons,
+body.ar .section-title,
+body.ar .our-story-section .description,
+body.ar .team-grid,
+body.ar .values-grid,
+body.ar .social-media-links,
+body.ar .contact-form,
+body.ar .welcome-message { /* Added contact-form and welcome-message */
+    text-align: center; /* Override to center for these elements in RTL */
+}
+
+body.ar .lang-select {
+    padding: 0.6rem 1.2rem 0.6rem 2.2rem;
+    background-position: left 0.8rem center;
+    text-align: center;
+}
+
+body.ar .chatbot-button {
+    left: 30px;
+    right: auto;
+}
+
+body.ar .chatbot-button .chatbot-tooltip {
+    left: 40%;
+    right: auto;
+    transform: translateX(-40%) translateY(-10px);
+}
+
+body.ar .chatbot-button:hover .chatbot-tooltip {
+    transform: translateX(-50%) translateY(-20px);
+}
+
+
+/* Dynamic Background Animation (More subtle and modern) */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, var(--accent-color) 0%, transparent 25%),
+                radial-gradient(circle at bottom right, var(--secondary-color) 0%, transparent 25%);
+    background-size: 200% 200%;
+    opacity: var(--gradient-opacity);
+    animation: backgroundPan 30s ease-in-out infinite alternate;
+    z-index: -2; /* Below everything */
+    transition: background 0.6s ease, opacity 0.6s ease;
+}
+
+@keyframes backgroundPan {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+/* Container */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden; /* For containing content shadows */
+    z-index: 1; /* Above background animation */
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 5vw; /* Slightly more padding */
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--header-bg) !important;
+    color: var(--text-color) !important;
+    backdrop-filter: blur(15px) saturate(1.8); /* Enhanced glassmorphism */
+    -webkit-backdrop-filter: blur(15px) saturate(1.8);
+    z-index: 999;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+    box-shadow: 0 4px 20px var(--shadow-dark); /* Deeper shadow */
+    border-bottom: 1px solid var(--card-border); /* Subtle separation */
+}
+
+.card {
+    background: var(--card-bg) !important;
+    border-color: var(--card-border) !important;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--text-color); /* Ensure logo color adjusts with theme */
+    transition: font-size 0.3s ease, color 0.4s ease;
+    flex-shrink: 0;
+    padding-right: 20px;
+    letter-spacing: -0.05em; /* Tighter for modern look */
+}
+
+
+header h1:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color); /* Subtle glow on hover */
+}
+
+
+
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Increased gap for better spacing */
+    flex-grow: 1;
+    justify-content: center;
+    min-width: 0;
+}
+
+nav a {
+    font-size: 1.05rem; /* Slightly larger nav links */
+    letter-spacing: 0.05rem; /* Reduced letter-spacing */
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+    color: var(--text-color); /* Inherit text color */
+    position: relative;
+    padding: 0.5rem 0; /* Add padding for a larger click area */
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px; /* Thicker underline */
+    bottom: -8px; /* Lower underline */
+    left: 50%; /* Start from center */
+    transform: translateX(-50%); /* Center the underline */
+    background-color: var(--accent-color);
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother animation */
+}
+
+nav a:hover {
+    color: var(--accent-color);
+    transform: translateY(-3px); /* More pronounced lift */
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-shrink: 0;
+}
+
+.lang-select {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.6rem 2.2rem 0.6rem 1.2rem; /* Adjusted padding */
+    border-radius: 8px; /* Slightly more rounded */
+    cursor: pointer;
+    font-size: 0.95rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23e0e0e0'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 10.99l3.71-3.76a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center; /* Adjusted position */
+    background-size: 1.1em; /* Slightly larger icon */
+    transition: all 0.3s ease;
+    min-width: 70px; /* Wider min-width */
+    text-align: center;
+}
+
+body.light-mode .lang-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23333'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 10.99l3.71-3.76a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.lang-select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.4); /* Stronger focus ring */
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 1.6rem; /* Larger icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem; /* Larger padding */
+    border-radius: 50%;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-icon:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* More visible hover */
+    transform: scale(1.15); /* More pronounced scale */
+}
+
+/* Phosphor Icons for theme toggle */
+.icon-sun, .icon-moon {
+    font-size: 24px; /* Default size for phosphor icons */
+    line-height: 1; /* Ensure no extra line height */
+    display: none;
+}
+
+.btn-icon img {
+    width: 24px; /* حجم أيقونة التبديل */
+    height: 24px; /* يجب أن يكون نفس العرض للحفاظ على التناسب */
+    object-fit: contain;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Initially, only sun icon is visible for dark mode (default) */
+.icon-light-mode {
+    display: block; /* أظهر صورة الوضع الفاتح (الشمس) */
+}
+.icon-dark-mode {
+    display: none; /* أخفِ صورة الوضع الداكن (القمر) */
+}
+
+/* In light mode, moon icon is visible, sun is hidden */
+body.light-mode .icon-light-mode {
+    display: none; /* أخفِ صورة الوضع الفاتح (الشمس) في الوضع الفاتح */
+}
+
+body.light-mode .icon-dark-mode {
+    display: block; /* أظهر صورة الوضع الداكن (القمر) في الوضع الفاتح */
+}
+
+.btn-signing {
+    background: linear-gradient(135deg, var(--primary-color), var(--neutral-color));
+    color: var(--primary-text-color);
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 6px 15px var(--shadow-dark);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none !important;
+    line-height: 1.2;           
+    vertical-align: middle;      
+    display: inline-flex;       
+    align-items: center;         
+    justify-content: center;     
+}
+
+.btn-signing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.4s ease;
+}
+
+.btn-signing:hover {
+    transform: translateY(-5px) scale(1.02); /* Lift and slightly scale */
+    box-shadow: 0 10px 25px var(--shadow-dark), 0 0 20px var(--accent-color); /* Added accent glow */
+}
+
+.btn-signing:hover::before {
+    left: 100%; /* Swipe effect */
+}
+
+/* Main Content Wrapper */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 8rem); /* Adjust based on header height */
+    padding-bottom: 4rem; /* More bottom padding */
+    position: relative; /* For z-indexing children */
+    z-index: 10;
+}
+
+.content {
+    max-width: 50rem; /* Slightly wider main content */
+    margin: 0 auto;
+    padding: 0 2.5rem; /* Increased padding */
+    z-index: 1; /* Ensure content is above background effects */
+    text-align: center; /* Default center alignment for content */
+}
+
+/* Animations for content elements */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-60px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Hero Section */
+.hero-section {
+    padding-top: 4rem; /* Padding at the top of hero section */
+}
+
+.tag-box {
+    display: inline-flex; /* Use flex for icon & text alignment */
+    align-items: center;
+    gap: 0.6rem; /* Gap between icon and text */
+    background-color: var(--secondary-color);
+    padding: 0.6rem 1.8rem; /* Increased padding */
+    border-radius: 50px;
+    margin-top: 3.5rem; /* More margin */
+    margin-bottom: 1.8rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 0 15px var(--secondary-color); /* Glow shadow */
+    transition: all 0.3s ease;
+    transform: perspective(1000px) rotateX(0deg); /* Initial 3D state */
+    opacity: 0; /* For JS animation */
+    animation-fill-mode: forwards;
+}
+
+.tag-box i {
+    font-size: 1.1rem; /* Adjust icon size in tag */
+}
+
+.tag-box:hover {
+    background-color: var(--accent-color); /* Hover to blue */
+    transform: translateY(-5px) scale(1.03) perspective(1000px) rotateX(5deg); /* Lift, scale, and rotate for 3D effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 25px var(--accent-color);
+}
+
+main h1 {
+    font-size: 5rem; /* Even larger and more impactful */
+    line-height: 1.05;
+    margin-bottom: 1.8rem;
+    font-weight: 800; /* Extra bold */
+    color: var(--text-color);
+    text-shadow: 0 5px 15px var(--shadow-dark); /* Deeper text shadow */
+    opacity: 0; /* For JS animation */
+    animation-fill-mode: forwards;
+}
+
+.description {
+    font-size: 1.3rem; /* Larger description text */
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    color: var(--text-color);
+    max-width: 48rem; /* Consistent max-width for descriptions */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    opacity: 0; /* For JS animation */
+    animation-fill-mode: forwards;
+}
+
+.buttons {
+    display: flex;
+    gap: 2rem; /* More space between buttons */
+    opacity: 0;
+    animation-fill-mode: forwards;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.btn-get-started {
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 300;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0 4px 10px var(--shadow-dark);
+    margin-top: 1rem; /* Add this line */
+    display: inline-block; /* Ensure margin works properly */
+}
+
+.btn-get-started:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px var(--shadow-dark), 0 0 25px var(--accent-color);
+}
+
+
+/* Cards & Sections Styling (Unified and Enhanced) */
+.section-title {
+    font-size: 4rem; /* Larger section titles */
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-align: center;
+    opacity: 1;
+    animation-fill-mode: forwards;
+    margin-top: 5rem; /* More space above new sections */
+    text-shadow: 0 3px 10px var(--shadow-dark);
+}
+
+/* Subtitle for social media links */
+.section-subtitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 5px var(--shadow-dark);
+    text-align: center;
+}
+
+.vmv-item, .feature-item, .value-card, .team-member, .resource-item, .doc-item, .contact-item, .welcome-message {
+    background-color: var(--card-bg); /* Unified card background */
+    padding: 1.8rem; /* Increased padding */
+    border-radius: 12px; /* Slightly more rounded corners */
+    box-shadow: 0 8px 25px var(--shadow-dark); /* Deeper initial shadow */
+    transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smoother transitions */
+    border: 1px solid var(--card-border); /* Subtle border */
+    backdrop-filter: blur(10px) saturate(1.5); /* Enhanced glassmorphism for cards */
+    -webkit-backdrop-filter: blur(10px) saturate(1.5);
+    opacity: 0; /* Changed from 0 to allow JS to control */
+    animation-fill-mode: forwards;
+    position: relative; /* For potential pseudo-elements/glow */
+    overflow: hidden; /* For inner effects */
+    transform: translateZ(0); /* Force hardware acceleration */
+    /* Added initial transform to ensure animation plays from desired state */
+    transform: translateY(30px);
+}
+
+body.light-mode .vmv-item, body.light-mode .feature-item, body.light-mode .value-card, body.light-mode .team-member, body.light-mode .resource-item, body.light-mode .doc-item, body.light-mode .contact-item, body.light-mode .welcome-message {
+    box-shadow: 0 6px 20px var(--shadow-dark);
+}
+
+.vmv-item:hover, .feature-item:hover, .value-card:hover, .team-member:hover, .resource-item:hover, .doc-item:hover, .contact-item:hover, .welcome-message:hover {
+    transform: translateY(-10px) scale(var(--card-hover-scale)) rotateX(2deg); /* Lift, scale, and subtle 3D rotate */
+    box-shadow: var(--card-hover-shadow), 0 0 30px var(--accent-color); /* Enhanced shadow with accent glow */
+    border-color: var(--accent-color); /* Highlight border on hover */
+    z-index: 10; /* Bring hovered card to front slightly */
+}
+
+/* Inner highlight for cards on hover */
+.vmv-item::before, .feature-item::before, .value-card::before, .team-member::before, .resource-item::before, .doc-item::before, .contact-item::before, .welcome-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Allow clicks through */
+}
+
+.vmv-item:hover::before, .feature-item:hover::before, .value-card:hover::before, .team-item:hover::before, .resource-item:hover::before, .doc-item:hover::before, .contact-item:hover::before, .welcome-message:hover::before {
+    opacity: 1; /* Show subtle inner highlight on hover */
+}
+
+
+.vmv-item h2, .feature-item h3, .value-card h3, .team-member h3, .resource-item h3, .doc-item h3, .contact-item h3, .welcome-message h2 {
+    font-size: 1.8rem; /* Larger titles */
+    margin-bottom: 0.8rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-shadow: 0 2px 5px var(--shadow-dark);
+}
+
+.vmv-item p, .feature-item p, .value-card p, .team-member p, .resource-item p, .doc-item p, .contact-item p, .welcome-message p {
+    font-size: 1.05rem; /* Consistent body text size */
+    line-height: 1.7;
+    color: var(--text-color);
+}
+
+
+/* Fix for phone number direction in RTL */
+body.ar .contact-item p a[href^="tel:"] {
+    direction: ltr;
+    unicode-bidi: isolate; /* يضمن أن قواعد الاتجاه تعمل بشكل صحيح */
+    display: inline-block; /* لضمان تطبيق direction بشكل موثوق */
+}
+
+/* Grids */
+.features-grid, .values-grid, .team-grid, .resources-grid, .docs-grid, .contact-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Consistent grid sizing */
+    gap: 2rem; /* Increased gap */
+    margin-top: 3rem;
+    justify-items: center;
+}
+
+/* Our Values specific icon styling */
+.value-card .icon-wrapper {
+    margin-bottom: 1.2rem;
+    width: 70px; /* Larger icon container */
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--accent-color), var(--secondary-color)); /* Gradient for icon circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 15px var(--accent-color); /* Deeper shadow with glow */
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+body.light-mode .value-card .icon-wrapper {
+    background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.value-card .icon-wrapper::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.5s ease;
+}
+
+.value-card .icon-wrapper:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.value-card .icon-wrapper i {
+    font-size: 38px; /* Larger Phosphor icon */
+    color: white !important; /* Ensure white */
+    transition: transform 0.3s ease, color 0.3s ease;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle icon shadow */
+}
+
+.value-card .icon-wrapper:hover i {
+    transform: rotateY(15deg) scale(1.1); /* Subtle 3D rotation and scale */
+}
+
+/* Team Member specific styles */
+.team-member {
+    text-align: center; /* Center content within team member card */
+}
+
+.team-member img {
+    width: 160px; /* Larger avatars */
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.2rem;
+    border: 4px solid var(--accent-color); /* Thicker border */
+    box-shadow: 0 6px 20px var(--shadow-dark), 0 0 20px var(--accent-color); /* Deeper shadow with glow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.team-member img:hover {
+    transform: scale(1.08) translateY(-5px); /* More pronounced lift and scale */
+    box-shadow: 0 10px 30px var(--shadow-dark), 0 0 30px var(--secondary-color); /* Enhanced shadow with different glow */
+    border-color: var(--secondary-color);
+}
+
+.team-member .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem; /* Wider gap */
+    margin-top: 0.8rem;
+}
+
+.team-member .social-links a {
+    color: var(--primary-color); /* Use primary color for social icons */
+    font-size: 1.6rem; /* Larger social icons */
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-flex; /* Important for icons to be clickable targets */
+    align-items: center;
+    justify-content: center;
+}
+
+.team-member .social-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-4px) scale(1.1); /* Lift and scale */
+}
+/* Ensure Phosphor icons within social links are visible */
+.team-member .social-links a i {
+    font-family: 'Phosphor', sans-serif; /* Explicitly set font-family if it's not inherited */
+    font-size: 1.6rem; /* Ensure size matches parent 'a' tag */
+    line-height: 1; /* Important for vertical alignment */
+}
+
+
+/* Company Info Section specific icon styling */
+.company-info-section .contact-info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.contact-item .icon-wrapper-small {
+    margin-bottom: 0.8rem;
+    width: 50px; /* Smaller icon container */
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--secondary-color); /* Different color for these icons */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-left: auto; /* Center the icon wrapper */
+    margin-right: auto; /* Center the icon wrapper */
+}
+
+body.light-mode .contact-item .icon-wrapper-small {
+    background-color: var(--primary-color);
+}
+
+.contact-item .icon-wrapper-small i {
+    font-size: 28px;
+    color: white !important;
+}
+
+.contact-item .icon-wrapper-small:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+.contact-item p a {
+    color: var(--accent-color); /* Link color */
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.contact-item p a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Social Media Links (Company-wide) */
+.social-media-links {
+    margin-top: 4rem; /* More space above this section */
+    padding-top: 2rem;
+    border-top: 1.5px solid var(--card-border); /* Subtle separation line */
+    text-align: center;
+    opacity: 0; /* For JS animation */
+    animation-fill-mode: forwards;
+    display: flex; /* إضافة display flex لترتيب الصور جنبًا إلى جنب */
+    justify-content: center; /* لوسطنة الأيقونات */
+    align-items: center;
+    gap: 1.2rem; /* مسافة بين الأيقونات */
+    flex-wrap: wrap; /* للسماح للأيقونات بالنزول لسطر جديد إذا كانت الشاشة صغيرة */
+}
+
+/* العنوان فوق الأيقونات */
+.social-media-links .section-subtitle {
+    width: 100%; /* لجعل العنوان يأخذ سطرًا كاملاً فوق الأيقونات */
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--text-color); /* تأكد من أنه يأخذ لون النص المناسب */
+}
+
+/* هذا هو التعديل الأهم لحجم الأيقونات كصور */
+.social-media-links a img.social-icon-img {
+    width: 40px; /* **الحجم الجديد: 40 بكسل** */
+    height: 40px; /* يجب أن يكون نفس العرض للحفاظ على التناسب */
+    object-fit: contain; /* للتأكد من أن الصورة لا تقتص وتظهر كاملة */
+    transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+    /* يمكنك إضافة فلتر لجعل الأيقونات تبدو بلون واحد في الوضع الداكن أو الفاتح */
+    filter: brightness(0.8) contrast(1.2); /* لجعل الأيقونات تظهر بشكل جيد في الوضع الداكن */
+}
+
+body.light-mode .social-media-links a img.social-icon-img {
+    filter: brightness(0.4) contrast(1.5); /* لجعل الأيقونات تظهر بشكل جيد في الوضع الفاتح */
+}
+
+.social-media-links a:hover img.social-icon-img {
+    transform: translateY(-8px) scale(1.2); /* رفع وتكبير الأيقونة عند التحويم */
+    opacity: 1; /* تأكد من أن الشفافية كاملة */
+    filter: none; /* إزالة الفلتر عند التحويم لإظهار اللون الأصلي (إذا كانت ملونة) */
+}
+/* Ensure Phosphor icons within social links are visible */
+.social-media-links a i {
+    font-family: 'Phosphor', sans-serif; /* Explicitly set font-family if it's not inherited */
+    font-size: 2.8rem; /* Ensure size matches parent 'a' tag */
+    line-height: 1;
+}
+
+/* Contact Form */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem; /* Larger gap in form */
+    max-width: 550px; /* Slightly wider form */
+    margin: 3.5rem auto 0 auto;
+    background-color: var(--card-bg);
+    padding: 2.5rem; /* More padding */
+    border-radius: 15px; /* More rounded */
+    box-shadow: 0 10px 30px var(--shadow-dark); /* Deeper shadow */
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px) saturate(1.5);
+    -webkit-backdrop-filter: blur(12px) saturate(1.5);
+    opacity: 0;
+    animation-fill-mode: forwards;
+    transform: translateY(30px); /* Initial state for animation */
+}
+
+body.light-mode .contact-form {
+    box-shadow: 0 8px 25px var(--shadow-dark);
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 1.2rem; /* Larger input padding */
+    border: 1px solid var(--primary-color);
+    border-radius: 8px; /* More rounded inputs */
+    background-color: transparent;
+    color: var(--text-color);
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px var(--inner-shadow); /* Inner shadow for depth */
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: var(--primary-color);
+    opacity: 0.7; /* Make placeholder slightly faded */
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.4), inset 0 1px 3px var(--inner-shadow);
+    background-color: rgba(255, 255, 255, 0.05); /* Slightly lighter background on focus */
+}
+
+.contact-form textarea {
+    resize: vertical; /* Allow vertical resize only */
+}
+
+.contact-form .btn-submit {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Gradient submit button */
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    border: none;
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 6px 15px var(--shadow-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form .btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.4s ease;
+}
+
+.contact-form .btn-submit:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); /* Reverse gradient on hover */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--shadow-dark), 0 0 20px var(--accent-color);
+}
+
+.contact-form .btn-submit:hover::before {
+    left: 100%;
+}
+
+
+/* --- About Us Button Animation (Magic Border) --- */
+.animate-border-magic {
+    position: relative;
+    z-index: 1;
+    border: none !important;
+    background-color: transparent !important; /* Transparent background to show border glow */
+    color: white !important;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 500;
+    overflow: hidden;
+    box-shadow: 0 4px 10px var(--shadow-dark);
+}
+
+.animate-border-magic::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        transparent 0deg,
+        transparent 90deg,
+        var(--hover-color) 90deg,
+        var(--accent-color) 180deg,
+        var(--primary-color) 270deg,
+        var(--secondary-color) 360deg
+    );
+    animation: rotateBorder 4s linear infinite;
+    z-index: -1;
+    border-radius: 50px;
+    filter: blur(10px); /* More pronounced blur */
+    opacity: 0.9;
+}
+
+.animate-border-magic::after {
+    content: '';
+    position: absolute;
+    inset: 3px; /* Thicker inner border */
+    background-color: var(--accent-color); /* Main button background, inside the rotating border */
+    border-radius: 50px;
+    z-index: -1;
+    transition: background-color 0.4s ease;
+}
+
+.animate-border-magic:hover::after {
+    background-color: var(--primary-color);
+}
+
+.animate-border-magic:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px var(--shadow-dark);
+}
+
+@keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+body.light-mode .animate-border-magic::after {
+    background-color: var(--accent-color);
+}
+
+body.light-mode .animate-border-magic:hover::after {
+    background-color: var(--primary-color);
+}
+
+
+/* Fixed AI Chatbot Button (NEW) */
+.chatbot-button {
+    position: fixed;
+    bottom: 30px;
+    /* الموضع الأفقي سيتم تحديده لاحقًا بناءً على الاتجاه */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color)); /* تدرج لوني حيوي */
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px; /* حجم أيقونة أكبر */
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* ظل عميق */
+    transition: all 0.3s ease;
+    z-index: 1000; /* لضمان ظهوره في الأعلى */
+    transform: scale(0); /* يبدأ مخفيًا للتحريك */
+    animation: popIn 0.5s ease-out forwards 2s; /* تحريك الظهور بعد تأخير */
+    outline: none; /* إزالة الحدود عند النقر */
+}
+
+.chatbot-button:hover {
+    transform: scale(1.15) translateY(-5px) rotate(5deg); /* تأثير تحليق أكثر ديناميكية */
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color)); /* عكس التدرج */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6); /* ظل أعمق */
+}
+
+/* Tooltip (تلميح زر الشات) */
+
+.chatbot-tooltip {
+    position: absolute;
+    bottom: 100%; /* فوق الزر */
+    right: 50%; /* Center horizontally above the button */
+    transform: translateX(-50%) translateY(-10px); /* Center and lift up */
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none; /* لمنع التفاعل عندما يكون مخفيًا */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1001; /* فوق الزر */
+}
+
+/* موضع التلميح عند التحليق */
+.chatbot-button:hover .chatbot-tooltip {
+    opacity: 1;
+    transform: translateY(-20px); /* رفع التلميح أكثر قليلًا عند التحليق */
+}
+
+/* تحريك ظهور زر الشات */
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* --- Chatbot Modal (نافذة الشات) --- */
+.chatbot-modal {
+    position: fixed;
+    bottom: 100px; /* فوق زر الشات بمسافة */
+    /* الموضع الأفقي سيتم تحديده لاحقًا بناءً على الاتجاه */
+    width: 350px; /* عرض ثابت للنافذة */
+    height: 450px; /* ارتفاع ثابت */
+    background-color: var(--card-bg); /* لون خلفية من المتغيرات */
+    border-radius: 15px; /* زوايا مستديرة */
+    box-shadow: 0 10px 30px var(--shadow-dark); /* ظل جذاب */
+    border: 1px solid var(--card-border); /* حدود رقيقة */
+    backdrop-filter: blur(15px) saturate(1.8); /* تأثير ضبابي للخلفية */
+    -webkit-backdrop-filter: blur(15px) saturate(1.8); /* دعم سفاري */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* لإخفاء أي محتوى زائد عند الزوايا المستديرة */
+    z-index: 1000;
+    opacity: 0; /* يبدأ مخفيًا */
+    visibility: hidden; /* إخفاء لتسهيل الوصول حتى يصبح نشطًا */
+    transform: translateY(20px) scale(0.95); /* تحريك عند الظهور */
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.chatbot-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1); /* التحريك للظهور الكامل */
+}
+
+.chatbot-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* رأس المحادثة (Header) */
+.chatbot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    background-color: rgba(0, 0, 0, 0.3); /* خلفية رأس داكنة قليلًا */
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text-color);
+}
+
+.chatbot-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.close-chatbot-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-chatbot-btn:hover {
+    color: var(--accent-color);
+}
+
+/* منطقة الرسائل */
+.chatbot-messages {
+    flex-grow: 1;
+    padding: 1.2rem;
+    overflow-y: auto; /* منطقة رسائل قابلة للتمرير */
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    background-color: rgba(0, 0, 0, 0.1); /* خلفية أفتح قليلًا للرسائل */
+    border-bottom: 1px solid var(--card-border);
+}
+
+.message {
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    max-width: 85%; /* تحديد عرض الرسالة */
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-wrap: break-word; /* لضمان كسر الكلمات الطويلة */
+}
+
+/* رسائل المستخدم والذكاء الصناعي */
+.user-message {
+    background-color: var(--accent-color); /* لون مميز لرسائل المستخدم */
+    color: white;
+    /* المحاذاة والزوايا سيتم ضبطها بناءً على الاتجاه */
+    border-bottom-right-radius: 4px; /* زاوية مدببة لرسالة المستخدم */
+}
+
+.ai-message {
+    background-color: var(--primary-color); /* لون لرسائل الذكاء الصناعي */
+    color: var(--primary-text-color);
+    /* المحاذاة والزوايا سيتم ضبطها بناءً على الاتجاه */
+    border-bottom-left-radius: 4px; /* زاوية مدببة لرسالة الذكاء الصناعي */
+}
+
+/* منطقة إدخال الرسائل */
+.chatbot-input-area {
+    display: flex;
+    padding: 1rem;
+    gap: 0.8rem;
+    background-color: rgba(0, 0, 0, 0.3); /* مطابقة لخلفية الرأس */
+    border-top: 1px solid var(--card-border);
+}
+
+.chatbot-input-area input {
+    flex-grow: 1;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px; /* حقل إدخال دائري */
+    background-color: var(--input-bg); /* خلفية حقل الإدخال */
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chatbot-input-area input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3);
+}
+
+.send-chatbot-btn {
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 50%; /* زر دائري */
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem; /* حجم أيقونة الإرسال */
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.send-chatbot-btn:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+}
+
+/* --- الأنماط الخاصة بالاتجاه (LTR و RTL) --- */
+
+/* للغة الإنجليزية والتركية (LTR - من اليسار لليمين) */
+html[dir="ltr"] .chatbot-button {
+    right: 30px; /* الزر على اليمين */
+}
+
+html[dir="rtl"] .chatbot-header {
+    flex-direction: row-reverse; /* هذا سيعكس ترتيب العناصر في الهيدر */
+}
+
+
+html[dir="ltr"] .chatbot-button:hover .chatbot-tooltip {
+    transform: translateX(37%) translateY(-20px);
+}
+
+html[dir="ltr"] .chatbot-modal {
+    right: 30px; /* النافذة محاذية للزر على اليمين */
+}
+
+html[dir="ltr"] .user-message {
+    align-self: flex-end; /* رسائل المستخدم محاذية لليمين */
+}
+
+html[dir="ltr"] .ai-message {
+    align-self: flex-start; /* رسائل الذكاء الصناعي محاذية لليسار */
+}
+
+html[dir="ltr"] .chatbot-input-area input {
+    margin-right: 0.8rem; /* مسافة قبل زر الإرسال */
+}
+
+/* للغة العربية (RTL - من اليمين لليسار) */
+html[dir="rtl"] .chatbot-button {
+    left: 36px; /* الزر على اليسار */
+    right: auto; /* إلغاء أي إعداد 'right' */
+}
+
+html[dir="rtl"] .chatbot-tooltip {
+    left: 60%;
+    transform: translateX(-40%) translateY(-30px); /* Move tooltip to the right */
+}
+
+html[dir="rtl"] .chatbot-button:hover .chatbot-tooltip {
+    transform: translateX(-37%) translateY(-20px);
+}
+
+html[dir="rtl"] .chatbot-modal {
+    left: 30px; /* النافذة محاذية للزر على اليسار */
+    right: auto; /* إلغاء أي إعداد 'right' */
+}
+
+html[dir="rtl"] .chatbot-messages {
+    align-items: flex-start; /* محاذاة كل الرسائل لبداية الصندوق في RTL */
+}
+
+html[dir="rtl"] .user-message {
+    align-self: flex-start; /* رسائل المستخدم محاذية لليسار في RTL */
+    border-bottom-left-radius: 4px; /* زاوية مدببة لرسالة المستخدم في RTL */
+    border-bottom-right-radius: 12px; /* إزالة الزاوية المدببة من اليمين */
+}
+
+html[dir="rtl"] .ai-message {
+    align-self: flex-end; /* رسائل الذكاء الصناعي محاذية لليمين في RTL */
+    border-bottom-right-radius: 4px; /* زاوية مدببة لرسالة الذكاء الصناعي في RTL */
+    border-bottom-left-radius: 12px; /* إزالة الزاوية المدببة من اليسار */
+}
+
+html[dir="rtl"] .chatbot-input-area {
+    flex-direction: row-reverse; /* عكس ترتيب حقل الإدخال والزر */
+}
+
+html[dir="rtl"] .chatbot-input-area input {
+    margin-left: 0.8rem; /* مسافة بعد زر الإرسال في RTL */
+    margin-right: 0; /* إزالة الهامش الأيمن */
+    text-align: right; /* محاذاة نص الإدخال لليمين */
+}
+
+html[dir="rtl"] .chatbot-header {
+    flex-direction: row-reverse; /* عكس ترتيب عناصر رأس الشات */
+}
+
+html[dir="rtl"] .chatbot-header h3 {
+    text-align: right; /* العنوان لليمين */
+    order: 2; /* العنوان يأتي بعد زر الإغلاق (بعد عكس الاتجاه) */
+}
+
+/* Base style for fade-in words (initially hidden) */
+.fade-in-word {
+    opacity: 0;
+    transition: opacity 0.3s ease-out; /* Smooth transition for opacity */
+}
+
+/* Ensure words become visible when added */
+.fade-in-word.show {
+    opacity: 1;
+}
+
+/* Typing Indicator Animation */
+.typing-indicator {
+    background-color: var(--primary-color); /* Use your existing AI message background */
+    color: var(--primary-text-color); /* Use your existing AI message text color */
+    padding: 0.8rem 1rem; /* Match existing message padding */
+    border-radius: 12px; /* Match existing message border-radius */
+    max-width: 85%; /* Match existing message max-width */
+    font-size: 0.95rem; /* Match existing message font-size */
+    line-height: 1.4; /* Match existing message line-height */
+    word-wrap: break-word; /* Match existing message word-wrap */
+    
+    display: inline-flex; /* Use inline-flex to keep dots together */
+    gap: 4px; /* Space between dots */
+    align-items: center;
+    justify-content: center; /* Center dots horizontally if only indicator is present */
+    
+    /* Animation for the dots */
+    animation: typing-dots-fade 1.5s infinite ease-in-out; /* Overall fade for the indicator */
+}
+
+.typing-indicator .dot {
+    width: 8px; /* Size of each dot */
+    height: 8px;
+    background-color: currentColor; /* Use the inherited text color */
+    border-radius: 50%;
+    opacity: 0.7; /* Slight transparency for dots */
+    animation: dot-bounce 1.4s infinite ease-in-out both; /* Individual dot animation */
+}
+
+.typing-indicator .dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator .dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-indicator .dot:nth-child(3) { animation-delay: 0s; }
+
+/* Keyframes for the dot bouncing animation */
+@keyframes dot-bounce {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* Keyframes for overall typing indicator fade (optional, but can add subtlety) */
+@keyframes typing-dots-fade {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Ensure paragraph elements have margins between them */
+.ai-message p {
+    margin-bottom: 0.5em; /* Space between paragraphs */
+    margin-top: 0; /* Remove default top margin */
+}
+
+.ai-message p:last-child {
+    margin-bottom: 0; /* No margin after the last paragraph */
+}
+
+/* Project Images Grid for Y-Shop */
+.project-images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 2 columns for larger screens, 1 for small */
+    gap: 1rem; /* Space between images */
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.1); /* Subtle background for the grid area */
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+}
+
+.project-images-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px var(--shadow-dark);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.project-images-grid img:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 25px var(--shadow-dark), 0 0 20px var(--accent-color);
+}
+
+
+/* Responsive Design - Enhanced */
+@media (max-width: 1200px) {
+    header h1 {
+        font-size: 2.8rem;
+    }
+    main h1 {
+        font-size: 4.2rem;
+    }
+    .section-title {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    header {
+        padding: 1.2rem 3vw;
+    }
+    header h1 {
+        font-size: 2.5rem;
+    }
+    nav {
+        gap: 1rem;
+    }
+    main h1 {
+        font-size: 3.8rem;
+    }
+    .description {
+        font-size: 1.2rem;
+    }
+    .section-title {
+        font-size: 3rem;
+    }
+    .features-grid, .values-grid, .team-grid, .resources-grid, .docs-grid, .contact-info-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    .vmv-item, .feature-item, .value-card, .team-member, .resource-item, .doc-item, .contact-item, .welcome-message {
+        padding: 1.5rem;
+    }
+    .vmv-item h2, .feature-item h3, .value-card h3, .team-member h3, .resource-item h3, .doc-item h3, .contact-item h3, .welcome-message h2 {
+        font-size: 1.6rem;
+    }
+    .vmv-item p, .feature-item p, .value-card p, .team-member p, .resource-item p, .doc-item p, .contact-item p, .welcome-message p {
+        font-size: 0.98rem;
+    }
+    .value-card .icon-wrapper {
+        width: 65px;
+        height: 65px;
+    }
+    .value-card .icon-wrapper i {
+        font-size: 34px;
+    }
+    .team-member img {
+        width: 140px;
+        height: 140px;
+    }
+    .social-media-links a { /* Adjusted for medium screens */
+        font-size: 2.5rem;
+        margin: 0 1rem;
+    }
+    .project-images-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjust for smaller images on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 1rem;
+        gap: 1rem;
+    }
+
+    /* Default mobile header layout (LTR) */
+    header h1,
+    header nav,
+    header .header-actions {
+        order: unset !important;
+        margin: unset !important;
+        padding: unset !important;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Override for RTL mobile header - keep proper RTL structure */
+    body.ar header {
+        flex-direction: column; /* Keep column direction for mobile */
+        align-items: center;
+    }
+
+    body.ar header h1,
+    body.ar header nav,
+    body.ar header .header-actions {
+        order: unset !important; /* Reset order for mobile stacking */
+        width: 100%;
+        text-align: center; /* Center everything in mobile */
+        justify-content: center;
+    }
+
+    /* Ensure RTL specific padding/margin is reset for mobile */
+    body.ar header h1 {
+        padding-left: unset !important;
+        padding-right: unset !important;
+        margin-bottom: 0.5rem;
+    }
+
+
+    header h1 {
+        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        flex-grow: unset;
+        justify-content: center;
+        gap: 1rem; /* Ensure proper spacing between nav items */
+    }
+
+    /* Ensure nav links are clickable and properly spaced in RTL */
+    body.ar nav {
+        justify-content: center;
+        flex-direction: row; /* Keep horizontal layout for nav items */
+    }
+
+    body.ar nav a {
+        margin: 0 0.5rem; /* Add horizontal margin for proper spacing */
+        padding: 0.5rem; /* Ensure clickable area */
+        display: inline-block; /* Ensure proper display */
+    }
+
+    .header-actions {
+        flex-direction: row !important;
+        align-items: center !important;
+        margin-top: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem; /* Add gap for header actions */
+    }
+
+    /* Ensure language selector works properly in RTL mobile */
+    body.ar .lang-select {
+        padding: 0.5rem 1.8rem 0.5rem 1rem; /* Reset padding for mobile */
+        background-position: right 0.8rem center; /* Reset background position */
+        text-align: center;
+    }
+
+    .content {
+        padding: 0 1.5rem;
+        max-width: 100%;
+    }
+
+    main h1 {
+        font-size: 3rem;
+    }
+
+    .description {
+        font-size: 1.05rem;
+        max-width: 100%;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+    }
+
+    .btn-signing, .btn-get-started {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        margin-top: 3.5rem;
+    }
+    .features-grid, .values-grid, .team-grid, .resources-grid, .docs-grid, .contact-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    .vmv-item, .feature-item, .value-card, .team-member, .resource-item, .doc-item, .contact-item, .welcome-message {
+        padding: 1.2rem;
+        max-width: 90%;
+        margin: 0 auto;
+    }
+    .vmv-item h2, .feature-item h3, .value-card h3, .team-member h3, .resource-item h3, .doc-item h3, .contact-item h3, .welcome-message h2 {
+        font-size: 1.4rem;
+    }
+    .vmv-item p, .feature-item p, .value-card p, .team-member p, .resource-item p, .doc-item p, .contact-item p, .welcome-message p {
+        font-size: 0.9rem;
+    }
+    .value-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+    }
+    .value-card .icon-wrapper i {
+        font-size: 32px;
+    }
+    .team-member img {
+        width: 120px;
+        height: 120px;
+    }
+    .contact-form {
+        padding: 2rem;
+    }
+    .contact-form input, .contact-form textarea {
+        padding: 1rem;
+        font-size: 0.95rem;
+    }
+    .contact-form .btn-submit {
+        padding: 0.8rem 2rem;
+        font-size: 0.95rem;
+    }
+    .social-media-links a {
+        font-size: 2.2rem;
+        margin: 0 0.8rem;
+    }
+    .chatbot-modal {
+        width: 90%;
+        height: 80%;
+        bottom: 20px;
+        right: 5%;
+        left: 5%;
+    }
+    body.ar .chatbot-modal {
+        left: 5%;
+        right: 5%;
+    }
+    .project-images-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Even smaller for mobile */
+    }
+}
+
+
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.9rem;
+    }
+    nav a {
+        font-size: 0.9rem;
+        padding: 0.3rem 0;
+    }
+    .lang-select {
+        padding: 0.5rem 1.8rem 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    .btn-signing {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.8rem;
+    }
+    main h1 {
+        font-size: 2.5rem;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    .team-member img {
+        width: 100px;
+        height: 100px;
+    }
+    .social-media-links a {
+        font-size: 2rem;
+        margin: 0 0.6rem;
+    }
+    .project-images-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+
+
+/* Stacked Images Animation */
+.project-images-grid {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    position: relative !important;
+    height: 300px !important; /* Fixed height for stacking */
+    margin-top: 1.5rem !important;
+    padding: 1rem !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border-radius: 15px !important;
+    cursor: pointer !important;
+    perspective: 1000px !important; /* For 3D effect */
+}
+
+/* Individual image positioning */
+.project-images-grid img {
+    position: absolute !important;
+    width: 180px !important; /* Fixed width */
+    height: 280px !important; /* Fixed height */
+    border-radius: 12px !important;
+    object-fit: cover !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1) !important;
+    cursor: pointer !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform-origin: center center !important;
+}
+
+/* Default stacked positions - خلف بعض بتدوير بسيط */
+.project-images-grid img:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(-6deg) translateZ(30px) !important;
+    z-index: 4 !important;
+}
+
+.project-images-grid img:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(4deg) translateZ(20px) !important;
+    z-index: 3 !important;
+}
+
+.project-images-grid img:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(-2deg) translateZ(10px) !important;
+    z-index: 2 !important;
+}
+
+.project-images-grid img:nth-child(4) {
+    transform: translate(-50%, -50%) rotate(5deg) translateZ(0px) !important;
+    z-index: 1 !important;
+}
+
+/* Expanded state - عند الضغط ينتشروا */
+.project-images-grid.expanded img:nth-child(1) {
+    transform: translate(-240px, -50%) rotate(0deg) scale(1.05) !important;
+    z-index: 4 !important;
+}
+
+.project-images-grid.expanded img:nth-child(2) {
+    transform: translate(-80px, -50%) rotate(0deg) scale(1.05) !important;
+    z-index: 3 !important;
+}
+
+.project-images-grid.expanded img:nth-child(3) {
+    transform: translate(80px, -50%) rotate(0deg) scale(1.05) !important;
+    z-index: 2 !important;
+}
+
+.project-images-grid.expanded img:nth-child(4) {
+    transform: translate(240px, -50%) rotate(0deg) scale(1.05) !important;
+    z-index: 1 !important;
+}
+
+/* Hover effects */
+.project-images-grid:not(.expanded) img:hover {
+    transform: translate(-50%, -60%) rotate(0deg) scale(1.1) !important;
+    z-index: 10 !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+.project-images-grid.expanded img:hover {
+    transform: translate(var(--pos-x), -60%) rotate(0deg) scale(1.15) !important;
+    z-index: 10 !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Set hover positions for expanded state */
+.project-images-grid.expanded img:nth-child(1):hover { --pos-x: -240px; }
+.project-images-grid.expanded img:nth-child(2):hover { --pos-x: -80px; }
+.project-images-grid.expanded img:nth-child(3):hover { --pos-x: 80px; }
+.project-images-grid.expanded img:nth-child(4):hover { --pos-x: 240px; }
+
+/* Click indicator */
+.project-images-grid::before {
+    content: "👆 اضغط لعرض الصور" !important;
+    position: absolute !important;
+    top: -35px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 0.9rem !important;
+    color: var(--accent-color) !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.3s ease !important;
+    pointer-events: none !important;
+}
+
+.project-images-grid.expanded::before {
+    content: "👆 اضغط للإغلاق" !important;
+}
+
+.project-images-grid:hover::before {
+    opacity: 1 !important;
+}
+
+/* Responsive - للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .project-images-grid {
+        height: 250px !important;
+    }
+    
+    .project-images-grid img {
+        width: 140px !important;
+        height: 220px !important;
+    }
+    
+    .project-images-grid.expanded img:nth-child(1) {
+        transform: translate(-160px, -50%) rotate(0deg) scale(1.02) !important;
+    }
+    
+    .project-images-grid.expanded img:nth-child(2) {
+        transform: translate(-55px, -50%) rotate(0deg) scale(1.02) !important;
+    }
+    
+    .project-images-grid.expanded img:nth-child(3) {
+        transform: translate(55px, -50%) rotate(0deg) scale(1.02) !important;
+    }
+    
+    .project-images-grid.expanded img:nth-child(4) {
+        transform: translate(160px, -50%) rotate(0deg) scale(1.02) !important;
+    }
+}
+}
