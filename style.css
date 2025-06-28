@@ -333,23 +333,61 @@ body.ar .chatbot-button:hover .chatbot-tooltip {
     z-index: 1; /* Above background animation */
 }
 
-/* Header */
+/* هذا هو تعريف الهيدر الحالي الخاص بي */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 5vw; /* Slightly more padding */
-    position: sticky;
+    padding: 1.2rem 5vw;
+    position: sticky; /* يجعله ثابتًا عند التمرير في الشاشات الكبيرة */
     top: 0;
     width: 100%;
     background-color: var(--header-bg) !important;
     color: var(--text-color) !important;
-    backdrop-filter: blur(15px) saturate(1.8); /* Enhanced glassmorphism */
+    backdrop-filter: blur(15px) saturate(1.8);
     -webkit-backdrop-filter: blur(15px) saturate(1.8);
     z-index: 999;
     transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
-    box-shadow: 0 4px 20px var(--shadow-dark); /* Deeper shadow */
-    border-bottom: 1px solid var(--card-border); /* Subtle separation */
+    box-shadow: 0 4px 20px var(--shadow-dark);
+    border-bottom: 1px solid var(--card-border);
+}
+
+/* ------------------------------------- */
+/* تنسيقات الأجهزة المتجاوبة (Responsive) */
+/* ------------------------------------- */
+
+@media (max-width: 768px) {
+    header {
+        position: static; /* اجعل الهيدر جزءًا عاديًا من تدفق المستند */
+        padding: 1rem 1rem; /* تقليل البادينغ ليتناسب مع شاشات الهاتف */
+        /* تأكد أنك لا تضع ارتفاعًا ثابتًا هنا إذا كنت تريده أن يتكيف مع المحتوى */
+        height: auto;
+        /* إذا كان هناك z-index عالي جدًا يتعارض مع عناصر أخرى، يمكنك تعديله */
+        z-index: auto; /* ارجع للوضع الافتراضي أو قيمة أقل إذا لزم الأمر */
+    }
+
+    /* إذا كان لديك padding-top على body أو main لتعويض الهيدر الثابت */
+    body {
+        padding-top: 0 !important; /* قم بإزالة أي مسافة علوية إضافية */
+    }
+
+    /* إذا كنت تستخدم قائمة همبرغر على الهاتف، يمكنك إخفاء الروابط الأصلية */
+    nav {
+        display: none; /* إخفاء قائمة التنقل الأساسية على الأجهزة الصغيرة */
+    }
+
+    /* وتأكد من تعديل حجم العنوان "Mohammed Saleh" ليتناسب مع شاشات الهاتف */
+    header h1 {
+        font-size: 2rem !important; /* أو الحجم المناسب */
+    }
+
+    /* تأكد من أن الأزرار "English", "العربية", "Türkçe" تظهر بشكل صحيح على سطر واحد أو حسب التصميم */
+    .header-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem; /* تقليل الفجوة بين عناصر الأكشن */
+    }
 }
 
 .card {
