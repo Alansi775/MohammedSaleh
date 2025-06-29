@@ -4,8 +4,8 @@
     --text-color: #e0e0e0; /* Softer white for readability */
     --primary-color: #a7a7a7; /* Button/accent base */
     --primary-text-color: #0d0d0d;
-    --secondary-color: #4CAF50; /* Green accent */
-    --accent-color: #2196F3; /* Bright Blue - Technology, Professionalism */
+    --secondary-color: #4c86af; /* Green accent */
+    --accent-color: #53a6ff; /* Bright Blue - Technology, Professionalism */
     --neutral-color: #B0BEC5; /* Silver Grey - Stability */
     --hover-color: #ffffff; /* White for hover effects */
     --gradient-opacity: 0.5;
@@ -1825,4 +1825,104 @@ html[dir="rtl"] .chatbot-header h3 {
 
 /* Stacked Images Animation for making the screens behind each other here you should put the code */
 
+
 }
+
+/* CSS - أضف هذا في نهاية ملف CSS اللي عندك */
+
+/* Modal للصور */
+.image-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-modal.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+
+.modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.modal-image {
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    max-height: 600px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.modal-close {
+    position: absolute;
+    top: -40px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+}
+
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+}
+
+.modal-prev {
+    left: -60px;
+}
+
+.modal-next {
+    right: -60px;
+}
+
+.image-counter {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .modal-prev {
+        left: -50px;
+    }
+    
+    .modal-next {
+        right: -50px;
+    }
+}
+
+
+
+

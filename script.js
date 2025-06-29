@@ -317,4 +317,133 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+
 });
+
+
+// JavaScript - أضف هذا في نهاية body أو ملف JS
+
+document.addEventListener('DOMContentLoaded', function() {
+    let modal = null;
+    let images, modalImg, closeBtn, prevBtn, nextBtn, counter;
+    let currentIndex = 0;
+
+    // دالة إنشاء المودال
+    function createModal() {
+        // حذف المودال القديم إذا كان موجود
+        if (modal) {
+            modal.remove();
+        }
+
+        // التحقق من اتجاه الصفحة
+        const isRTL = document.dir === 'rtl' || document.documentElement.dir === 'rtl' || 
+                      getComputedStyle(document.body).direction === 'rtl';
+        
+        // تحديد الأسهم حسب الاتجاه
+        const prevArrow = isRTL ? '›' : '‹';
+        const nextArrow = isRTL ? '‹' : '›';
+        
+        modal = document.createElement('div');
+        modal.className = 'image-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <button class="modal-close">×</button>
+                <button class="modal-nav modal-prev">${prevArrow}</button>
+                <img class="modal-image" src="" alt="">
+                <button class="modal-nav modal-next">${nextArrow}</button>
+                <div class="image-counter">1 / 4</div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        // تحديث المراجع
+        modalImg = modal.querySelector('.modal-image');
+        closeBtn = modal.querySelector('.modal-close');
+        prevBtn = modal.querySelector('.modal-prev');
+        nextBtn = modal.querySelector('.modal-next');
+        counter = modal.querySelector('.image-counter');
+
+        setupEventListeners();
+    }
+
+    // دالة إعداد Event Listeners
+    function setupEventListeners() {
+        images = document.querySelectorAll('.project-images-grid img');
+
+        // فتح المودال
+        images.forEach((img, index) => {
+            img.addEventListener('click', () => {
+                currentIndex = index;
+                showImage();
+                modal.classList.add('active');
+            });
+        });
+
+        // إغلاق المودال
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // الصورة التالية
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage();
+        });
+
+        // الصورة السابقة
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage();
+        });
+
+        // إغلاق عند الضغط خارج الصورة
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    }
+
+    function showImage() {
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt;
+        counter.textContent = `${currentIndex + 1} / ${images.length}`;
+    }
+
+    // إنشاء المودال لأول مرة
+    createModal();
+
+    // مراقبة تغييرات الاتجاه
+    const observer = new MutationObserver(() => {
+        createModal();
+    });
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['dir', 'class']
+    });
+
+    observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['dir', 'class']
+    });
+
+    // أسهم الكيبورد
+    document.addEventListener('keydown', (e) => {
+        if (!modal || !modal.classList.contains('active')) return;
+        
+        if (e.key === 'Escape') {
+            modal.classList.remove('active');
+        } else if (e.key === 'ArrowLeft') {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage();
+        } else if (e.key === 'ArrowRight') {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage();
+        }
+    });
+});
+
+
+
