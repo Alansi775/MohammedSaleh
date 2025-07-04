@@ -72,6 +72,8 @@ body {
     scroll-behavior: smooth; /* Smooth scrolling for anchor links */
 }
 
+
+
 header, .card, nav {
     will-change: background-color, color, border-color;
 }
@@ -99,14 +101,7 @@ header, .card, nav {
     border-radius: 10px !important;
 }
 
-.project-images-grid img {
-    width: 100% !important;
-    height: auto !important;
-    border-radius: 8px !important;
-    object-fit: cover !important;
-    box-shadow: 0 4px 15px var(--shadow-dark) !important;
-    transition: transform 0.3s ease !important;
-}
+
 
 .project-images-grid img:hover {
     transform: translateY(-5px) scale(1.05) !important;
@@ -173,14 +168,6 @@ header, .card, nav {
     border-radius: 10px !important;
 }
 
-.project-images-grid img {
-    width: 100% !important;
-    height: auto !important;
-    border-radius: 8px !important;
-    object-fit: cover !important;
-    box-shadow: 0 4px 15px var(--shadow-dark) !important;
-    transition: transform 0.3s ease !important;
-}
 
 .project-images-grid img:hover {
     transform: translateY(-5px) scale(1.05) !important;
@@ -216,6 +203,36 @@ body.ar .full-width-experience ul {
     padding-right: 20px !important; /* Force right padding in RTL */
 }
 
+
+/* --- تعديل نقاط القائمة في قسم الخبرة --- */
+.experience-section .doc-item ul {
+    list-style: none; /* هذا يخفي النقاط الافتراضية */
+    padding-left: 0; /* لإزالة المسافة البادئة الافتراضية للقائمة */
+}
+
+.experience-section .doc-item ul li {
+    position: relative; /* مهم لتمكين تحديد موضع الدائرة المخصصة */
+    padding-left: 25px; /* مسافة لترك مكان للدائرة والنص بعدها */
+    margin-bottom: 10px; /* مسافة بين كل عنصر قائمة لراحة العين */
+    line-height: 1.6; /* تحسين تباعد الأسطر لسهولة القراءة */
+}
+
+.experience-section .doc-item ul li::before {
+    content: ''; /* ضروري لإنشاء العنصر الزائف */
+    position: absolute;
+    left: 0; /* ضع الدائرة في بداية السطر */
+    top: 8px; /* ضبط الموضع الرأسي للدائرة */
+    width: 8px; /* حجم الدائرة */
+    height: 8px; /* حجم الدائرة */
+    background-color: var(--highlight-color); /* استخدم لونك الأزرق من المتغيرات */
+    border-radius: 50%; /* لجعلها دائرة كاملة */
+    box-shadow: 0 0 5px var(--highlight-color); /* إضافة توهج خفيف للدائرة */
+}
+
+
+:root {
+    --highlight-color: #4c86af; 
+}
 /* Specific grid for Languages section to display items side-by-side - FORCED */
 #languages .docs-grid {
     display: grid !important; /* Force display grid */
@@ -702,6 +719,11 @@ main h1 {
     box-shadow: 0 8px 20px var(--shadow-dark), 0 0 25px var(--accent-color);
 }
 
+[data-animation] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: none; /* مهم جداً: إزالة أي انتقال افتراضي قد يتعارض */
+}
 
 /* Cards & Sections Styling (Unified and Enhanced) */
 .section-title {
@@ -711,10 +733,12 @@ main h1 {
     font-weight: 700;
     color: var(--text-color);
     text-align: center;
-    opacity: 1;
-    animation-fill-mode: forwards;
+    /* أزل الأسطر التالية: */
+    /* opacity: 1; */
+    /* animation-fill-mode: forwards; */
     margin-top: 5rem; /* More space above new sections */
     text-shadow: 0 3px 10px var(--shadow-dark);
+    /* تأكد من عدم وجود أي transition هنا يمكن أن يتعارض */
 }
 
 /* Subtitle for social media links */
@@ -1346,6 +1370,17 @@ body.light-mode .animate-border-magic:hover::after {
     outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3);
+}
+
+/* هذا الجزء يجب أن يُضاف هنا أو في نهاية ملف CSS */
+.ai-response-message a[href^="tel:"] {
+    direction: ltr; /* يجبر المتصفح على عرض النص من اليسار لليمين */
+    unicode-bidi: embed; /* يدعم تغيير الاتجاه داخل النص */
+}
+
+.ai-response-message a[href^="mailto:"] {
+    direction: ltr;
+    unicode-bidi: embed;
 }
 
 .send-chatbot-btn {

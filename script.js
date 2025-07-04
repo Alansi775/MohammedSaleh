@@ -8,14 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatbotButton = document.getElementById('chatbot-button');
     const chatbotModal = document.getElementById('chatbot-modal');
     const closeChatbotBtn = document.querySelector('.close-chatbot-btn');
-    const chatbotMessages = document.querySelector('.chatbot-messages');
+    const chatbotMessages = document.querySelector('.chatbot-messages'); // This is likely the div that contains all messages
     const chatbotInput = document.getElementById('chatbot-input');
     const sendChatbotMessageBtn = document.getElementById('send-chatbot-message');
-
-    // Remove Dr. Esaam Moqbel's biography modal elements as they are not needed for your portfolio
-    // const esaamMoqbelCard = document.querySelector('#team .team-member:first-child');
-    // const esaamBioModal = document.getElementById('esaam-bio-modal');
-    // const closeEsaamBioButton = document.getElementById('close-esaam-bio');
 
     // ---------------------------------------------------
     // 2. وظائف تبديل اللغة (Language Switching)
@@ -39,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Specific updates for various dynamic elements (placeholders moved to general loop above)
         const chatbotTooltip = document.querySelector('.chatbot-tooltip');
         if (chatbotTooltip) {
             chatbotTooltip.textContent = chatbotTooltip.getAttribute(`data-${lang}`);
@@ -53,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
              initialAiMessageElement.textContent = initialAiMessageElement.getAttribute(`data-${lang}-initial-message`);
         }
         
-        // Update welcoming message header and content (assuming .welcome-message is a card, not a separate modal)
         const welcomeMessageHeader = document.querySelector('.welcome-message h2');
         if (welcomeMessageHeader) {
             welcomeMessageHeader.textContent = welcomeMessageHeader.getAttribute(`data-${lang}`);
@@ -72,11 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.dir = 'ltr';
         }
 
-        // Store in localStorage for persistence
         localStorage.setItem('selectedLang', lang);
     };
 
-    // Initialize language from localStorage or default to 'en'
     const storedLang = localStorage.getItem('selectedLang') || 'en';
     languageSwitcher.value = storedLang;
     updateLanguage(storedLang);
@@ -100,24 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('theme', 'dark');
         }
         
-        // إعادة تحميل المتغيرات CSS بالقوة
         const root = document.documentElement;
-        root.style.setProperty('--force-reload', Date.now()); // This is mostly symbolic
+        root.style.setProperty('--force-reload', Date.now()); 
     };
 
-    // Initialize theme from localStorage or default to 'dark'
-    const storedTheme = localStorage.getItem('theme') || 'dark'; // Corrected default to 'dark'
+    const storedTheme = localStorage.getItem('theme') || 'dark';
     applyTheme(storedTheme);
 
     themeToggle.addEventListener('click', () => {
         const currentTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
         applyTheme(currentTheme);
         
-        // إعادة تطبيق التصميم على العناصر الحساسة
-        // This part might not be strictly necessary for CSS variables, but doesn't hurt.
         document.querySelectorAll('header, nav, .card').forEach(el => {
             el.style.display = 'none';
-            el.offsetHeight; // Trigger reflow
+            el.offsetHeight; 
             el.style.display = '';
         });
     });
@@ -129,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tagBox = document.querySelector('.tag-box');
         const mainTitle = document.getElementById('main-title');
         const description = document.querySelector('.hero-section .description');
-        const welcomeMessage = document.querySelector('.welcome-message'); // Select the welcome message
+        const welcomeMessage = document.querySelector('.welcome-message'); 
         const buttons = document.querySelector('.hero-section .buttons');
 
         if (tagBox) {
@@ -145,16 +132,16 @@ document.addEventListener('DOMContentLoaded', () => {
             welcomeMessage.style.animation = 'fadeIn 0.8s ease-out 0.7s forwards';
         }
         if (buttons) {
-            buttons.style.animation = 'fadeIn 0.8s ease-out 0.9s forwards'; // Adjust delay if needed
+            buttons.style.animation = 'fadeIn 0.8s ease-out 0.9s forwards';
         }
     };
 
-    animateHeroSectionElements(); // Trigger hero section animation on load
+    animateHeroSectionElements(); 
 
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.1 // Trigger when 10% of the element is visible
+        threshold: 0.1 
     };
 
     const animateOnScroll = (entries, observer) => {
@@ -167,14 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (animationType) {
                     element.style.animation = `${animationType} 1s ease-out ${delay + 0.1}s forwards`;
                 }
-                observer.unobserve(element); // Stop observing after animation
+                observer.unobserve(element); 
             }
         });
     };
 
     const observer = new IntersectionObserver(animateOnScroll, observerOptions);
 
-    // Observe all elements that should animate on scroll, excluding hero-section elements
     document.querySelectorAll(
         'section[data-animation], ' +
         '.section-title[data-animation], ' +
@@ -182,22 +168,19 @@ document.addEventListener('DOMContentLoaded', () => {
         '.team-member[data-animation], .contact-item[data-animation], .social-media-links[data-animation], ' +
         '.contact-form[data-animation], .resource-item[data-animation], .doc-item[data-animation], .faq-item[data-animation], ' +
         '.animated-element[data-animation], ' +
-        '.project-images-grid img[data-animation]' // Added project images
+        '.project-images-grid img[data-animation]' 
     ).forEach(el => {
-        // Exclude elements within hero-section from this general observer,
-        // as they are handled by animateHeroSectionElements
         if (!el.closest('.hero-section')) {
             observer.observe(el);
         }
     });
 
     // ---------------------------------------------------
-    // 5. Chatbot Logic (Simplified/Placeholder)
+    // 5. Chatbot Logic
     // ---------------------------------------------------
     chatbotButton.addEventListener('click', () => {
         chatbotModal.classList.toggle('active');
         if (chatbotModal.classList.contains('active')) {
-            // Optional: Scroll messages to bottom when opening
             chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
         }
     });
@@ -216,6 +199,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // this is for making the user able to close the chatbot frame once he clicks outside of it 
+    document.addEventListener('click', (event) => {
+        if (!chatbotModal.contains(event.target) && !chatbotButton.contains(event.target)) {
+            chatbotModal.classList.remove('active');
+        }
+    });
+
+
+
+    // Helper function to get the current active language of the website
+    function getCurrentLanguage() {
+        const body = document.body;
+        if (body.classList.contains('ar')) {
+            return 'ar';
+        } else if (body.classList.contains('tr')) {
+            return 'tr';
+        } else {
+            return 'en'; // Default to English
+        }
+    }
+
+    // Messages for AI server offline status, translated
+    const aiOfflineMessages = {
+        en: `Thank you for your message! Mohammed will get back to you soon. The server of the AI module is currently turned off. For immediate inquiries, please contact Mohammed via:
+            <br><br>
+            Email: <a href="mailto:mohammedalezzi6@gmail.com">mohammedalezzi6@gmail.com</a>
+            <br>
+            Phone: <a href="tel:+905392554609">+905392554609</a>`, // **REPLACE WITH ACTUAL EMAIL AND PHONE**
+        ar: `شكرًا لرسالتك! سيتواصل محمد معك قريبًا. خادم وحدة الذكاء الاصطناعي مطفأ حاليًا. للاستفسارات العاجلة، يرجى التواصل مع محمد عبر:
+            <br><br>
+            البريد الإلكتروني: <a href="mailto:mohammedalezzi6@gmail.com">mohammedalezzi6@gmail.com</a>
+            <br>
+            الهاتف: <a href="tel:+905392554609">+905392554609</a>`, // **REPLACE WITH ACTUAL EMAIL AND PHONE**
+        tr: `Mesajınız için teşekkür ederiz! Muhammed yakında sizinle iletişime geçecektir. Yapay zeka modülü sunucusu şu anda kapalıdır. Acil sorularınız için lütfen Muhammed ile iletişime geçin:
+            <br><br>
+            E-posta: <a href="mailto:mohammedalezzi6@gmail.com">mohammedalezzi6@gmail.com</a>
+            <br>
+            Telefon: <a href="tel:+905392554609">+905392554609</a>`  // **REPLACE WITH ACTUAL EMAIL AND PHONE**
+    };
+
     function sendMessage() {
         const messageText = chatbotInput.value.trim();
         if (messageText !== '') {
@@ -230,8 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Scroll to bottom
             chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 
-            // Simulate AI response (this part would typically involve a call to a backend AI service)
-            // For now, it's just a placeholder for the typing indicator
+            // Simulate AI response with typing indicator
             const typingIndicator = document.createElement('div');
             typingIndicator.classList.add('message', 'ai-message', 'typing-indicator');
             typingIndicator.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
@@ -241,32 +263,32 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 chatbotMessages.removeChild(typingIndicator); // Remove typing indicator
 
+                // Determine the correct offline message based on current language
+                const currentLang = getCurrentLanguage();
+                const offlineMessage = aiOfflineMessages[currentLang] || aiOfflineMessages.en; // Fallback to English
+
                 const aiResponse = document.createElement('div');
-                aiResponse.classList.add('message', 'ai-message');
-                aiResponse.textContent = "Thank you for your message! Mohammed will get back to you soon. The server of the AI module is turned off now"; // Placeholder response
+                aiResponse.classList.add('message', 'ai-message', 'ai-response-message'); // Added 'ai-response-message' for specific styling
+                aiResponse.innerHTML = offlineMessage; // Use innerHTML to render links and breaks
                 chatbotMessages.appendChild(aiResponse);
                 chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
             }, 2000); // Simulate 2 seconds delay for AI response
         }
     }
     
-    // Stacked Images Animation Script
-document.addEventListener('DOMContentLoaded', function() {
+    // ---------------------------------------------------
+    // 6. Stacked Images Animation Script
+    // ---------------------------------------------------
     const imageGrid = document.querySelector('.project-images-grid');
     
     if (imageGrid) {
-        // Toggle expansion on click
         imageGrid.addEventListener('click', function(e) {
-            // If clicking on an image when expanded, don't collapse
             if (e.target.tagName === 'IMG' && this.classList.contains('expanded')) {
                 return;
             }
-            
             this.classList.toggle('expanded');
             
-            // Add a subtle animation effect
             if (this.classList.contains('expanded')) {
-                // Play expansion sound or add vibration if needed
                 this.style.transform = 'translateY(-2px)';
                 setTimeout(() => {
                     this.style.transform = '';
@@ -274,17 +296,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Individual image clicks
         const images = imageGrid.querySelectorAll('img');
         images.forEach((img, index) => {
             img.addEventListener('click', function(e) {
                 e.stopPropagation();
                 
-                // If not expanded, expand first
                 if (!imageGrid.classList.contains('expanded')) {
                     imageGrid.classList.add('expanded');
                 } else {
-                    // Add a click animation
                     this.style.transform += ' scale(1.1)';
                     setTimeout(() => {
                         const currentTransform = this.style.transform;
@@ -293,54 +312,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Add loading animation
             img.addEventListener('load', function() {
                 this.style.opacity = '0';
                 this.style.opacity = '1';
             });
         });
         
-        // Close on outside click
         document.addEventListener('click', function(e) {
             if (!imageGrid.contains(e.target) && imageGrid.classList.contains('expanded')) {
                 imageGrid.classList.remove('expanded');
             }
         });
         
-        // Keyboard support
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && imageGrid.classList.contains('expanded')) {
                 imageGrid.classList.remove('expanded');
             }
         });
     }
-});
 
-
-
-
-});
-
-
-// JavaScript - أضف هذا في نهاية body أو ملف JS
-
-document.addEventListener('DOMContentLoaded', function() {
+    // ---------------------------------------------------
+    // 7. Image Modal Logic
+    // ---------------------------------------------------
     let modal = null;
-    let images, modalImg, closeBtn, prevBtn, nextBtn, counter;
+    let imagesInModal, modalImg, closeBtn, prevBtn, nextBtn, counter;
     let currentIndex = 0;
 
-    // دالة إنشاء المودال
     function createModal() {
-        // حذف المودال القديم إذا كان موجود
         if (modal) {
             modal.remove();
         }
 
-        // التحقق من اتجاه الصفحة
         const isRTL = document.dir === 'rtl' || document.documentElement.dir === 'rtl' || 
                       getComputedStyle(document.body).direction === 'rtl';
         
-        // تحديد الأسهم حسب الاتجاه
         const prevArrow = isRTL ? '›' : '‹';
         const nextArrow = isRTL ? '‹' : '›';
         
@@ -357,47 +362,40 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.body.appendChild(modal);
 
-        // تحديث المراجع
         modalImg = modal.querySelector('.modal-image');
         closeBtn = modal.querySelector('.modal-close');
         prevBtn = modal.querySelector('.modal-prev');
         nextBtn = modal.querySelector('.modal-next');
         counter = modal.querySelector('.image-counter');
 
-        setupEventListeners();
+        setupEventListenersForModal();
     }
 
-    // دالة إعداد Event Listeners
-    function setupEventListeners() {
-        images = document.querySelectorAll('.project-images-grid img');
+    function setupEventListenersForModal() {
+        imagesInModal = document.querySelectorAll('.project-images-grid img'); // Changed variable name to avoid conflict
 
-        // فتح المودال
-        images.forEach((img, index) => {
+        imagesInModal.forEach((img, index) => {
             img.addEventListener('click', () => {
                 currentIndex = index;
-                showImage();
+                showImageInModal();
                 modal.classList.add('active');
             });
         });
 
-        // إغلاق المودال
         closeBtn.addEventListener('click', () => {
             modal.classList.remove('active');
         });
 
-        // الصورة التالية
         nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % images.length;
-            showImage();
+            currentIndex = (currentIndex + 1) % imagesInModal.length;
+            showImageInModal();
         });
 
-        // الصورة السابقة
         prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showImage();
+            currentIndex = (currentIndex - 1 + imagesInModal.length) % imagesInModal.length;
+            showImageInModal();
         });
 
-        // إغلاق عند الضغط خارج الصورة
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.remove('active');
@@ -405,45 +403,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function showImage() {
-        modalImg.src = images[currentIndex].src;
-        modalImg.alt = images[currentIndex].alt;
-        counter.textContent = `${currentIndex + 1} / ${images.length}`;
+    function showImageInModal() {
+        modalImg.src = imagesInModal[currentIndex].src;
+        modalImg.alt = imagesInModal[currentIndex].alt;
+        counter.textContent = `${currentIndex + 1} / ${imagesInModal.length}`;
     }
 
-    // إنشاء المودال لأول مرة
     createModal();
 
-    // مراقبة تغييرات الاتجاه
-    const observer = new MutationObserver(() => {
+    const observerModal = new MutationObserver(() => { // Changed variable name to avoid conflict
         createModal();
     });
 
-    observer.observe(document.documentElement, {
+    observerModal.observe(document.documentElement, {
         attributes: true,
         attributeFilter: ['dir', 'class']
     });
 
-    observer.observe(document.body, {
+    observerModal.observe(document.body, {
         attributes: true,
         attributeFilter: ['dir', 'class']
     });
 
-    // أسهم الكيبورد
     document.addEventListener('keydown', (e) => {
         if (!modal || !modal.classList.contains('active')) return;
         
         if (e.key === 'Escape') {
             modal.classList.remove('active');
         } else if (e.key === 'ArrowLeft') {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showImage();
+            currentIndex = (currentIndex - 1 + imagesInModal.length) % imagesInModal.length;
+            showImageInModal();
         } else if (e.key === 'ArrowRight') {
-            currentIndex = (currentIndex + 1) % images.length;
-            showImage();
+            currentIndex = (currentIndex + 1) % imagesInModal.length;
+            showImageInModal();
         }
     });
+
 });
-
-
-
