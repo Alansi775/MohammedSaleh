@@ -203,6 +203,14 @@ body.ar .full-width-experience ul {
     padding-right: 20px !important; /* Force right padding in RTL */
 }
 
+/* جرب إضافة هذا مؤقتاً */
+.about-me-section .description {
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    display: block !important;
+}
+
 
 /* --- تعديل نقاط القائمة في قسم الخبرة --- */
 .experience-section .doc-item ul {
