@@ -224,19 +224,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const aiOfflineMessages = {
         en: `Thank you for your message! Mohammed will get back to you soon. The server of the AI module is currently turned off. For immediate inquiries, please contact Mohammed via:
             <br><br>
-            Email: <a href="mailto:mohammedalezzi6@gmail.com">mohammedalezzi6@gmail.com</a>
+            Email: <a href="mailto:mohamedalezzi6@gmail.com">mohamedalezzi6@gmail.com</a>
             <br>
-            Phone: <a href="tel:+905392554609">+905392554609</a>`, // **REPLACE WITH ACTUAL EMAIL AND PHONE**
+            Phone: <a href="tel:+90 (539) 255 46 09">+90 (539) 255 46 09</a>`, // **REPLACE WITH ACTUAL EMAIL AND PHONE**
         ar: `شكرًا لرسالتك! سيتواصل محمد معك قريبًا. خادم وحدة الذكاء الاصطناعي مطفأ حاليًا. للاستفسارات العاجلة، يرجى التواصل مع محمد عبر:
             <br><br>
-            البريد الإلكتروني: <a href="mailto:mohammedalezzi6@gmail.com">mohammedalezzi6@gmail.com</a>
+            البريد الإلكتروني: <a href="mailto:mohamedalezzi6@gmail.com">mohamedalezzi6@gmail.com</a>
             <br>
-            الهاتف: <a href="tel:+905392554609">+905392554609</a>`, // **REPLACE WITH ACTUAL EMAIL AND PHONE**
+            الهاتف: <a href="tel:+90 (539) 255 46 09">+90 (539) 255 46 09</a>`, // **REPLACE WITH ACTUAL EMAIL AND PHONE**
         tr: `Mesajınız için teşekkür ederiz! Muhammed yakında sizinle iletişime geçecektir. Yapay zeka modülü sunucusu şu anda kapalıdır. Acil sorularınız için lütfen Muhammed ile iletişime geçin:
             <br><br>
-            E-posta: <a href="mailto:mohammedalezzi6@gmail.com">mohammedalezzi6@gmail.com</a>
+            E-posta: <a href="mailto:mohamedalezzi6@gmail.com">mohamedalezzi6@gmail.com</a>
             <br>
-            Telefon: <a href="tel:+905392554609">+905392554609</a>`  // **REPLACE WITH ACTUAL EMAIL AND PHONE**
+            Telefon: <a href="tel:+90 (539) 255 46 09">+90 (539) 255 46 09</a>`  // **REPLACE WITH ACTUAL EMAIL AND PHONE**
     };
 
     function sendMessage() {
