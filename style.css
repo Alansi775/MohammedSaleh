@@ -1966,6 +1966,50 @@ html[dir="rtl"] .chatbot-header h3 {
     }
 }
 
+/* تنسيق حاوية الشارات */
+.badges-container {
+    display: flex;
+    flex-wrap: wrap; /* لجعل الشارات تلتف إلى سطر جديد عند الحاجة */
+    gap: 0.75rem; /* المسافة بين الشارات */
+    margin-top: 0.8rem;
+    justify-content: center; /* توسيط الشارات داخل البطاقة */
+}
+
+/* تنسيق كل شارة على حدة */
+.badge {
+    background-color: rgba(255, 255, 255, 0.1); /* خلفية خافتة */
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 50px; /* شكل بيضاوي */
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--card-border);
+    transition: all 0.3s ease;
+    cursor: default;
+    will-change: transform, background-color, border-color;
+}
+
+.badge:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-text-color);
+    transform: translateY(-2px) scale(1.05); /* تأثير رفع وتكبير خفيف عند المرور فوقه */
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* تعديل الشارات في وضع الإضاءة (Light Mode) */
+body.light-mode .badge {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-color);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .badge:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
 
 
 
