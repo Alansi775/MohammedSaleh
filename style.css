@@ -5,7 +5,7 @@
     --primary-color: #a7a7a7; /* Button/accent base */
     --primary-text-color: #0d0d0d;
     --secondary-color: #4c86af; /* Green accent */
-    --accent-color: #53a6ff; /* Bright Blue - Technology, Professionalism */
+    --accent-color: #4c86af; /* Bright Blue - Technology, Professionalism */
     --neutral-color: #B0BEC5; /* Silver Grey - Stability */
     --hover-color: #ffffff; /* White for hover effects */
     --gradient-opacity: 0.5;
@@ -29,8 +29,8 @@ body.light-mode {
     --text-color: #333 !important; /* Darker text */
     --primary-color: #607D8B !important; /* Darker grey for light mode button */
     --primary-text-color: white !important;
-    --secondary-color: #388E3C !important; /* Darker green */
-    --accent-color: #1976D2 !important; /* Darker blue */
+    --secondary-color: #388d8e !important; /* Darker green */
+    --accent-color: #6486a9 !important; /* Darker blue */
     --neutral-color: #90A4AE !important; /* Darker silver-grey */
     --hover-color: #424242 !important; /* Darker hover */
     --gradient-opacity: 0.2 !important; /* Less intense gradient in light mode */

@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Improve spacing and readability for project descriptions */
+        .resource-item p { line-height: 1.6; margin-bottom: 0.9rem; }
+        .resource-item .project-tech { margin-top: 0.6rem; line-height: 1.4; font-size: 0.95rem; color: #5a5a5a; }
+    </style>
 </head>
 <body>
 
@@ -205,13 +210,14 @@
 
                 <div class="resource-item card" data-animation="fadeIn" data-delay="0.5">
                     <i class="ph ph-shopping-bag"></i>
-                    <h3 data-en="Noota - AI-Powered Voice Collaboration App" data-ar="Noota - تطبيق تعاون صوتي مدعوم بالذكاء الاصطناعي" data-tr="Noota - Yapay Zeka Destekli Sesli İşbirliği Uygulaması">Y-Shop E-Commerce App</h3>
-                    <p data-en="Noota is an AI-based voice collaboration app developed using Swift and SwiftUI. It allows users to create or join voice rooms in real time, powered by Cloud database. The app includes real time transcription, smart speaker detection, and multi device support. Designed to streamline voice interactions for both casual and professional use." 
-                    data-ar="Noota هو تطبيق تعاون صوتي مدعوم بالذكاء الاصطناعي، تم تطويره باستخدام Swift و SwiftUI. يتيح للمستخدمين إنشاء غرف صوتية أو الانضمام إليها في الوقت الحقيقي باستخدام قاعدة بيانات سحابية. يشمل التطبيق تحويل الصوت إلى نص بشكل مباشر، واكتشاف المتحدث الذكي، ودعم تعدد الأجهزة والمتحدثين بشكل مباشر. مصمم لتسهيل التفاعل الصوتي سواء للاستخدام الشخصي أو المهني."
-                    data-tr="Noota, Swift ve SwiftUI kullanılarak geliştirilmiş yapay zeka destekli bir sesli işbirliği uygulamasıdır. Kullanıcıların gerçek zamanlı olarak sesli odalar oluşturmasına veya katılmasına olanak tanır (Cloud database ile). Uygulama, anlık konuşma metnine çeviri, akıllı konuşmacı tanıma ve çoklu cihaz desteği içerir. Gündelik veya profesyonel sesli etkileşimleri kolaylaştırmak için tasarlanmıştır.">
-                    A full-stack Swift and SwiftUI e-commerce application for both shoppers and store owners. Integrates Google/Apple sign-in, user-specific control, automatic policy-based approval, and future plans for Pixhawk drone autonomous delivery.
+                    <h3 data-en="Noota - AI-Powered Voice Collaboration App" data-ar="Noota - تطبيق تعاون صوتي مدعوم بالذكاء الاصطناعي" data-tr="Noota - Yapay Zeka Destekli Sesli İşbirliği Uygulaması">Noota - AI-Powered Voice Collaboration App</h3>
+                    <p data-en="NOOTA is a real-time multilingual voice communication application designed to let people speak freely without language barriers while preserving the speaker’s original voice. In this demo you can see two live iOS simulators using different user accounts and different languages; when one user speaks the other hears the translated speech instantly in their selected language, generated using the original voice. The system is built around a custom-trained AI voice model (trained for 50,000+ iterations) and a low-latency backend for real-time inference. NOOTA is under active development and will be deployed on GPU-accelerated servers for production." 
+                    data-ar="Noota هو تطبيق تواصل صوتي متعدد اللغات في الوقت الحقيقي يتيح للناس التحدث بحرية دون حواجز لغوية مع الحفاظ على صوت المتحدث الأصلي. في هذا العرض يمكنك رؤية محاكيتين iOS مباشرتين تستخدمان حسابات ولغات مختلفة؛ عندما يتحدث أحد المستخدمين، يسمع الآخر الكلام المترجم فورًا باللغة التي اختارها، مُولَّدًا بنفس صوت المتحدث الأصلي. يعتمد النظام على نموذج صوتي مُدرَّب خصيصًا (أكثر من 50,000 دورة تدريبية) وبنية خلفية منخفضة الكمون للاستدلال في الوقت الحقيقي. NOOTA قيد التطوير النشط وسيتم نشره على خوادم معتمدة على GPU للإنتاج."
+                    data-tr="Noota, konuşmacının orijinal sesini korurken dil engelleri olmadan insanların özgürce konuşmasını sağlayacak şekilde tasarlanmış gerçek zamanlı çok dilli bir ses iletişim uygulamasıdır. Bu demo iki farklı kullanıcı hesabı ve farklı diller kullanan iki canlı iOS simülatörünü göstermektedir; bir kullanıcı konuştuğunda, diğeri seçtiği dilde anında çeviriyi aynı orijinal sesle duyar. Sistem, özel olarak eğitilmiş bir AI ses modeli (50.000+ iterasyon) ve gerçek zamanlı çıkarım için düşük gecikmeli bir arka uç etrafında kuruludur. NOOTA aktif geliştirme aşamasındadır ve üretim için GPU hızlandırmalı sunuculara dağıtılacaktır.">
+                    NOOTA is a real-time multilingual voice communication application designed to let people speak freely without language barriers while keeping the speaker’s original voice.
                     </p>
-                    <a href="https://slender-forsythia-e75.notion.site/Noota-App-238883fb9e3580fd995ef624af9a6808?pvs=73" target="_blank" class="btn-get-started" data-en="View Project Details" data-ar="عرض تفاصيل المشروع" data-tr="Proje Detaylarını Görüntüle">View Project Details <i class="ph ph-arrow-square-out"></i></a>
+                    <p class="project-tech"><strong>Tech Overview:</strong> Mobile: Swift & SwiftUI • Backend: Node.js & Express.js • AI Voice Engine: Python (Flask) • Realtime & Auth: Firebase • Voice Model: Custom multilingual synthesis (50,000+ training iterations).</p>
+                    <a href="https://youtu.be/1xCX3dYKpNE" target="_blank" class="btn-get-started" data-en="View Project Details" data-ar="عرض تفاصيل المشروع" data-tr="Proje Detaylarını Görüntüle">View Project Details <i class="ph ph-arrow-square-out"></i></a>
                     <div class="project-images-grid">
                         <img src="assets/0.png" alt="Y-Shop Screenshot 1" class="card" data-animation="fadeIn" data-delay="0.6">
                         <img src="assets/1.png" alt="Y-Shop Screenshot 2" class="card" data-animation="fadeIn" data-delay="0.7">
@@ -404,15 +410,6 @@
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-analytics.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBTuvIWQXFZ9Nq69XYWuiurLdqBSiK-poQ",
-            authDomain: "lineer-global.firebaseapp.com",
-            projectId: "lineer-global",
-            storageBucket: "lineer-global.firebasestorage.app",
-            messagingSenderId: "539401709104",
-            appId: "1:539401709104:web:74aea294b26a83fb6ceff5",
-            measurementId: "G-DXLJYJ5PM6"
-        };
 
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
