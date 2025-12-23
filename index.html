@@ -11,9 +11,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Improve spacing and readability for project descriptions */
-        .resource-item p { line-height: 1.6; margin-bottom: 0.9rem; }
-        .resource-item .project-tech { margin-top: 0.6rem; line-height: 1.4; font-size: 0.95rem; color: #5a5a5a; }
+        /* Improve spacing and readability for project descriptions (keeps paragraph style, no bullets) */
+        .resource-item p {
+            line-height: 1.68;
+            margin: 0 0 0.9rem;
+            color: var(--neutral-color, #6b6b6b);
+            font-size: 0.98rem;
+            overflow-wrap: break-word;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Keep project points as compact paragraphs (not lists) */
+        .project-points {
+            margin: 0.45rem 0 0.9rem;
+            line-height: 1.65;
+            color: var(--neutral-color, #6b6b6b);
+        }
+
+        .resource-item .project-tech {
+            margin-top: 0.5rem;
+            line-height: 1.45;
+            font-size: 0.95rem;
+            color: var(--neutral-color, #5a5a5a);
+        }
+
+        /* RTL support: align paragraphs to the right when Arabic is active */
+        .ar .resource-item p,
+        .ar .project-points,
+        .ar .resource-item .project-tech {
+            text-align: right;
+        }
+
+        /* LTR default: left-aligned with readable ragged edge */
+        .resource-item p,
+        .project-points,
+        .resource-item .project-tech {
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -260,40 +294,40 @@
                 <!-- Confidential: Autonomous Drone Control & AI System -->
                 <div class="resource-item card" data-animation="fadeIn" data-delay="0.6">
                     <i class="ph ph-drone"></i>
-                    <h3>Autonomous Drone Control &amp; AI System (Confidential Project)</h3>
-                    <p>
-                        Role: Core Software Developer<br>
-                        Company: Technology Company (Confidential)<br>
-                        Status: In Development / Testing Phase
-                    </p>
-                    <p>
-                        Description: An advanced autonomous drone control system developed for industrial applications. The project focuses on real-time drone control, low-latency live video streaming, GPS-based navigation, and AI-assisted autonomous operations with minimal human intervention. Hardware details and live demonstrations are withheld due to confidentiality.
-                    </p>
-                    <p class="project-points"><strong>Key responsibilities &amp; contributions:</strong> developed a real-time control interface for desktop and mobile; implemented low-latency live video streaming to ground control; designed manual and semi-autonomous control modes with support for physical controllers; integrated GPS-based map visualization for live tracking; implemented arm/disarm safety logic and flight state management; contributed to AI-assisted autonomy and stability control; supported system integration, testing, and safety validation.</p>
+                    <h3 data-en="Autonomous Drone Control &amp; AI System" data-ar="نظام تحكم الطائرات بدون طيار والذكاء الاصطناعي" data-tr="Otonom Drone Kontrolü ve Yapay Zeka Sistemi">Autonomous Drone Control &amp; AI System</h3>
 
-                    <p class="project-points"><strong>System capabilities:</strong> live video transmission; full manual control via UI and controllers; semi-autonomous and autonomous flight modes; GPS navigation and map display; safety-oriented arming and failsafe mechanisms; AI-supported task automation.</p>
+                    <p class="project-meta" data-en="Role: Core Software Developer" data-ar="الدور: مطور البرمجيات الرئيسي" data-tr="Rol: Çekirdek Yazılım Geliştiricisi">Role: Core Software Developer</p>
+                    <p class="project-meta" data-en="Status: In Development / Testing Phase" data-ar="الحالة: قيد التطوير / مرحلة الاختبار" data-tr="Durum: Geliştirme / Test Aşaması">Status: In Development / Testing Phase</p>
+                    <p data-en="Description: An advanced autonomous drone control system developed for industrial applications. The project focuses on real-time drone control, low-latency live video streaming, GPS-based navigation, and AI-assisted autonomous operations with minimal human intervention. Hardware details and live demonstrations are withheld due to confidentiality." data-ar="وصف: نظام تحكم متقدم للطائرات بدون طيار مُطوّر لتطبيقات صناعية. يركّز المشروع على التحكم في الدرون في الوقت الحقيقي، وبث فيديو مباشر منخفض الكمون، والملاحة المعتمدة على GPS، والعمليات الذاتية المدعومة بالذكاء الاصطناعي مع تدخل بشري محدود. تُحتفظ بتفاصيل الأجهزة والعروض الحية بسبب السرية." data-tr="Açıklama: Endüstriyel uygulamalar için geliştirilen gelişmiş bir otonom drone kontrol sistemi. Proje, gerçek zamanlı drone kontrolü, düşük gecikmeli canlı video akışı, GPS tabanlı navigasyon ve insan müdahalesini en aza indiren yapay zeka destekli otonom operasyonlara odaklanır. Donanım ayrıntıları ve canlı gösterimler gizlilik nedeniyle paylaşılmamaktadır.">An advanced autonomous drone control system developed for industrial applications. The project focuses on real-time drone control, low-latency live video streaming, GPS-based navigation, and AI-assisted autonomous operations with minimal human intervention. Hardware details and live demonstrations are withheld due to confidentiality.</p>
 
-                    <p class="project-tech"><strong>Tech stack (high-level):</strong> Embedded Linux · Robotics Middleware · Computer Vision · AI Inference · Real-Time Video Streaming · Ground Control Software · IoT Systems</p>
-                    <p class="confidential-note">This project was developed for a private client. Specific hardware components, system architecture details, and live demonstrations are not publicly shared due to confidentiality agreements.</p>
-                    <p><a href="https://youtu.be/n62cwsw7hzM" target="_blank" class="btn-get-started">Watch Demo</a></p>
+                    <p class="project-points" data-en="Key responsibilities &amp; contributions: developed a real-time control interface for desktop and mobile; implemented low-latency live video streaming to ground control; designed manual and semi-autonomous control modes with support for physical controllers; integrated GPS-based map visualization for live tracking; implemented arm/disarm safety logic and flight state management; contributed to AI-assisted autonomy and stability control; supported system integration, testing, and safety validation." data-ar="المسؤوليات والمساهمات الرئيسية: تطوير واجهة تحكم في الوقت الحقيقي للسطح المكتب والهاتف المحمول؛ تنفيذ بث فيديو منخفض الكمون إلى مركز التحكم الأرضي؛ تصميم أوضاع التحكم اليدوي وشبه الذاتي مع دعم وحدات التحكم المادية؛ دمج عرض الخريطة المباشرة المعتمد على GPS؛ تنفيذ منطق التسلح/فك التسلح وإدارة حالة الرحلة؛ المساهمة في الاستقلالية المدعومة بالذكاء الاصطناعي وتحكم الاستقرار؛ دعم تكامل النظام والاختبار والتحقق من السلامة." data-tr="Ana sorumluluklar ve katkılar: masaüstü ve mobil için gerçek zamanlı kontrol arayüzü geliştirme; yer kontrolüne düşük gecikmeli canlı video akışı uygulama; fiziksel kumandaları destekleyen manuel ve yarı otonom kontrol modları tasarlama; canlı takip için GPS tabanlı harita görselleştirmesi entegre etme; arm/disarm güvenlik mantığı ve uçuş durumu yönetimini uygulama; yapay zeka destekli otonomluk ve stabilite kontrolüne katkıda bulunma; sistem entegrasyonu, test ve güvenlik doğrulamasında destek sağlama;">developed a real-time control interface for desktop and mobile; implemented low-latency live video streaming to ground control; designed manual and semi-autonomous control modes with support for physical controllers; integrated GPS-based map visualization for live tracking; implemented arm/disarm safety logic and flight state management; contributed to AI-assisted autonomy and stability control; supported system integration, testing, and safety validation.</p>
+
+                    <p class="project-points" data-en="System capabilities: live video transmission; full manual control via UI and controllers; semi-autonomous and autonomous flight modes; GPS navigation and map display; safety-oriented arming and failsafe mechanisms; AI-supported task automation." data-ar="قدرات النظام: بث فيديو مباشر؛ تحكم يدوي كامل عبر الواجهة ووحدات التحكم؛ أوضاع طيران شبه آلية وكاملة آلية؛ ملاحة GPS وعرض الخرائط؛ آليات أمان للتسليح وإجراءات الطوارئ؛ مهام آلية مدعومة بالذكاء الاصطناعي." data-tr="Sistem yetenekleri: canlı video iletimi; UI ve kumandalar üzerinden tam manuel kontrol; yarı otonom ve otonom uçuş modları; GPS navigasyonu ve harita görüntüleme; güvenliğe yönelik arm/failsafe mekanizmaları; yapay zeka destekli görev otomasyonu.">live video transmission; full manual control via UI and controllers; semi-autonomous and autonomous flight modes; GPS navigation and map display; safety-oriented arming and failsafe mechanisms; AI-supported task automation.</p>
+
+                    <p class="project-tech" data-en="Tech stack (high-level): Embedded Linux · Robotics Middleware · Computer Vision · AI Inference · Real-Time Video Streaming · Ground Control Software · IoT Systems" data-ar="التقنيات: Embedded Linux · وسيط برمجيات الروبوتات · رؤية حاسوبية · استدلال AI · بث فيديو في الوقت الحقيقي · برمجيات التحكم الأرضي · أنظمة إنترنت الأشياء" data-tr="Teknoloji yığını: Embedded Linux · Robotik Ara Katmanı · Bilgisayar Görüşü · AI Çıkarımı · Gerçek-Zamanlı Video Akışı · Yer Kontrol Yazılımı · IoT Sistemleri">Embedded Linux · Robotics Middleware · Computer Vision · AI Inference · Real-Time Video Streaming · Ground Control Software · IoT Systems</p>
+
+                    
+                    <p><a href="https://youtu.be/n62cwsw7hzM" target="_blank" class="btn-get-started" data-en="Watch Demo" data-ar="شاهد العرض" data-tr="Demoyu İzle">Watch Demo</a></p>
                 </div>
 
                 <!-- Confidential: MinibusCRM – Fleet Management System -->
                 <div class="resource-item card" data-animation="fadeIn" data-delay="0.7">
                     <i class="ph ph-train"></i>
-                    <h3>MinibusCRM – Fleet Management System (Confidential Project)</h3>
-                    <p>
-                        Role: Full-Stack Developer<br>
-                        Company: IOTROCOP Technology<br>
-                        Status: Delivered &amp; In Production
-                    </p>
-                    <p>
-                        Description: A full-stack fleet management and tracking system built for real-time monitoring of minibuses. The system was developed end-to-end and deployed on a production server. Visuals and live links are not publicly available due to confidentiality.
-                    </p>
-                    <p class="project-points"><strong>Key contributions:</strong> designed and implemented RESTful backend services; developed secure role-based access control; integrated real-time vehicle tracking and mapping; built route and stop management modules; implemented reporting and delay analysis; deployed backend on an external server with domain configuration.</p>
-                    <p class="project-tech"><strong>Tech stack:</strong> Flutter · Node.js · REST APIs · Google Maps · PostgreSQL / MySQL · IoT Integration · Cloud Deployment</p>
-                    <p class="confidential-note">This project was developed for a private client. Screenshots, source code, and live demos are not publicly shared due to confidentiality.</p>
-                    <p><a href="https://youtu.be/UitvurZKe0U" target="_blank" class="btn-get-started">Watch Demo</a></p>
+                    <h3 data-en="MinibusCRM – Fleet Management System (Confidential Project)" data-ar="MinibusCRM – نظام إدارة الأسطول (مشروع سري)" data-tr="MinibusCRM – Taşıt Yönetim Sistemi (Gizli Proje)">MinibusCRM – Fleet Management System (Confidential Project)</h3>
+
+                    <p class="project-meta" data-en="Role: Full-Stack Developer" data-ar="الدور: مطور متكامل" data-tr="Rol: Full-Stack Geliştirici">Role: Full-Stack Developer</p>
+                    <p class="project-meta" data-en="Company: IOTROCOP Technology" data-ar="الشركة: IOTROCOP Technology" data-tr="Şirket: IOTROCOP Technology">Company: IOTROCOP Technology</p>
+                    <p class="project-meta" data-en="Status: Delivered &amp; In Production" data-ar="الحالة: تم التسليم وفي الإنتاج" data-tr="Durum: Teslim Edildi ve Üretimde">Status: Delivered &amp; In Production</p>
+
+                    <p data-en="Description: A full-stack fleet management and tracking system built for real-time monitoring of minibuses. The system was developed end-to-end and deployed on a production server. Visuals and live links are not publicly available due to confidentiality." data-ar="وصف: نظام إدارة وتعقب أسطول متكامل لمراقبة الحافلات الصغيرة في الوقت الحقيقي. تم تطوير النظام من البداية ونُشر على خادم إنتاجي. المرئيات والروابط الحية غير متاحة للعامة بسبب السرية." data-tr="Açıklama: Minibüslerin gerçek zamanlı izlenmesi için geliştirilmiş tam yığın filo yönetimi ve takip sistemi. Sistem baştan sona geliştirilip üretim sunucusuna konuşlandırıldı. Görseller ve canlı bağlantılar gizlilik nedeniyle kamuya açık değildir.">A full-stack fleet management and tracking system built for real-time monitoring of minibuses. The system was developed end-to-end and deployed on a production server. Visuals and live links are not publicly available due to confidentiality.</p>
+
+                    <p class="project-points" data-en="Key contributions: designed and implemented RESTful backend services; developed secure role-based access control; integrated real-time vehicle tracking and mapping; built route and stop management modules; implemented reporting and delay analysis; deployed backend on an external server with domain configuration." data-ar="المساهمات الرئيسية: تصميم وتنفيذ خدمات الواجهة الخلفية RESTful؛ تطوير تحكم قائم على أدوار آمن؛ دمج تتبع المركبات والخرائط في الوقت الحقيقي؛ بناء وحدات إدارة الطرق والمحطات؛ تنفيذ التقارير وتحليل التأخير؛ نشر الواجهة الخلفية على خادم خارجي مع إعداد النطاق." data-tr="Ana katkılar: RESTful backend servislerini tasarlama ve uygulama; güvenli rol tabanlı erişim geliştirme; gerçek zamanlı araç izleme ve harita entegrasyonu; rota ve durak yönetim modülleri oluşturma; raporlama ve gecikme analizini uygulama; backend'i dış sunucuya dağıtıp alan adı yapılandırması.">designed and implemented RESTful backend services; developed secure role-based access control; integrated real-time vehicle tracking and mapping; built route and stop management modules; implemented reporting and delay analysis; deployed backend on an external server with domain configuration.</p>
+
+                    <p class="project-tech" data-en="Tech stack: Flutter · Node.js · REST APIs · Google Maps · PostgreSQL / MySQL · IoT Integration · Cloud Deployment" data-ar="التقنيات: Flutter · Node.js · واجهات REST · خرائط Google · PostgreSQL / MySQL · تكامل إنترنت الأشياء · النشر السحابي" data-tr="Teknoloji yığını: Flutter · Node.js · REST API'leri · Google Maps · PostgreSQL / MySQL · IoT Entegrasyonu · Bulut Dağıtımı">Flutter · Node.js · REST APIs · Google Maps · PostgreSQL / MySQL · IoT Integration · Cloud Deployment</p>
+
+                    <p class="confidential-note" data-en="This project was developed for a private client. Screenshots, source code, and live demos are not publicly shared due to confidentiality." data-ar="تم تطوير هذا المشروع لعميل خاص. لقطات الشاشة، وملفات المصدر، والعروض الحية غير مشتركة علنًا بسبب السرية." data-tr="Bu proje özel bir müşteri için geliştirildi. Ekran görüntüleri, kaynak kodu ve canlı demolar gizlilik nedeniyle kamuya açılmamıştır.">This project was developed for a private client. Screenshots, source code, and live demos are not publicly shared due to confidentiality.</p>
+
+                    <p><a href="https://youtu.be/UitvurZKe0U" target="_blank" class="btn-get-started" data-en="Watch Demo" data-ar="شاهد العرض" data-tr="Demoyu İzle">Watch Demo</a></p>
                 </div>
 
         

@@ -59,9 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (lang === 'ar') {
             body.classList.add('ar');
+            body.classList.remove('tr');
             document.documentElement.dir = 'rtl';
+        } else if (lang === 'tr') {
+            body.classList.add('tr');
+            body.classList.remove('ar');
+            document.documentElement.dir = 'ltr';
         } else {
             body.classList.remove('ar');
+            body.classList.remove('tr');
             document.documentElement.dir = 'ltr';
         }
 
@@ -438,5 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showImageInModal();
         }
     });
+
+    
 
 });
