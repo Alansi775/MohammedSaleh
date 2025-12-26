@@ -163,8 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Chatbot Logic
     // ===================================================
     
-    // Backend API URL - Change this to your server URL
-    const CHATBOT_API_URL = 'http://31.57.77.29:3001/api/chat';
+    // Backend API URL - Cloudflare Tunnel (HTTPS)
+    const CHATBOT_API_URL = 'https://gamecube-watch-shelf-revealed.trycloudflare.com/api/chat';
     
     if (chatbotButton && chatbotModal) {
         chatbotButton.addEventListener('click', () => {
