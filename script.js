@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================================
     
     // Backend API URL - Cloudflare Tunnel (HTTPS)
-    const CHATBOT_API_URL = 'https://gamecube-watch-shelf-revealed.trycloudflare.com/api/chat';
+    const CHATBOT_API_URL = 'https://api.minibuscrm.com/chat/api/chat';
     
     if (chatbotButton && chatbotModal) {
         chatbotButton.addEventListener('click', () => {
