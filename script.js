@@ -78,8 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ===================================================
-    // 3. Theme Toggling
+    // 3. Theme Toggling with Auto Time-Based Switching
     // ===================================================
+    
+    // Determine theme based on current time
+    // Light mode: 06:00-16:59 | Dark mode: 17:00-05:59
+    function getThemeByTime() {
+        const hour = new Date().getHours();
+        return (hour >= 6 && hour < 17) ? 'light' : 'dark';
+    }
+
     const applyTheme = (theme) => {
         body.classList.remove('light-mode', 'dark-mode');
         
@@ -92,12 +100,60 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', theme);
     };
 
-    const storedTheme = localStorage.getItem('theme') || 'dark';
-    applyTheme(storedTheme);
+    // Initialize theme on page load
+    function initializeTheme() {
+        const themeMode = localStorage.getItem('themeMode'); // 'auto' or 'manual'
+        const storedTheme = localStorage.getItem('theme');
+        
+        let theme;
+        
+        // If explicitly set to manual mode, use stored theme
+        if (themeMode === 'manual' && storedTheme) {
+            theme = storedTheme;
+        } 
+        // If storedTheme exists but themeMode isn't set (legacy preference), treat as manual
+        else if (!themeMode && storedTheme) {
+            theme = storedTheme;
+            localStorage.setItem('themeMode', 'manual');
+        } 
+        // Otherwise, use time-based automatic theme
+        else {
+            theme = getThemeByTime();
+            if (!themeMode) {
+                localStorage.setItem('themeMode', 'auto');
+            }
+        }
+        
+        applyTheme(theme);
+    }
 
+    // Auto-update theme every minute if in auto mode
+    function startAutoThemeUpdate() {
+        setInterval(() => {
+            const themeMode = localStorage.getItem('themeMode');
+            
+            // Only auto-update if in auto mode
+            if (themeMode === 'auto') {
+                const currentTheme = getThemeByTime();
+                const storedTheme = localStorage.getItem('theme');
+                
+                // Update theme if time-based theme changed
+                if (currentTheme !== storedTheme) {
+                    applyTheme(currentTheme);
+                }
+            }
+        }, 60000); // Check every minute
+    }
+
+    // Initialize theme on page load
+    initializeTheme();
+    startAutoThemeUpdate();
+
+    // Manual theme toggle button
     themeToggle.addEventListener('click', () => {
         const currentTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
         applyTheme(currentTheme);
+        localStorage.setItem('themeMode', 'manual'); // Mark as manually set
     });
 
     // ===================================================
