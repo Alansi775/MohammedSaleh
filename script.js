@@ -111,17 +111,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (themeMode === 'manual' && storedTheme) {
             theme = storedTheme;
         } 
+        // If in auto mode, ALWAYS calculate from current time (not from stored theme)
+        else if (themeMode === 'auto') {
+            theme = getThemeByTime();
+        }
         // If storedTheme exists but themeMode isn't set (legacy preference), treat as manual
         else if (!themeMode && storedTheme) {
             theme = storedTheme;
             localStorage.setItem('themeMode', 'manual');
         } 
-        // Otherwise, use time-based automatic theme
+        // First visit: use time-based automatic theme
         else {
             theme = getThemeByTime();
-            if (!themeMode) {
-                localStorage.setItem('themeMode', 'auto');
-            }
+            localStorage.setItem('themeMode', 'auto');
         }
         
         applyTheme(theme);
