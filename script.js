@@ -221,8 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Chatbot Logic
     // ===================================================
     
-    // Backend API URL - Local development (change for production)
-    const CHATBOT_API_URL = 'http://localhost:3000/api/chat';
+    // Backend API URL - Production deployment
+    const CHATBOT_API_URL = 'https://mohammedsaleh-chatbot.onrender.com/api/chat';
     
     if (chatbotButton && chatbotModal) {
         chatbotButton.addEventListener('click', () => {
