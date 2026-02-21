@@ -22,9 +22,14 @@ app.use(helmet()); // Set security HTTP headers
 
 // CORS Configuration
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production'
-    ? ['https://yourportfoliodomain.com'] // Replace with your domain
-    : '*', // Allow all in development
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'https://alansi775.github.io',
+    'https://minibuscrm.com',
+    'https://www.minibuscrm.com',
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
