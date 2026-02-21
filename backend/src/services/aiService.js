@@ -12,12 +12,17 @@ const SECONDARY_API_URL = 'https://api.deepseek.com/chat/completions';
 // Try Primary LLM first, fallback to Secondary LLM
 export const generateResponse = async (message, language = 'en') => {
   try {
-    logger.info('Attempting Primary LLM...');
+    logger.info('🔵 Attempting Primary LLM...');
     return await generateFromPrimaryLLM(message, language);
   } catch (error) {
-    logger.warn(`Primary LLM failed: ${error.message}. Falling back to Secondary LLM...`);
-    logger.info('Attempting Secondary LLM...');
-    return await generateFromSecondaryLLM(message, language);
+    logger.warn(`❌ Primary LLM failed: ${error.message}`);
+    logger.info('🟠 Falling back to Secondary LLM...');
+    try {
+      return await generateFromSecondaryLLM(message, language);
+    } catch (secondaryError) {
+      logger.error(`❌ Secondary LLM also failed: ${secondaryError.message}`);
+      throw new Error(`All LLM services failed. Primary: ${error.message} | Secondary: ${secondaryError.message}`);
+    }
   }
 };
 
@@ -27,8 +32,11 @@ const generateFromPrimaryLLM = async (message, language) => {
   const systemPrompt = process.env.SYSTEM_PROMPT || 'You are a helpful AI assistant.';
 
   if (!apiKey) {
+    logger.error('⚠️ Primary LLM: API key not configured!');
     throw new Error('Primary LLM API key not configured');
   }
+
+  logger.info(`📡 Primary LLM: Sending request...`);
 
   const systemMessage = `${systemPrompt}\n\n${language === 'ar' ? 'سؤال المستخدم: ' : 'User question: '}${message}`;
 
@@ -56,7 +64,7 @@ const generateFromPrimaryLLM = async (message, language) => {
 
   if (!response.ok) {
     const error = await response.json();
-    logger.error(`Primary LLM error: ${JSON.stringify(error)}`);
+    logger.error(`Primary LLM error (${response.status}): ${JSON.stringify(error)}`);
     throw new Error(`Primary LLM: ${response.statusText}`);
   }
 
@@ -67,7 +75,7 @@ const generateFromPrimaryLLM = async (message, language) => {
     throw new Error('Invalid response from Primary LLM');
   }
 
-  logger.info(`✓ Response from Primary LLM for: "${message.substring(0, 50)}..."`);
+  logger.info(`✅ Response from Primary LLM for: "${message.substring(0, 50)}..."`);
   return aiResponse;
 };
 
@@ -77,8 +85,11 @@ const generateFromSecondaryLLM = async (message, language) => {
   const systemPrompt = process.env.SYSTEM_PROMPT || 'You are a helpful AI assistant.';
 
   if (!apiKey) {
-    throw new Error('Secondary LLM API key not configured');
+    logger.error('⚠️ Secondary LLM: API key not configured in Render environment!');
+    throw new Error('Secondary LLM API key not configured. Please add DEEPSEEK_API_KEY to Render environment variables.');
   }
+
+  logger.info(`📡 Secondary LLM: Sending request...`);
 
   const systemMessage = `${systemPrompt}\n\n${language === 'ar' ? 'سؤال المستخدم: ' : 'User question: '}${message}`;
 
@@ -107,7 +118,7 @@ const generateFromSecondaryLLM = async (message, language) => {
 
   if (!response.ok) {
     const error = await response.json();
-    logger.error(`Secondary LLM error: ${JSON.stringify(error)}`);
+    logger.error(`Secondary LLM API error: ${JSON.stringify(error)}`);
     throw new Error(`Secondary LLM: ${response.statusText}`);
   }
 
@@ -118,6 +129,6 @@ const generateFromSecondaryLLM = async (message, language) => {
     throw new Error('Invalid response from Secondary LLM');
   }
 
-  logger.info(`✓ Response from Secondary LLM for: "${message.substring(0, 50)}..."`);
+  logger.info(`✅ Response from Secondary LLM for: "${message.substring(0, 50)}..."`);
   return aiResponse;
 };
