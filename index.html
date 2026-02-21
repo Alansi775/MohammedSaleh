@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-en="Mohammed Saleh - AI Software Engineer" data-ar="محمد صالح - مهندس ذكاء اصطناعي" data-tr="Mohammed Saleh - AI Yazılım Mühendisi">Mohammed Saleh - AI Software Engineer</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
@@ -572,14 +573,26 @@
         <span class="chatbot-tooltip" data-en="Chat with Assistant" data-ar="تحدث مع المساعد" data-tr="Asistanla Konuşun">Chat with Assistant</span>
     </button>
 
+    <!-- Chatbot Overlay (for expanded mode) -->
+    <div class="chat-overlay" onclick="toggleExpandChat()"></div>
+
     <!-- Chatbot Modal -->
     <div id="chatbot-modal" class="chatbot-modal">
         <div class="chatbot-content">
             <div class="chatbot-header">
                 <h3 data-en="Assistant" data-ar="المساعد" data-tr="Asistan">Assistant</h3>
-                <button class="close-chatbot-btn btn-icon">
-                    <i class="ph-bold ph-x"></i>
-                </button>
+                <div class="chatbot-header-buttons">
+                    <button class="expand-btn btn-icon" onclick="toggleExpandChat()" title="Expand">
+                        <img src="new-tab.png" alt="Expand" class="expand-icon">
+                    </button>
+                    <button class="close-chatbot-btn btn-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div class="chatbot-messages">
                 <div class="message ai-message" data-initial-message="Hello! How can I help you today?" data-en-initial-message="Hello! How can I help you today?" data-ar-initial-message="مرحباً! كيف يمكنني مساعدتك؟" data-tr-initial-message="Merhaba! Size nasıl yardımcı olabilirim?">

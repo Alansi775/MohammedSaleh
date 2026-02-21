@@ -890,18 +890,20 @@ body.ar .chatbot-button {
     -webkit-backdrop-filter: blur(15px) saturate(1.8);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
     z-index: 1000;
     opacity: 0;
-    visibility: hidden;
+    visibility: visible;
     transform: translateY(20px) scale(0.95);
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
 .chatbot-modal.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
+    pointer-events: auto;
 }
 
 .chatbot-content {
@@ -924,6 +926,7 @@ body.ar .chatbot-modal {
     background-color: rgba(0, 0, 0, 0.3);
     border-bottom: 1px solid var(--card-border);
     flex-shrink: 0;
+    border-radius: 15px 15px 0 0;
 }
 
 body.ar .chatbot-header {
@@ -937,17 +940,7 @@ body.ar .chatbot-header {
     color: var(--text-color);
 }
 
-.close-chatbot-btn {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.close-chatbot-btn:hover {
-    color: var(--accent-color);
-}
+/* Button styles moved to unified button rules above */
 
 .chatbot-messages {
     flex: 1;
@@ -1003,6 +996,7 @@ body.ar .ai-message {
     border-top: 1px solid var(--card-border);
     flex-shrink: 0;
     min-height: 70px;
+    border-radius: 0 0 15px 15px;
 }
 
 body.ar .chatbot-input-area {
@@ -1077,6 +1071,129 @@ body.ar .chatbot-input-area input {
 @keyframes dot-bounce {
     0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
     40% { transform: scale(1); opacity: 1; }
+}
+
+/* ========================================
+   CHAT OVERLAY (FOR EXPANDED MODE)
+======================================== */
+.chat-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+}
+
+.chat-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ========================================
+   EXPANDED CHAT MODE
+======================================== */
+.chatbot-header-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.expand-btn,
+.close-chatbot-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem 0.6rem;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.expand-icon {
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) saturate(100%);
+}
+
+body.dark-mode .expand-icon {
+    filter: brightness(0) saturate(100%) invert(1);
+}
+
+.expand-btn svg,
+.close-chatbot-btn svg {
+    width: 24px;
+    height: 24px;
+    color: var(--text-color);
+    stroke: var(--text-color);
+}
+
+.expand-btn:hover,
+.close-chatbot-btn:hover {
+    color: var(--accent-color);
+    background-color: rgba(76, 134, 175, 0.25);
+    transform: scale(1.15);
+}
+
+.expand-btn:active,
+.close-chatbot-btn:active {
+    transform: scale(0.98);
+}
+
+/* Expanded chat modal state */
+.chatbot-modal.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    width: 650px;
+    height: 550px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    animation: expandChat 0.4s ease-out;
+}
+
+body.ar .chatbot-modal.expanded {
+    left: auto;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+
+@keyframes expandChat {
+    from {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes shrinkChat {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
 }
 
 /* ========================================
@@ -1322,6 +1439,13 @@ body.ar .chatbot-input-area input {
     
     .modal-prev { left: 10px; }
     .modal-next { right: 10px; }
+    
+    /* Responsive expanded chat for tablets */
+    .chatbot-modal.expanded {
+        width: 95vw;
+        height: 90vh;
+        max-width: 550px;
+    }
 }
 
 /* Mobile */
@@ -1365,5 +1489,12 @@ body.ar .chatbot-input-area input {
     body.ar .chatbot-button {
         left: 20px;
         right: auto;
+    }
+    
+    /* Responsive expanded chat */
+    .chatbot-modal.expanded {
+        width: 90vw;
+        height: 85vh;
+        max-width: 500px;
     }
 }

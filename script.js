@@ -1,3 +1,32 @@
+// =====================================================
+// GLOBAL CHAT FUNCTIONS (Outside DOMContentLoaded)
+// =====================================================
+
+// Toggle expand chat - must be in global scope
+function toggleExpandChat() {
+    const container = document.querySelector('.chatbot-modal');
+    const overlay = document.querySelector('.chat-overlay');
+    
+    if (!container || !overlay) return;
+    
+    container.classList.toggle('expanded');
+    overlay.classList.toggle('active');
+}
+
+// Setup overlay listener for expanded chat
+function setupOverlayListener() {
+    const overlay = document.querySelector('.chat-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', () => {
+            const container = document.querySelector('.chatbot-modal');
+            if (container && container.classList.contains('expanded')) {
+                container.classList.remove('expanded');
+                overlay.classList.remove('active');
+            }
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // ===================================================
     // 1. Element References
@@ -235,6 +264,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         closeChatbotBtn.addEventListener('click', () => {
             chatbotModal.classList.remove('active');
+            // Also remove expanded mode if it was expanded
+            chatbotModal.classList.remove('expanded');
+            const overlay = document.querySelector('.chat-overlay');
+            if (overlay) {
+                overlay.classList.remove('active');
+            }
         });
 
         sendChatbotMessageBtn.addEventListener('click', sendMessage);
@@ -259,6 +294,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if (body.classList.contains('tr')) return 'tr';
         return 'en';
     }
+
+    // Typing effect for AI responses
+    async function typeMessage(element, text, speed = 20) {
+        let index = 0;
+        let isUserScrolling = false;
+        const messagesContainer = element.parentElement;
+        
+        // Detect user scroll
+        const scrollListener = () => {
+            isUserScrolling = true;
+        };
+        messagesContainer.addEventListener('scroll', scrollListener);
+        
+        while (index < text.length) {
+            element.textContent += text[index];
+            index++;
+            
+            // Auto-scroll only if user not scrolling
+            if (!isUserScrolling) {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+            
+            await new Promise(r => setTimeout(r, speed));
+        }
+        
+        // Clean up
+        messagesContainer.removeEventListener('scroll', scrollListener);
+    }
+
+    // Get current language
 
     // Offline/Error messages
     const errorMessages = {
@@ -324,8 +389,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const aiResponse = document.createElement('div');
                 aiResponse.classList.add('message', 'ai-message');
-                aiResponse.innerHTML = data.response.replace(/\n/g, '<br>');
+                aiResponse.textContent = ''; // Start empty for typing effect
                 chatbotMessages.appendChild(aiResponse);
+                
+                // Convert HTML to plain text (remove <br> tags)
+                const plainText = data.response.replace(/<br>/g, '\n');
+                
+                // Type the message
+                await typeMessage(aiResponse, plainText, 15);
             } else {
                 throw new Error('Server responded with error');
             }
@@ -347,6 +418,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
+
+    // Setup overlay listener for expanded chat
+    setupOverlayListener();
 
     // ===================================================
     // 6. Image Modal
