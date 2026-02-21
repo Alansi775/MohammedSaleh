@@ -895,7 +895,7 @@ body.ar .chatbot-button {
     opacity: 0;
     visibility: visible;
     transform: translateY(20px) scale(0.95);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events: none;
 }
 
@@ -1159,13 +1159,12 @@ body.dark-mode .expand-icon {
     left: 50%;
     right: auto;
     bottom: auto;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) !important;
     width: 650px;
     height: 550px;
     border-radius: 16px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     z-index: 10000;
-    animation: expandChat 0.4s ease-out;
 }
 
 body.ar .chatbot-modal.expanded {
@@ -1176,8 +1175,8 @@ body.ar .chatbot-modal.expanded {
 
 @keyframes expandChat {
     from {
-        opacity: 0.8;
-        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.85);
     }
     to {
         opacity: 1;
