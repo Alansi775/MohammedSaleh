@@ -4,7 +4,7 @@
  */
 
 import express from 'express';
-import { generateResponse } from '../services/geminiService.js';
+import { generateResponse } from '../services/aiService.js';
 import { logger } from '../utils/logger.js';
 
 const router = express.Router();

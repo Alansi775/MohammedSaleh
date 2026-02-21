@@ -1,26 +1,25 @@
 /**
- * Gemini AI Service
- * Handles communication with Google's Gemini API
+ * AI Language Model Service
+ * Handles communication with LLM API
  */
 
 import { logger } from '../utils/logger.js';
 
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const LLM_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 export const generateResponse = async (message, language = 'en') => {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.LLM_API_KEY;
+  const systemPrompt = process.env.SYSTEM_PROMPT || 'You are a helpful AI assistant.';
 
   if (!apiKey) {
-    logger.error('GEMINI_API_KEY is not set in environment variables');
+    logger.error('LLM_API_KEY is not set in environment variables');
     throw new Error('API key not configured');
   }
 
   try {
-    const prompt = language === 'ar' 
-      ? `أجب على هذا السؤال بشكل موجز: ${message}`
-      : `Answer this question concisely: ${message}`;
+    const systemMessage = `${systemPrompt}\n\n${language === 'ar' ? 'سؤال المستخدم: ' : 'User question: '}${message}`;
 
-    const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
+    const response = await fetch(`${LLM_API_URL}?key=${apiKey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +29,7 @@ export const generateResponse = async (message, language = 'en') => {
           {
             parts: [
               {
-                text: prompt,
+                text: systemMessage,
               },
             ],
           },
@@ -44,24 +43,24 @@ export const generateResponse = async (message, language = 'en') => {
 
     if (!response.ok) {
       const error = await response.json();
-      logger.error(`Gemini API error: ${JSON.stringify(error)}`);
-      throw new Error(`Gemini API error: ${response.statusText}`);
+      logger.error(`LLM API error: ${JSON.stringify(error)}`);
+      throw new Error(`LLM API error: ${response.statusText}`);
     }
 
     const data = await response.json();
 
-    // Extract the response text from Gemini's response structure
+    // Extract the response text from API response structure
     const aiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!aiResponse) {
-      logger.error('Unexpected response structure from Gemini API');
+      logger.error('Unexpected response structure from LLM API');
       throw new Error('Invalid response from AI service');
     }
 
     logger.info(`Generated response for message: "${message.substring(0, 50)}..."`);
     return aiResponse;
   } catch (error) {
-    logger.error(`Gemini service error: ${error.message}`);
+    logger.error(`AI service error: ${error.message}`);
     throw error;
   }
 };
