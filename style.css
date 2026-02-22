@@ -1156,8 +1156,8 @@ body.dark-mode .expand-icon {
 .chatbot-modal.expanded {
     position: fixed;
     top: 50%;
-    left: 50%;
-    right: auto;
+    left: 50% !important;
+    right: auto !important;
     bottom: auto;
     transform: translate(-50%, -50%) !important;
     width: 650px;
@@ -1167,10 +1167,11 @@ body.dark-mode .expand-icon {
     z-index: 10000;
 }
 
+/* Ensure Arabic doesn't change expanded position */
 body.ar .chatbot-modal.expanded {
-    left: auto;
-    right: 50%;
-    transform: translate(50%, -50%);
+    left: 50% !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
 }
 
 @keyframes expandChat {
