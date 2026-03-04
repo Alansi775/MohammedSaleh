@@ -325,6 +325,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Get current language
 
+    // Thinking messages that rotate
+    const thinkingMessages = {
+        en: ['Thinking', 'Analyzing', 'Processing', 'Considering', 'Reasoning'],
+        ar: ['جاري التفكير', 'جاري التحليل', 'جاري المعالجة', 'جاري الفحص', 'جاري التقييم'],
+        tr: ['Düşünüyor', 'Analiz ediyor', 'İşliyor', 'Değerlendiriyor', 'Akıl yürütüyor']
+    };
+
     // Offline/Error messages
     const errorMessages = {
         en: `Sorry, I couldn't connect to the server. Please try again or contact Mohammed directly:
@@ -357,14 +364,35 @@ document.addEventListener('DOMContentLoaded', () => {
         chatbotInput.value = '';
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 
-        // Show typing indicator
-        const typingIndicator = document.createElement('div');
-        typingIndicator.classList.add('message', 'ai-message', 'typing-indicator');
-        typingIndicator.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-        chatbotMessages.appendChild(typingIndicator);
+        // Show thinking indicator
+        const thinkingIndicator = document.createElement('div');
+        thinkingIndicator.classList.add('message', 'ai-message', 'thinking-indicator');
+        thinkingIndicator.innerHTML = `
+            <div class="thinking-icon"></div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="thinking-text" id="thinking-text">Thinking</span>
+                <div class="thinking-dots">
+                    <span class="thinking-dot"></span>
+                    <span class="thinking-dot"></span>
+                    <span class="thinking-dot"></span>
+                </div>
+            </div>
+        `;
+        chatbotMessages.appendChild(thinkingIndicator);
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 
         const currentLang = getCurrentLanguage();
+        let messageIndex = 0;
+        const messages = thinkingMessages[currentLang] || thinkingMessages.en;
+        
+        // Rotate thinking messages every 2 seconds
+        const messageRotationInterval = setInterval(() => {
+            messageIndex = (messageIndex + 1) % messages.length;
+            const thinkingText = document.getElementById('thinking-text');
+            if (thinkingText) {
+                thinkingText.textContent = messages[messageIndex];
+            }
+        }, 2000);
 
         try {
             // Call the backend API
@@ -379,9 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
             });
 
-            // Remove typing indicator
-            if (typingIndicator.parentNode) {
-                chatbotMessages.removeChild(typingIndicator);
+            // Remove thinking indicator and clear interval
+            clearInterval(messageRotationInterval);
+            if (thinkingIndicator.parentNode) {
+                chatbotMessages.removeChild(thinkingIndicator);
             }
 
             if (response.ok) {
