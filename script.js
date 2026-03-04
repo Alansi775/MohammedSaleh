@@ -368,8 +368,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const thinkingIndicator = document.createElement('div');
         thinkingIndicator.classList.add('message', 'ai-message', 'thinking-indicator');
         thinkingIndicator.innerHTML = `
-            <div class="thinking-icon"></div>
-            <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="thinking-icon">
+                <div class="thinking-spinner"></div>
+            </div>
+            <div class="thinking-text-wrapper">
                 <span class="thinking-text" id="thinking-text">Thinking</span>
                 <div class="thinking-dots">
                     <span class="thinking-dot"></span>
@@ -385,14 +387,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let messageIndex = 0;
         const messages = thinkingMessages[currentLang] || thinkingMessages.en;
         
-        // Rotate thinking messages every 2 seconds
+        // Rotate thinking messages every 1.5 seconds
         const messageRotationInterval = setInterval(() => {
             messageIndex = (messageIndex + 1) % messages.length;
             const thinkingText = document.getElementById('thinking-text');
             if (thinkingText) {
                 thinkingText.textContent = messages[messageIndex];
             }
-        }, 2000);
+        }, 1500);
 
         try {
             // Call the backend API
@@ -410,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Remove thinking indicator and clear interval
             clearInterval(messageRotationInterval);
             if (thinkingIndicator.parentNode) {
-                chatbotMessages.removeChild(thinkingIndicator);
+                thinkingIndicator.remove();
             }
 
             if (response.ok) {
@@ -418,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const aiResponse = document.createElement('div');
                 aiResponse.classList.add('message', 'ai-message');
-                aiResponse.textContent = ''; // Start empty for typing effect
+                aiResponse.textContent = '';
                 chatbotMessages.appendChild(aiResponse);
                 
                 // Convert HTML to plain text (remove <br> tags)
@@ -429,20 +431,20 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 throw new Error('Server responded with error');
             }
-
         } catch (error) {
             console.error('Chatbot error:', error);
             
-            // Remove typing indicator if still there
-            if (typingIndicator.parentNode) {
-                chatbotMessages.removeChild(typingIndicator);
+            // Remove thinking indicator
+            clearInterval(messageRotationInterval);
+            if (thinkingIndicator.parentNode) {
+                thinkingIndicator.remove();
             }
 
             // Show error message
-            const aiResponse = document.createElement('div');
-            aiResponse.classList.add('message', 'ai-message');
-            aiResponse.innerHTML = errorMessages[currentLang] || errorMessages.en;
-            chatbotMessages.appendChild(aiResponse);
+            const errorDiv = document.createElement('div');
+            errorDiv.classList.add('message', 'ai-message');
+            errorDiv.innerHTML = errorMessages[currentLang] || errorMessages.en;
+            chatbotMessages.appendChild(errorDiv);
         }
 
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;

@@ -1046,13 +1046,13 @@ body.ar .chatbot-input-area input {
     background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
 }
 
-/* Thinking Indicator with Shimmer */
+/* Thinking Indicator */
 .thinking-indicator {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 0.8rem 1rem;
-    background-color: var(--primary-color);
+    background-color: transparent;
     border-radius: 12px;
     align-self: flex-start;
 }
@@ -1063,32 +1063,37 @@ body.ar .chatbot-input-area input {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    flex-shrink: 0;
 }
 
-.thinking-icon::before {
-    content: '💭';
-    font-size: 20px;
-    animation: thinkingPulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.thinking-spinner {
+    width: 20px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    animation: radarGlow 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    flex-shrink: 0;
 }
 
-.thinking-icon::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shimmer 1.8s ease-in-out infinite;
-    border-radius: 4px;
+.thinking-text-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .thinking-text {
     color: var(--primary-text-color);
     font-weight: 500;
     font-size: 0.95rem;
-    min-width: 120px;
+    position: relative;
+    display: inline-block;
+    min-width: 80px;
+    background: linear-gradient(90deg, var(--primary-text-color), var(--primary-text-color) 20%, rgba(255, 255, 255, 0.8) 50%, var(--primary-text-color) 80%, var(--primary-text-color));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerText 3.5s ease-in-out infinite;
 }
 
 .thinking-dots {
@@ -1109,14 +1114,24 @@ body.ar .chatbot-input-area input {
 .thinking-dot:nth-child(2) { animation-delay: -0.16s; }
 .thinking-dot:nth-child(3) { animation-delay: 0s; }
 
-@keyframes thinkingPulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.1); }
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+@keyframes shimmerText {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+@keyframes radarGlow {
+    0%, 100% {
+        box-shadow: 0 0 8px var(--accent-color), inset 0 0 8px rgba(76, 134, 175, 0.3);
+        opacity: 1;
+    }
+    50% {
+        box-shadow: 0 0 16px var(--accent-color), inset 0 0 12px rgba(76, 134, 175, 0.6);
+        opacity: 0.8;
+    }
 }
 
 @keyframes dotBounce {
