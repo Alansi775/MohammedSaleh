@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Chatbot error:', error);
             
-            // Remove thinking indicator
+            // Remove thinking indicator and clear interval
             clearInterval(messageRotationInterval);
             if (thinkingIndicator.parentNode) {
                 thinkingIndicator.remove();
