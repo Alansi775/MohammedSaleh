@@ -440,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 thinkingIndicator.remove();
             }
 
-            // Show error message
+            // Show error message with contact info
             const errorDiv = document.createElement('div');
             errorDiv.classList.add('message', 'ai-message');
             errorDiv.innerHTML = errorMessages[currentLang] || errorMessages.en;
