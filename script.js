@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
 
-    // Setup overlay listener for expanded chat
+    // Setup overlay listener for expanded chat from global scope function
     setupOverlayListener();
 
     // ===================================================
