@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupOverlayListener();
 
     // ===================================================
-    // 6. Image Modal
+    // 6. Image Modal implementation
     // ===================================================
     let modal = null;
     let imagesInModal = [];
