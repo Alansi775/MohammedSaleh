@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupOverlayListener();
 
     // ===================================================
-    // 6. Image Modal implementation in project section
+    // 6. Image Modal implementation in project section inside DOMContentLoaded to ensure it runs after the DOM is fully loaded
     // ===================================================
     let modal = null;
     let imagesInModal = [];
