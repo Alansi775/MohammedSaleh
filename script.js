@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupOverlayListener();
 
     // ===================================================
-    // 6. Image Modal implementation in project section inside DOMContentLoaded to ensure it runs after the DOM is fully loaded
+    // 6. Image Modal implementation in project section inside DOMContentLoaded to ensure it runs after the DOM is fully loaded 
     // ===================================================
     let modal = null;
     let imagesInModal = [];
@@ -528,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createModal();
 
-    // Keyboard navigation for modal
+    // Keyboard navigation for modal - works globally but only acts if modal is active
     document.addEventListener('keydown', (e) => {
         if (!modal || !modal.classList.contains('active')) return;
 
