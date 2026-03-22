@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Observe direction changes
+    // Observe direction changes to update modal arrows accordingly
     const dirObserver = new MutationObserver(() => createModal());
     dirObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['dir'] });
 
