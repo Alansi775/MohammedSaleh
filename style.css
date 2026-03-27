@@ -1162,7 +1162,7 @@ body.ar .chatbot-input-area input {
 }
 
 /* ========================================
-   EXPANDED CHAT MODE ICONS & BUTTONS with UNIFIED STYLES
+   EXPANDED CHAT MODE ICONS & BUTTONS with UNIFIED STYLES in .expand-btn and .close-chatbot-btn
 ======================================== */
 .chatbot-header-buttons {
     display: flex;
