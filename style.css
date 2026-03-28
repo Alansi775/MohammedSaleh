@@ -1218,7 +1218,7 @@ body.dark-mode .expand-icon {
     transform: scale(0.98);
 }
 
-/* Expanded chat modal state */
+/* Expanded chat modal state is this */
 .chatbot-modal.expanded {
     position: fixed;
     top: 50%;
