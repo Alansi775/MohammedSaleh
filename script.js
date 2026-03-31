@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 aiResponse.textContent = '';
                 chatbotMessages.appendChild(aiResponse);
                 
-                // Convert HTML to plain text (remove <br> tags)
+                // Convert HTML to plain text (remove <br> tags) and preserve line breaks
                 const plainText = data.response.replace(/<br>/g, '\n');
                 
                 // Type the message
