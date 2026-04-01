@@ -144,12 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (themeMode === 'auto') {
             theme = getThemeByTime();
         }
-        // If storedTheme exists but themeMode isn't set (legacy preference), treat as manual
-        else if (!themeMode && storedTheme) {
-            theme = storedTheme;
-            localStorage.setItem('themeMode', 'manual');
-        } 
-        // First visit: use time-based automatic theme
+        // Default: always use time-based theme (safest option)
         else {
             theme = getThemeByTime();
             localStorage.setItem('themeMode', 'auto');
