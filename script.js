@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Convert HTML to plain text (remove <br> tags) and preserve line breaks
                 const plainText = data.response.replace(/<br>/g, '\n');
                 
-                // Type the message
+                // Type the message in here 
                 await typeMessage(aiResponse, plainText, 15);
             } else {
                 throw new Error('Server responded with error');
