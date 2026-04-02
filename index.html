@@ -66,16 +66,16 @@
             <a href="#contact" data-en="Contact" data-ar="تواصل" data-tr="İletişim">Contact</a>
         </nav>
         <div class="header-actions">
-            <a href="#contact" class="btn-signing" style="order: 1;" data-en="Let's Talk" data-ar="تواصل معي" data-tr="İletişim">Contact</a>
-            <button id="theme-toggle" class="btn-icon" style="order: 2;">
-                <img src="assets/sun-light-icon.png" alt="Light Mode" class="icon-light-mode">
-                <img src="assets/moon-dark-icon.png" alt="Dark Mode" class="icon-dark-mode">
-            </button>
-            <select id="language-switcher" class="lang-select" style="order: 3;">
+            <select id="language-switcher" class="lang-select" style="order: 1;">
                 <option value="en">English</option>
                 <option value="ar">العربية</option>
                 <option value="tr">Türkçe</option>
             </select>
+            <button id="theme-toggle" class="btn-icon" style="order: 2;">
+                <img src="assets/sun-light-icon.png" alt="Light Mode" class="icon-light-mode">
+                <img src="assets/moon-dark-icon.png" alt="Dark Mode" class="icon-dark-mode">
+            </button>
+            <a href="#contact" class="btn-signing" style="order: 3;" data-en="Let's Talk" data-ar="تواصل معي" data-tr="İletişim">Contact</a>
         </div>
     </header>
 
@@ -591,13 +591,13 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
                 </div>
                 <div id="form-error-msg" style="display:none; color: #e74c3c; margin-bottom: 1rem;"></div>
                 
-                <input type="text" id="name" name="name" data-en-placeholder="Your Name" data-ar-placeholder="اكتب الاسم مع اللقب" data-tr-placeholder="Adınız Soyadınız" placeholder="Your Name" data-fs-field required>
+                <input type="text" id="name" name="name" data-en-placeholder="Your Name" data-ar-placeholder="اكتب الاسم مع اللقب" data-tr-placeholder="Adınız Soyadınız" placeholder="Your Name" data-fs-field required class="form-input">
                 <span data-fs-error="name" style="display:none; color: #e74c3c; font-size: 0.85rem;"></span>
                 
-                <input type="email" id="email" name="email" data-en-placeholder="Your Email" data-ar-placeholder="اكتب ايميلك" data-tr-placeholder="E-postanız" placeholder="Your Email" data-fs-field required>
+                <input type="email" id="email" name="email" data-en-placeholder="Your Email" data-ar-placeholder="اكتب ايميلك" data-tr-placeholder="E-postanız" placeholder="Your Email" data-fs-field required class="form-input form-input-ltr">
                 <span data-fs-error="email" style="display:none; color: #e74c3c; font-size: 0.85rem;"></span>
                 
-                <textarea id="message" name="message" data-en-placeholder="Your Message" data-ar-placeholder="اكتب رسالتك لكي تصل" data-tr-placeholder="Mesajınızı yazın" placeholder="Your Message" rows="6" data-fs-field required></textarea>
+                <textarea id="message" name="message" data-en-placeholder="Your Message" data-ar-placeholder="اكتب رسالتك لكي تصل" data-tr-placeholder="Mesajınızı yazın" placeholder="Your Message" rows="6" data-fs-field required class="form-input"></textarea>
                 <span data-fs-error="message" style="display:none; color: #e74c3c; font-size: 0.85rem;"></span>
                 
                 <button type="submit" class="btn-submit" data-en="Send Message" data-ar="إرسال الرسالة" data-tr="Mesaj Gönder" data-fs-submit-btn>Send Message</button>

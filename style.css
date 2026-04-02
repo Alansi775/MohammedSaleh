@@ -775,7 +775,21 @@ body.ar .contact-item p a[href^="tel:"] {
     background-color: transparent;
     color: var(--text-color);
     font-size: 1.05rem;
+    font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     transition: all 0.3s ease;
+    direction: ltr;
+}
+
+/* RTL support for Arabic form inputs */
+body.ar .contact-form .form-input:not(.form-input-ltr) {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Email always stays LTR */
+.contact-form .form-input-ltr {
+    direction: ltr !important;
+    text-align: left !important;
 }
 
 .contact-form input::placeholder,
