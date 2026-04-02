@@ -103,6 +103,12 @@ body.ar {
     100% { background-position: 100% 100%; }
 }
 
+@keyframes themeFade {
+    0% { opacity: 1; }
+    50% { opacity: 0.95; }
+    100% { opacity: 1; }
+}
+
 @keyframes inputGlow {
     0% {
         box-shadow: 0 0 5px rgba(76, 134, 175, 0.3), inset 0 0 5px rgba(76, 134, 175, 0.1);

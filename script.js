@@ -117,28 +117,59 @@ document.addEventListener('DOMContentLoaded', () => {
         return (hour >= 6 && hour < 17) ? 'light' : 'dark';
     }
 
-    const applyTheme = (theme) => {
+    const applyTheme = (theme, animate = false) => {
         // Remove preload classes
         document.documentElement.classList.remove('light-mode-preload', 'dark-mode-preload');
         
-        // Remove all theme classes
-        body.classList.remove('light-mode', 'dark-mode');
-        
-        // Apply new theme
-        if (theme === 'light') {
-            body.classList.add('light-mode');
+        if (animate) {
+            // Add fade animation
+            body.style.animation = 'themeFade 0.5s ease-in-out';
+            
+            // Wait for animation to complete before changing theme
+            setTimeout(() => {
+                // Remove all theme classes
+                body.classList.remove('light-mode', 'dark-mode');
+                
+                // Apply new theme
+                if (theme === 'light') {
+                    body.classList.add('light-mode');
+                } else {
+                    body.classList.add('dark-mode');
+                }
+                
+                localStorage.setItem('theme', theme);
+                
+                // Remove animation class
+                body.style.animation = '';
+                
+                // Force Safari to repaint (Safari bug fix)
+                if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+                    const el = document.documentElement;
+                    el.style.display = 'none';
+                    el.offsetHeight; // Trigger reflow
+                    el.style.display = '';
+                }
+            }, 250); // Half of animation duration
         } else {
-            body.classList.add('dark-mode');
-        }
-        
-        localStorage.setItem('theme', theme);
-        
-        // Force Safari to repaint (Safari bug fix)
-        if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
-            const el = document.documentElement;
-            el.style.display = 'none';
-            el.offsetHeight; // Trigger reflow
-            el.style.display = '';
+            // Remove all theme classes
+            body.classList.remove('light-mode', 'dark-mode');
+            
+            // Apply new theme
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+            } else {
+                body.classList.add('dark-mode');
+            }
+            
+            localStorage.setItem('theme', theme);
+            
+            // Force Safari to repaint (Safari bug fix)
+            if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+                const el = document.documentElement;
+                el.style.display = 'none';
+                el.offsetHeight; // Trigger reflow
+                el.style.display = '';
+            }
         }
     };
 
