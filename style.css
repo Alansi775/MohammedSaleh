@@ -103,6 +103,30 @@ body.ar {
     100% { background-position: 100% 100%; }
 }
 
+@keyframes inputGlow {
+    0% {
+        box-shadow: 0 0 5px rgba(76, 134, 175, 0.3), inset 0 0 5px rgba(76, 134, 175, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(76, 134, 175, 0.6), inset 0 0 8px rgba(76, 134, 175, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(76, 134, 175, 0.3), inset 0 0 5px rgba(76, 134, 175, 0.1);
+    }
+}
+
+@keyframes inputGlowLight {
+    0% {
+        box-shadow: 0 0 5px rgba(100, 134, 169, 0.2), inset 0 0 5px rgba(100, 134, 169, 0.05);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(100, 134, 169, 0.4), inset 0 0 8px rgba(100, 134, 169, 0.15);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(100, 134, 169, 0.2), inset 0 0 5px rgba(100, 134, 169, 0.05);
+    }
+}
+
 /* ========================================
    BACKGROUND ANIMATION
 ======================================== */
@@ -1007,11 +1031,30 @@ body.ar .chatbot-input-area {
     flex: 1;
     min-width: 0;
     padding: 0.8rem 1rem;
-    border: 1px solid var(--primary-color);
+    border: 2px solid var(--accent-color);
     border-radius: 20px;
     background-color: var(--input-bg);
     color: var(--text-color);
     font-size: 0.95rem;
+    animation: inputGlow 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.chatbot-input-area input::placeholder {
+    color: var(--accent-color);
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+body.light-mode .chatbot-input-area input {
+    border: 2px solid var(--accent-color);
+    animation: inputGlowLight 3s ease-in-out infinite;
+}
+
+body.light-mode .chatbot-input-area input::placeholder {
+    color: var(--accent-color);
+    opacity: 0.8;
+    font-weight: 500;
 }
 
 body.ar .chatbot-input-area input {
@@ -1020,8 +1063,13 @@ body.ar .chatbot-input-area input {
 
 .chatbot-input-area input:focus {
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 20px rgba(76, 134, 175, 0.8), inset 0 0 10px rgba(76, 134, 175, 0.3);
+    animation: none;
+}
+
+body.light-mode .chatbot-input-area input:focus {
+    box-shadow: 0 0 20px rgba(100, 134, 169, 0.6), inset 0 0 10px rgba(100, 134, 169, 0.2);
 }
 
 .send-chatbot-btn {
