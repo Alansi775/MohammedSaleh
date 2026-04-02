@@ -118,8 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const applyTheme = (theme) => {
+        // Remove preload classes
+        document.documentElement.classList.remove('light-mode-preload', 'dark-mode-preload');
+        
+        // Remove all theme classes
         body.classList.remove('light-mode', 'dark-mode');
         
+        // Apply new theme
         if (theme === 'light') {
             body.classList.add('light-mode');
         } else {
@@ -127,6 +132,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         localStorage.setItem('theme', theme);
+        
+        // Force Safari to repaint (Safari bug fix)
+        if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+            const el = document.documentElement;
+            el.style.display = 'none';
+            el.offsetHeight; // Trigger reflow
+            el.style.display = '';
+        }
     };
 
     // Initialize theme on page load
@@ -180,6 +193,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
         applyTheme(currentTheme);
         localStorage.setItem('themeMode', 'manual'); // Mark as manually set
+        
+        // Force immediate visual update
+        setTimeout(() => {
+            // Dispatch custom event for any listeners
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: currentTheme } }));
+        }, 50);
     });
 
     // ===================================================
