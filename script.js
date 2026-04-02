@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Update success message language
-        const successMessage = document.querySelector('[data-fs-success]');
+        const successMessage = document.getElementById('form-success-msg');
         if (successMessage) {
             const successPara = successMessage.querySelector('p');
             if (successPara) {
@@ -619,7 +619,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const nameInput = document.querySelector('input[name="name"]');
     const emailInput = document.querySelector('input[name="email"]');
     const messageInput = document.querySelector('textarea[name="message"]');
-    const successMessage = contactForm.querySelector('[data-fs-success]');
+    const successMessage = document.getElementById('form-success-msg');
+    const errorMessage = document.getElementById('form-error-msg');
 
     // Translations for validation messages
     const validationMessages = {
@@ -627,41 +628,63 @@ document.addEventListener('DOMContentLoaded', () => {
             nameRequired: 'Please enter your name',
             emailRequired: 'Please enter your email',
             emailInvalid: 'Please enter a valid email',
-            messageRequired: 'Please enter your message',
-            nameFocus: 'Your Name',
-            emailFocus: 'Your Email',
-            messageFocus: 'Your Message'
+            messageRequired: 'Please enter your message'
         },
         ar: {
             nameRequired: 'يرجى إدخال اسمك',
             emailRequired: 'يرجى إدخال بريدك الإلكتروني',
             emailInvalid: 'يرجى إدخال بريد إلكتروني صحيح',
-            messageRequired: 'يرجى إدخال رسالتك',
-            nameFocus: 'اسمك',
-            emailFocus: 'بريدك الإلكتروني',
-            messageFocus: 'رسالتك'
+            messageRequired: 'يرجى إدخال رسالتك'
         },
         tr: {
             nameRequired: 'Lütfen adınızı girin',
             emailRequired: 'Lütfen e-postanızı girin',
             emailInvalid: 'Lütfen geçerli bir e-posta girin',
-            messageRequired: 'Lütfen mesajınızı girin',
-            nameFocus: 'Adınız',
-            emailFocus: 'E-postanız',
-            messageFocus: 'Mesajınız'
+            messageRequired: 'Lütfen mesajınızı girin'
         }
     };
 
-    // Function to show alert with current language
-    const showValidationAlert = (messageKey) => {
+    // Function to show validation error
+    const showValidationError = (messageKey) => {
         const currentLang = localStorage.getItem('selectedLang') || 'en';
         const message = validationMessages[currentLang][messageKey];
-        alert(message);
+        
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
+        
+        // Hide error after 4 seconds
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 4000);
+    };
+
+    // Function to show success message
+    const showSuccessMessage = () => {
+        const currentLang = localStorage.getItem('selectedLang') || 'en';
+        const successPara = successMessage.querySelector('p');
+        const successText = successPara.getAttribute(`data-${currentLang}`);
+        
+        if (successText) {
+            successPara.textContent = successText;
+        }
+        
+        successMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+        
+        // Clear form
+        contactForm.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+            successMessage.style.display = 'none';
+        }, 5000);
     };
 
     // Add validation to form submission
     contactForm.addEventListener('submit', (e) => {
-        // Check if Formspree is handling this - if so, do basic validation only
+        // Do NOT prevent default - let Formspree handle it
+        // But validate first
         const name = nameInput.value.trim();
         const email = emailInput.value.trim();
         const message = messageInput.value.trim();
@@ -669,28 +692,34 @@ document.addEventListener('DOMContentLoaded', () => {
         // Validate all fields are filled
         if (!name) {
             e.preventDefault();
-            showValidationAlert('nameRequired');
+            showValidationError('nameRequired');
             nameInput.focus();
             return;
         }
         if (!email) {
             e.preventDefault();
-            showValidationAlert('emailRequired');
+            showValidationError('emailRequired');
             emailInput.focus();
             return;
         }
         if (!email.includes('@') || !email.includes('.')) {
             e.preventDefault();
-            showValidationAlert('emailInvalid');
+            showValidationError('emailInvalid');
             emailInput.focus();
             return;
         }
         if (!message) {
             e.preventDefault();
-            showValidationAlert('messageRequired');
+            showValidationError('messageRequired');
             messageInput.focus();
             return;
         }
+        
+        // If validation passes, show success message after a short delay
+        // (Formspree will handle the actual submission)
+        setTimeout(() => {
+            showSuccessMessage();
+        }, 1000);
     });
 
 });

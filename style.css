@@ -1622,6 +1622,12 @@ body.ar .chatbot-modal.expanded {
     .lang-select {
         padding: 0.4rem 1.6rem 0.4rem 0.6rem;
         font-size: 0.75rem;
+        min-width: 90px;
+    }
+    
+    body.ar .lang-select {
+        padding: 0.4rem 0.6rem 0.4rem 1.6rem;
+        background-position: left 0.5rem center;
     }
     
     .btn-icon {
