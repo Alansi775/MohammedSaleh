@@ -62,6 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.textContent = translation;
                 }
             }
+            
+            // Special handling for all input and textarea elements to ensure placeholders are updated
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                const placeholder = element.getAttribute(`data-${lang}-placeholder`);
+                if (placeholder) {
+                    element.setAttribute('placeholder', placeholder);
+                }
+            }
         });
 
         // Update chatbot elements
@@ -78,6 +86,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const initialAiMessage = document.querySelector('.chatbot-messages .ai-message[data-initial-message]');
         if (initialAiMessage) {
             initialAiMessage.textContent = initialAiMessage.getAttribute(`data-${lang}-initial-message`) || initialAiMessage.textContent;
+        }
+
+        // Update success message language
+        const successMessage = document.querySelector('[data-fs-success]');
+        if (successMessage) {
+            const successPara = successMessage.querySelector('p');
+            if (successPara) {
+                const successText = successPara.getAttribute(`data-${lang}`);
+                if (successText) {
+                    successPara.textContent = successText;
+                }
+            }
         }
 
         // Set direction and class
@@ -591,5 +611,86 @@ document.addEventListener('DOMContentLoaded', () => {
     // Observe direction changes to update modal arrows accordingly
     const dirObserver = new MutationObserver(() => createModal());
     dirObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['dir'] });
+
+    // ===================================================
+    // 7. Contact Form Validation & Multilingual Success Message
+    // ===================================================
+    const contactForm = document.getElementById('contact-form');
+    const nameInput = document.querySelector('input[name="name"]');
+    const emailInput = document.querySelector('input[name="email"]');
+    const messageInput = document.querySelector('textarea[name="message"]');
+    const successMessage = contactForm.querySelector('[data-fs-success]');
+
+    // Translations for validation messages
+    const validationMessages = {
+        en: {
+            nameRequired: 'Please enter your name',
+            emailRequired: 'Please enter your email',
+            emailInvalid: 'Please enter a valid email',
+            messageRequired: 'Please enter your message',
+            nameFocus: 'Your Name',
+            emailFocus: 'Your Email',
+            messageFocus: 'Your Message'
+        },
+        ar: {
+            nameRequired: 'يرجى إدخال اسمك',
+            emailRequired: 'يرجى إدخال بريدك الإلكتروني',
+            emailInvalid: 'يرجى إدخال بريد إلكتروني صحيح',
+            messageRequired: 'يرجى إدخال رسالتك',
+            nameFocus: 'اسمك',
+            emailFocus: 'بريدك الإلكتروني',
+            messageFocus: 'رسالتك'
+        },
+        tr: {
+            nameRequired: 'Lütfen adınızı girin',
+            emailRequired: 'Lütfen e-postanızı girin',
+            emailInvalid: 'Lütfen geçerli bir e-posta girin',
+            messageRequired: 'Lütfen mesajınızı girin',
+            nameFocus: 'Adınız',
+            emailFocus: 'E-postanız',
+            messageFocus: 'Mesajınız'
+        }
+    };
+
+    // Function to show alert with current language
+    const showValidationAlert = (messageKey) => {
+        const currentLang = localStorage.getItem('selectedLang') || 'en';
+        const message = validationMessages[currentLang][messageKey];
+        alert(message);
+    };
+
+    // Add validation to form submission
+    contactForm.addEventListener('submit', (e) => {
+        // Check if Formspree is handling this - if so, do basic validation only
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const message = messageInput.value.trim();
+
+        // Validate all fields are filled
+        if (!name) {
+            e.preventDefault();
+            showValidationAlert('nameRequired');
+            nameInput.focus();
+            return;
+        }
+        if (!email) {
+            e.preventDefault();
+            showValidationAlert('emailRequired');
+            emailInput.focus();
+            return;
+        }
+        if (!email.includes('@') || !email.includes('.')) {
+            e.preventDefault();
+            showValidationAlert('emailInvalid');
+            emailInput.focus();
+            return;
+        }
+        if (!message) {
+            e.preventDefault();
+            showValidationAlert('messageRequired');
+            messageInput.focus();
+            return;
+        }
+    });
 
 });

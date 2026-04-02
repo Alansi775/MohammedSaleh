@@ -259,6 +259,7 @@ nav a:hover::after {
     background-position: right 0.8rem center;
     background-size: 1.1em;
     transition: all 0.3s ease;
+    min-width: 110px;
 }
 
 body.light-mode .lang-select {
