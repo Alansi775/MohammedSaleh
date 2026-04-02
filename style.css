@@ -324,7 +324,7 @@ main {
    HERO SECTION
 ======================================== */
 .hero-section {
-    padding-top: 4rem;
+    padding-top: 3rem;
 }
 
 .tag-box {
@@ -334,7 +334,7 @@ main {
     background-color: var(--secondary-color);
     padding: 0.6rem 1.8rem;
     border-radius: 50px;
-    margin-top: 3.5rem;
+    margin-top: 2.5rem;
     margin-bottom: 1.8rem;
     font-size: 0.95rem;
     font-weight: 600;
@@ -534,17 +534,17 @@ main h1 {
 .badges-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1rem;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
     justify-content: center;
 }
 
 .badge {
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--text-color);
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 50px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
     border: 1px solid var(--card-border);
     transition: all 0.3s ease;
@@ -1360,11 +1360,16 @@ body.ar .chatbot-modal.expanded {
 
 /* Medium Screens */
 @media (max-width: 1024px) {
-    header { padding: 1.2rem 3vw; }
-    header h1 { font-size: 2rem; }
-    nav { gap: 1rem; }
-    main h1 { font-size: 3rem; }
-    .description { font-size: 1.1rem; }
+    header { 
+        padding: 1rem 2vw;
+    }
+    header h1 { font-size: 1.9rem; }
+    nav { gap: 0.8rem; }
+    main h1 { font-size: 2.8rem; }
+    .description { 
+        font-size: 1.05rem;
+        margin-bottom: 2rem;
+    }
     .section-title { font-size: 2.5rem; }
     
     .features-grid,
@@ -1393,8 +1398,8 @@ body.ar .chatbot-modal.expanded {
     header {
         flex-direction: column;
         align-items: center;
-        padding: 1rem;
-        gap: 1rem;
+        padding: 1rem 2vw;
+        gap: 0.8rem;
         position: static;
     }
     
@@ -1403,26 +1408,26 @@ body.ar .chatbot-modal.expanded {
     }
     
     header h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
+        font-size: 1.8rem;
+        margin-bottom: 0.4rem;
         padding: 0 !important;
     }
     
     nav {
         flex-wrap: wrap;
-        margin: 0.5rem 0;
-        gap: 0.8rem;
+        margin: 0.4rem 0;
+        gap: 0.6rem;
     }
     
     nav a {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
     
     .header-actions {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 1rem;
+        gap: 0.8rem;
     }
     
     .content {
@@ -1431,28 +1436,36 @@ body.ar .chatbot-modal.expanded {
     }
     
     main h1 {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .tag-box {
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
     }
     
     .description {
-        font-size: 1.05rem;
+        font-size: 1.02rem;
+        margin-bottom: 1.8rem;
     }
     
     .buttons {
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
+        gap: 0.8rem;
     }
     
     .btn-signing,
     .btn-get-started {
-        width: 90%;
-        max-width: 350px;
+        width: 85%;
+        max-width: 320px;
     }
     
     .section-title {
         font-size: 2.2rem;
         margin-top: 3.5rem;
+        margin-bottom: 1.5rem;
     }
     
     .features-grid,
@@ -1473,6 +1486,7 @@ body.ar .chatbot-modal.expanded {
     
     .project-images-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
     
     .card,
@@ -1481,25 +1495,25 @@ body.ar .chatbot-modal.expanded {
     .doc-item,
     .contact-item,
     .welcome-message {
-        padding: 1.5rem;
+        padding: 1.3rem;
         max-width: 100%;
     }
     
     .contact-form {
-        padding: 1.5rem;
-        margin-top: 2rem;
+        padding: 1.3rem;
+        margin-top: 1.8rem;
     }
     
     .chatbot-modal {
-        width: 90%;
-        height: 70%;
-        bottom: 100px;
-        right: 5%;
+        width: 80vw;
+        height: 65vh;
+        bottom: 90px;
+        right: 10vw;
         left: auto;
     }
     
     body.ar .chatbot-modal {
-        left: 5%;
+        left: 10vw;
         right: auto;
     }
     
@@ -1508,40 +1522,152 @@ body.ar .chatbot-modal.expanded {
     
     /* Responsive expanded chat for tablets */
     .chatbot-modal.expanded {
-        width: 95vw;
-        height: 90vh;
+        width: 90vw;
+        height: 85vh;
         max-width: 550px;
+        bottom: auto;
+        right: auto;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) !important;
+    }
+    
+    body.ar .chatbot-modal.expanded {
+        left: 50% !important;
+        right: auto !important;
     }
 }
 
 /* Mobile */
 @media (max-width: 480px) {
-    header h1 { font-size: 1.8rem; }
+    header {
+        padding: 0.8rem 3vw;
+        gap: 0.6rem;
+    }
+    
+    header h1 { 
+        font-size: 1.5rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    nav {
+        gap: 0.4rem;
+        margin: 0.2rem 0;
+    }
     
     nav a {
-        font-size: 0.85rem;
-        padding: 0.3rem;
+        font-size: 0.75rem;
+        padding: 0.2rem 0.3rem;
+    }
+    
+    .header-actions {
+        gap: 0.5rem;
     }
     
     .lang-select {
-        padding: 0.5rem 1.8rem 0.5rem 0.8rem;
-        font-size: 0.85rem;
+        padding: 0.4rem 1.6rem 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+    
+    .btn-icon {
+        padding: 0.3rem;
+        font-size: 1.3rem;
     }
     
     .btn-signing {
-        font-size: 0.9rem;
-        padding: 0.8rem 1.5rem;
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
     }
     
-    main h1 { font-size: 2rem; }
-    .section-title { font-size: 1.8rem; }
+    main h1 { 
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .tag-box {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        padding: 0.4rem 1rem;
+        font-size: 0.82rem;
+    }
+    
+    .description {
+        font-size: 0.92rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .buttons {
+        gap: 0.6rem;
+        margin-top: 1.2rem;
+    }
+    
+    .btn-get-started {
+        font-size: 0.88rem;
+        padding: 0.6rem 1.3rem;
+    }
+    
+    .content {
+        padding: 0 1rem;
+    }
+    
+    .section-title { 
+        font-size: 1.6rem;
+        margin-top: 2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .card,
+    .feature-item,
+    .resource-item,
+    .doc-item,
+    .contact-item,
+    .welcome-message {
+        padding: 1rem;
+    }
+    
+    .feature-item h3,
+    .resource-item h3,
+    .doc-item h3,
+    .contact-item h3,
+    .welcome-message h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .feature-item p,
+    .resource-item p,
+    .doc-item p,
+    .contact-item p,
+    .welcome-message p {
+        font-size: 0.92rem;
+        line-height: 1.5;
+    }
     
     .project-images-grid {
         grid-template-columns: 1fr;
+        gap: 0.6rem;
+        padding: 0.6rem;
     }
     
     #languages .docs-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .contact-form {
+        padding: 1rem;
+        margin-top: 1.2rem;
+        max-width: 100%;
+    }
+    
+    .contact-form input,
+    .contact-form textarea {
+        padding: 0.7rem;
+        font-size: 0.92rem;
     }
     
     .chatbot-button {
@@ -1557,10 +1683,33 @@ body.ar .chatbot-modal.expanded {
         right: auto;
     }
     
+    .chatbot-modal {
+        width: 85vw;
+        height: 55vh;
+        bottom: 70px;
+        right: 7.5vw;
+        left: auto;
+        border-radius: 12px;
+    }
+    
+    body.ar .chatbot-modal {
+        left: 7.5vw;
+        right: auto;
+    }
+
     /* Responsive expanded chat */
     .chatbot-modal.expanded {
-        width: 90vw;
-        height: 85vh;
-        max-width: 500px;
+        width: 92vw;
+        height: 80vh;
+        bottom: auto;
+        right: auto;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) !important;
+    }
+    
+    body.ar .chatbot-modal.expanded {
+        left: 50% !important;
+        right: auto !important;
     }
 }
