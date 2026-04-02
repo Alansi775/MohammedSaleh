@@ -681,45 +681,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     };
 
-    // Add validation to form submission
+    // Add validation to form submission - STRICT
     contactForm.addEventListener('submit', (e) => {
-        // Do NOT prevent default - let Formspree handle it
-        // But validate first
         const name = nameInput.value.trim();
         const email = emailInput.value.trim();
         const message = messageInput.value.trim();
 
-        // Validate all fields are filled
+        // Validate all fields are filled - MUST ALL BE FILLED
         if (!name) {
             e.preventDefault();
             showValidationError('nameRequired');
             nameInput.focus();
-            return;
+            return false;
         }
         if (!email) {
             e.preventDefault();
             showValidationError('emailRequired');
             emailInput.focus();
-            return;
+            return false;
         }
         if (!email.includes('@') || !email.includes('.')) {
             e.preventDefault();
             showValidationError('emailInvalid');
             emailInput.focus();
-            return;
+            return false;
         }
         if (!message) {
             e.preventDefault();
             showValidationError('messageRequired');
             messageInput.focus();
-            return;
+            return false;
         }
         
-        // If validation passes, show success message after a short delay
-        // (Formspree will handle the actual submission)
+        // All validation passed - Allow Formspree to handle the submission
+        // Show success message after a short delay to ensure Formspree processes it
         setTimeout(() => {
             showSuccessMessage();
-        }, 1000);
-    });
+        }, 800);
+        
+        // Return true to allow form submission (Formspree will handle it)
+        return true;
+    }, true); // Use capture phase to ensure this runs before Formspree's listener
 
 });

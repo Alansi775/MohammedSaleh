@@ -66,16 +66,16 @@
             <a href="#contact" data-en="Contact" data-ar="تواصل" data-tr="İletişim">Contact</a>
         </nav>
         <div class="header-actions">
-            <select id="language-switcher" class="lang-select">
+            <a href="#contact" class="btn-signing" style="order: 1;" data-en="Let's Talk" data-ar="تواصل معي" data-tr="İletişim">Contact</a>
+            <button id="theme-toggle" class="btn-icon" style="order: 2;">
+                <img src="assets/sun-light-icon.png" alt="Light Mode" class="icon-light-mode">
+                <img src="assets/moon-dark-icon.png" alt="Dark Mode" class="icon-dark-mode">
+            </button>
+            <select id="language-switcher" class="lang-select" style="order: 3;">
                 <option value="en">English</option>
                 <option value="ar">العربية</option>
                 <option value="tr">Türkçe</option>
             </select>
-            <button id="theme-toggle" class="btn-icon">
-                <img src="assets/sun-light-icon.png" alt="Light Mode" class="icon-light-mode">
-                <img src="assets/moon-dark-icon.png" alt="Dark Mode" class="icon-dark-mode">
-            </button>
-            <a href="#contact" class="btn-signing" data-en="Let's Talk" data-ar="تواصل معي" data-tr="İletişim">Contact</a>
         </div>
     </header>
 
@@ -586,18 +586,18 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
             <form id="contact-form" class="contact-form" data-animation="fadeIn" data-delay="0.6">
                 <h3 class="section-subtitle" data-en="Send a Message" data-ar="أرسل رسالة" data-tr="Mesaj Gönderin">Send a Message</h3>
                 
-                <div id="form-success-msg" style="display:none; color: #4c86af; margin-bottom: 1rem; padding: 1rem; background-color: rgba(76, 134, 175, 0.1); border-radius: 8px;">
-                    <p data-en="Message sent successfully! I'll get back to you soon." data-ar="تم إرسال الرسالة بنجاح! سأرد عليك قريباً." data-tr="Mesaj başarıyla gönderildi! Size yakında dönüş yapacağım.">Message sent successfully! I'll get back to you soon.</p>
+                <div id="form-success-msg" style="display:none; color: #4c86af; margin-bottom: 2rem; margin-top: 1.5rem; padding: 1.5rem; background-color: rgba(76, 134, 175, 0.1); border-radius: 8px; text-align: center;">
+                    <p style="font-size: 1.1rem; font-weight: 500; margin: 0;" data-en="Thank you! Message sent successfully! I'll get back to you soon." data-ar="شكراً لك! تم إرسال الرسالة بنجاح! محمد سيرد عليك في اقرب وقت." data-tr="Teşekkürler! Mesaj başarıyla gönderildi! Size yakında geri döneceğim.">Thank you! Message sent successfully! I'll get back to you soon.</p>
                 </div>
                 <div id="form-error-msg" style="display:none; color: #e74c3c; margin-bottom: 1rem;"></div>
                 
-                <input type="text" id="name" name="name" data-en-placeholder="Your Name" data-ar-placeholder="اكتب الاسم مع اللقب" data-tr-placeholder="Adınız Soyadınız" placeholder="Your Name" data-fs-field>
+                <input type="text" id="name" name="name" data-en-placeholder="Your Name" data-ar-placeholder="اكتب الاسم مع اللقب" data-tr-placeholder="Adınız Soyadınız" placeholder="Your Name" data-fs-field required>
                 <span data-fs-error="name" style="display:none; color: #e74c3c; font-size: 0.85rem;"></span>
                 
-                <input type="email" id="email" name="email" data-en-placeholder="Your Email" data-ar-placeholder="اكتب ايميلك" data-tr-placeholder="E-postanız" placeholder="Your Email" data-fs-field>
+                <input type="email" id="email" name="email" data-en-placeholder="Your Email" data-ar-placeholder="اكتب ايميلك" data-tr-placeholder="E-postanız" placeholder="Your Email" data-fs-field required>
                 <span data-fs-error="email" style="display:none; color: #e74c3c; font-size: 0.85rem;"></span>
                 
-                <textarea id="message" name="message" data-en-placeholder="Your Message" data-ar-placeholder="اكتب رسالتك لكي تصل" data-tr-placeholder="Mesajınızı yazın" placeholder="Your Message" rows="6" data-fs-field></textarea>
+                <textarea id="message" name="message" data-en-placeholder="Your Message" data-ar-placeholder="اكتب رسالتك لكي تصل" data-tr-placeholder="Mesajınızı yazın" placeholder="Your Message" rows="6" data-fs-field required></textarea>
                 <span data-fs-error="message" style="display:none; color: #e74c3c; font-size: 0.85rem;"></span>
                 
                 <button type="submit" class="btn-submit" data-en="Send Message" data-ar="إرسال الرسالة" data-tr="Mesaj Gönder" data-fs-submit-btn>Send Message</button>
