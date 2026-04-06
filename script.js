@@ -659,7 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     };
 
-    // Function to show success message
+    // Function to show success message in current language
     const showSuccessMessage = () => {
         const currentLang = localStorage.getItem('selectedLang') || 'en';
         const successPara = successMessage.querySelector('p');
