@@ -659,7 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     };
 
-    // Function to show success message in current language
+    // Function to show success message in current language in here to ensure it always shows in the correct language even if user changes language while message is visible
     const showSuccessMessage = () => {
         const currentLang = localStorage.getItem('selectedLang') || 'en';
         const successPara = successMessage.querySelector('p');
