@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Light mode: 06:00-16:59 | Dark mode: 17:00-05:59
     function getThemeByTime() {
         const hour = new Date().getHours();
-        return (hour >= 6 && hour < 17) ? 'light' : 'dark';
+        return (hour >= 6 && hour < 18) ? 'light' : 'dark';
     }
 
     const applyTheme = (theme, animate = false) => {
