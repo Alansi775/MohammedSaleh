@@ -241,14 +241,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Manual theme toggle button
     themeToggle.addEventListener('click', () => {
-        const currentTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
-        applyTheme(currentTheme);
-        localStorage.setItem('themeMode', 'manual'); // Mark as manually set
+        const currentThemeMode = localStorage.getItem('themeMode');
+        const autoTheme = getThemeByTime();
+        const currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
+        
+        // If currently in manual mode and clicking same/different theme
+        if (currentThemeMode === 'manual') {
+            // Toggle back to auto mode
+            localStorage.setItem('themeMode', 'auto');
+            applyTheme(autoTheme, true); // Apply auto theme with animation
+        } else {
+            // Switch to opposite theme (manual mode)
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            applyTheme(newTheme, true);
+            localStorage.setItem('themeMode', 'manual'); // Mark as manually set
+        }
         
         // Force immediate visual update
         setTimeout(() => {
             // Dispatch custom event for any listeners
-            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: currentTheme } }));
+            const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: theme } }));
         }, 50);
     });
 
