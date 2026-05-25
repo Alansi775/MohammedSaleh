@@ -43,6 +43,34 @@
     <style>
         html.light-mode-preload { background-color: #f0f2f5; }
         html.dark-mode-preload { background-color: #0d0d0d; }
+        
+        /* Featured Video Styles */
+        .featured-video-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(76, 134, 175, 0.15);
+            background: rgba(76, 134, 175, 0.05);
+            border: 1px solid rgba(76, 134, 175, 0.1);
+        }
+        
+        .featured-video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .featured-video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
@@ -118,7 +146,7 @@
                 I love turning ideas into real, working apps. Over the years, I've built skills across mobile development, cloud platforms, and smart technologies. I focus on creating apps that are easy to use and solve real problems.
             </p>
             
-            <div class="welcome-message card" data-animation="fadeIn" data-delay="0.4">
+            <div class="welcome-message card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                 <h2 data-en="My Philosophy" data-ar="فلسفتي" data-tr="Felsefem">My Philosophy</h2>
                 <p data-en="Technology should be simple and helpful. I always aim to build high-quality apps that not only meet expectations but go beyond them. Every project is a chance to learn and improve." 
                    data-ar="التكنولوجيا يجب أن تكون بسيطة ومفيدة. أسعى دائماً لبناء تطبيقات عالية الجودة لا تلبي التوقعات فحسب، بل تتجاوزها. كل مشروع فرصة للتعلم والتطور." 
@@ -134,7 +162,7 @@
             
             <div class="features-grid">
                 <!-- AI & Machine Learning -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.3">
+                <div class="feature-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-brain"></i>
                     <h3 data-en="AI & Machine Learning" data-ar="الذكاء الاصطناعي وتعلم الآلة" data-tr="Yapay Zeka ve Makine Öğrenimi">AI & Machine Learning</h3>
                     <a href="https://youtu.be/5tWGJeg-cWQ?si=D2uZssCQ0vVOq4ZB" target="_blank" style="display: inline-block; margin-bottom: 12px;" class="btn-get-started" data-en="View Demo" data-ar="عرض العرض" data-tr="Demo İzle">View Demo <i class="ph ph-arrow-square-out"></i></a>
@@ -156,7 +184,7 @@
                 </div>
                 
                 <!-- Autonomous Systems & Drones -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.4">
+                <div class="feature-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-drone"></i>
                     <h3 data-en="Autonomous Systems & Drones" data-ar="الأنظمة المستقلة والطائرات" data-tr="Otonom Sistemler ve Dronlar">Autonomous Systems & Drones</h3>
                     <div class="badges-container">
@@ -171,7 +199,7 @@
                 </div>
                 
                 <!-- Embedded Systems & IoT -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.5">
+                <div class="feature-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-microcontroller"></i>
                     <h3 data-en="Embedded Systems & IoT" data-ar="الأنظمة المدمجة وإنترنت الأشياء" data-tr="Gömülü Sistemler ve IoT">Embedded Systems & IoT</h3>
                     <div class="badges-container">
@@ -185,7 +213,7 @@
                 </div>
                 
                 <!-- Cloud, Backend & Databases -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.6">
+                <div class="feature-item card" data-animation="fadeIn" data-delay="0.6" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-cloud"></i>
                     <h3 data-en="Cloud, Backend & Databases" data-ar="الخدمات السحابية والخوادم وقواعد البيانات" data-tr="Bulut, Backend ve Veritabanları">Cloud, Backend & Databases</h3>
                     <div class="badges-container">
@@ -199,7 +227,7 @@
                 </div>
                 
                 <!-- Mobile Applications -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.7">
+                <div class="feature-item card" data-animation="fadeIn" data-delay="0.7" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-device-mobile"></i>
                     <h3 data-en="Mobile Applications (iOS & Android)" data-ar="التطبيقات الجوال" data-tr="Mobil Uygulamalar">Mobile Applications (iOS & Android)</h3>
                     <div class="badges-container">
@@ -213,7 +241,7 @@
                 </div>
                 
                 <!-- Web Development -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.8">
+                <div class="feature-item card" data-animation="fadeIn" data-delay="0.8" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-code"></i>
                     <h3 data-en="Web Development" data-ar="تطوير الويب" data-tr="Web Geliştirme">Web Development</h3>
                     <div class="badges-container">
@@ -234,7 +262,7 @@
             <div class="resources-grid">
                 
                 <!-- Project 1: Smart Home -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.3">
+                <div class="resource-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-house-line"></i>
                     <h3 data-en="Smart Home Controller" data-ar="نظام تحكم المنزل الذكي" data-tr="Akıllı Ev Kontrol Sistemi">Smart Home Controller</h3>
                     
@@ -248,7 +276,7 @@
                 </div>
                 
                 <!-- Project 2: Autonomous Drone -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.4">
+                <div class="resource-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-drone"></i>
                     <h3 data-en="Autonomous Drone System" data-ar="نظام الطائرة بدون طيار" data-tr="Otonom Drone Sistemi">Autonomous Drone System</h3>
                     
@@ -262,7 +290,7 @@
                 </div>
                 
                 <!-- Project 3: Y-Shop -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.5">
+                <div class="resource-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-shopping-bag"></i>
                     <h3 data-en="Y-Shop E-Commerce App" data-ar="تطبيق Y-Shop للتسوق" data-tr="Y-Shop E-Ticaret Uygulaması">Y-Shop E-Commerce App</h3>
                     
@@ -277,36 +305,37 @@
                     
                     <a href="https://slender-forsythia-e75.notion.site/YShop-E-Commerce-APP-172883fb9e358081adb7d402501eac5f" target="_blank" class="btn-get-started" data-en="View Details" data-ar="عرض التفاصيل" data-tr="Detayları Görüntüle">View Details <i class="ph ph-arrow-square-out"></i></a>
                     <a href="https://youtu.be/5tWGJeg-cWQ?si=D2uZssCQ0vVOq4ZB" target="_blank" class="btn-get-started" data-en="Watch AI Demo" data-ar="شاهد عرض الذكاء الاصطناعي" data-tr="Yapay Zeka Demoyu İzle">Watch AI Demo <i class="ph ph-arrow-square-out"></i></a>
+                    <a href="https://youtu.be/PNgwfYJ0n6g?si=3CP_LYXYYLNvh1RL" target="_blank" class="btn-get-started" data-en="Watch Drone Delivery" data-ar="شاهد توصيل الطائرة" data-tr="Drone Teslimatını İzle">Watch Drone Delivery <i class="ph ph-arrow-square-out"></i></a>
                     
                     <div class="project-images-grid">
-                        <img src="assets/y-shop-screen0.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen1.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen2.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen3.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen4.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen5.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen6.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen7.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen8.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen9.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen10.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen11.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen12.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen13.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen14.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen15.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen16.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen17.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen18.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen19.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen20.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen21.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen22.png" alt="Y-Shop Screenshot" class="card">
-                        <img src="assets/y-shop-screen23.png" alt="Y-Shop Screenshot" class="card">                    </div>
+                        <img src="assets/y-shop-screen0.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen1.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen2.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen3.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen4.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen5.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen6.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen7.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen8.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen9.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen10.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen11.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen12.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen13.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen14.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen15.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen16.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen17.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen18.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen19.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen20.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen21.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen22.png" alt="Y-Shop Screenshot">
+                        <img src="assets/y-shop-screen23.png" alt="Y-Shop Screenshot">                    </div>
                 </div>
                 
                 <!-- Project 4: Noota -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.5">
+                <div class="resource-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-microphone"></i>
                     <h3 data-en="Noota - Voice Translation App" data-ar="Noota - تطبيق الترجمة الصوتية" data-tr="Noota - Sesli Çeviri Uygulaması">Noota - Voice Translation App</h3>
                     
@@ -326,26 +355,26 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
                     <a href="https://youtu.be/37KYB2-55Kk?si=M__kGwKftzlxyCqf" target="_blank" class="btn-get-started" data-en="Watch Demo" data-ar="شاهد العرض" data-tr="Demoyu İzle">Watch Demo <i class="ph ph-arrow-square-out"></i></a>
                     
                     <div class="project-images-grid">
-                        <img src="assets/0.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/1.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/2.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/3.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/4.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/5.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/6.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/7.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/8.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/9.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/10.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/11.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/12.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/13.png" alt="Noota Screenshot" class="card">
-                        <img src="assets/14.png" alt="Noota Screenshot" class="card">
+                        <img src="assets/0.png" alt="Noota Screenshot">
+                        <img src="assets/1.png" alt="Noota Screenshot">
+                        <img src="assets/2.png" alt="Noota Screenshot">
+                        <img src="assets/3.png" alt="Noota Screenshot">
+                        <img src="assets/4.png" alt="Noota Screenshot">
+                        <img src="assets/5.png" alt="Noota Screenshot">
+                        <img src="assets/6.png" alt="Noota Screenshot">
+                        <img src="assets/7.png" alt="Noota Screenshot">
+                        <img src="assets/8.png" alt="Noota Screenshot">
+                        <img src="assets/9.png" alt="Noota Screenshot">
+                        <img src="assets/10.png" alt="Noota Screenshot">
+                        <img src="assets/11.png" alt="Noota Screenshot">
+                        <img src="assets/12.png" alt="Noota Screenshot">
+                        <img src="assets/13.png" alt="Noota Screenshot">
+                        <img src="assets/14.png" alt="Noota Screenshot">
                     </div>
                 </div>
                 
                 <!-- Project 5: IOTROCOP Marin -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.5">
+                <div class="resource-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-anchor"></i>
                     <h3 data-en="IOTROCOP Marin - Yacht App" data-ar="IOTROCOP Marin - تطبيق اليخوت" data-tr="IOTROCOP Marin - Yat Uygulaması">IOTROCOP Marin - Yacht App</h3>
                     
@@ -358,26 +387,26 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
                     <a href="https://slender-forsythia-e75.notion.site/IOTROCOP-Marin-240883fb9e35803ca422c3cb6dab7bf9?source=copy_link" target="_blank" class="btn-get-started" data-en="View Details" data-ar="عرض التفاصيل" data-tr="Detayları Görüntüle">View Details <i class="ph ph-arrow-square-out"></i></a>
                     
                     <div class="project-images-grid">
-                        <img src="assets/marin0.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin1.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin2.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin3.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin4.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin5.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin6.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin7.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin8.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin9.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin10.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin11.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin12.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin13.png" alt="IOTROCOP Screenshot" class="card">
-                        <img src="assets/marin14.png" alt="IOTROCOP Screenshot" class="card">
+                        <img src="assets/marin0.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin1.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin2.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin3.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin4.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin5.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin6.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin7.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin8.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin9.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin10.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin11.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin12.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin13.png" alt="IOTROCOP Screenshot">
+                        <img src="assets/marin14.png" alt="IOTROCOP Screenshot">
                     </div>
                 </div>
                 
                 <!-- Project 6: Autonomous AI Drone System -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.6">
+                <div class="resource-item card" data-animation="fadeIn" data-delay="0.6" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-drone"></i>
                     
                     <h3 
@@ -417,11 +446,11 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
                         <strong>Tech:</strong> Computer Vision • Autonomous Navigation • RTK-GNSS • Multi-Sensor Fusion • Embedded Systems
                     </p>
                     
-                    <a href="https://youtube.com/shorts/ygoqMg5XZ6c?si=OpD38a5luVzEOu1-" target="_blank" class="btn-get-started" data-en="Watch Demo" data-ar="شاهد العرض" data-tr="Demoyu İzle">Watch Demo <i class="ph ph-arrow-square-out"></i></a>
+                    <a href="https://youtu.be/PXxgTgSYX7Y?si=QWy87PHnSKmxxOLe" target="_blank" class="btn-get-started" data-en="Watch Demo" data-ar="شاهد العرض" data-tr="Demoyu İzle">Watch Demo <i class="ph ph-arrow-square-out"></i></a>
                 </div>
                 
                 <!-- Project 7: MinibusCRM -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.7">
+                <div class="resource-item card" data-animation="fadeIn" data-delay="0.7" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-bus"></i>
                     
                     <h3 
@@ -473,13 +502,312 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
 
         </section>
         
+        <!-- Featured Video Section -->
+        <section class="featured-video-section content" data-animation="fadeIn" data-delay="0.2">
+            <h2 class="section-title" data-en="Drone In Action" data-ar="الدرون في العمل" data-tr="İş Başında Drone">Drone In Action</h2>
+            
+            <p class="description" data-en="Real-time autonomous flight tests demonstrating manual and autonomous flight control capabilities." 
+               data-ar="اختبارات الطيران المستقل في الوقت الفعلي تظهر قدرات التحكم اليدوي والمستقل بالطيران." 
+               data-tr="Manuel ve otonom uçuş kontrol yeteneklerini gösteren gerçek zamanlı otonom uçuş testleri.">
+                Real-time autonomous flight tests demonstrating manual and autonomous flight control capabilities.
+            </p>
+            
+            <div class="video-grid">
+                <!-- Video 1: Joystick Control -->
+                <div class="premium-video-card">
+                    <div class="video-facade" onclick="loadVideo(this, 'PXxgTgSYX7Y')">
+                        <img src="https://img.youtube.com/vi/PXxgTgSYX7Y/maxresdefault.jpg" alt="Live Joystick & Throttle Control" class="thumbnail">
+                        <div class="play-overlay">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="video-title" data-en="Live Joystick & Throttle Control" data-ar="التحكم الحي بالجويستيك والثروتل" data-tr="Canlı Joystick ve Gaz Kontrolü">Live Joystick & Throttle Control</p>
+                </div>
+
+                <!-- Video 2: Manual Flight & Real-Time Actuation -->
+                <div class="premium-video-card">
+                    <div class="video-facade" onclick="loadVideo(this, 'PNgwfYJ0n6g')">
+                        <img src="https://img.youtube.com/vi/PNgwfYJ0n6g/maxresdefault.jpg" alt="Manual Flight & Real-Time Actuation" class="thumbnail">
+                        <div class="play-overlay">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="video-title" data-en="Manual Flight & Real-Time Actuation" data-ar="الطيران اليدوي والتفعيل الحقيقي" data-tr="Manuel Uçuş ve Gerçek Zamanlı Aktüasyon">Manual Flight & Real-Time Actuation</p>
+                </div>
+
+                <!-- Video 3: Indoor System Validation -->
+                <div class="premium-video-card">
+                    <div class="video-facade" onclick="loadVideo(this, 'y0WCCdwhtbY')">
+                        <img src="https://img.youtube.com/vi/y0WCCdwhtbY/maxresdefault.jpg" alt="Indoor System Validation" class="thumbnail">
+                        <div class="play-overlay">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="video-title" data-en="Indoor System Validation" data-ar="التحقق من النظام داخل المكتب" data-tr="İç Mekan Sistem Doğrulaması">Indoor System Validation</p>
+                </div>
+
+                <!-- Video 4: Manual Takeoff & Stable Hover -->
+                <div class="premium-video-card">
+                    <div class="video-facade" onclick="loadVideo(this, 'k9V0ieSYL88')">
+                        <img src="https://img.youtube.com/vi/k9V0ieSYL88/maxresdefault.jpg" alt="Manual Takeoff & Stable Hover" class="thumbnail">
+                        <div class="play-overlay">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="video-title" data-en="Manual Takeoff & Stable Hover" data-ar="الإقلاع اليدوي والثبات في الجو" data-tr="Manuel Kalkış ve İstikrarlı Hover">Manual Takeoff & Stable Hover</p>
+                </div>
+
+                <!-- Video 5: Fully Autonomous Takeoff & Hover -->
+                <div class="premium-video-card">
+                    <div class="video-facade" onclick="loadVideo(this, 'ygoqMg5XZ6c')">
+                        <img src="https://img.youtube.com/vi/ygoqMg5XZ6c/maxresdefault.jpg" alt="Fully Autonomous Takeoff & Hover" class="thumbnail">
+                        <div class="play-overlay">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="video-title" data-en="Fully Autonomous Takeoff & Hover" data-ar="الإقلاع المستقل الكامل والثبات" data-tr="Tam Otonom Kalkış ve Hover">Fully Autonomous Takeoff & Hover</p>
+                </div>
+
+                <!-- Video 6: From Manual Control to Full Automation (FPV Drone) -->
+                <div class="premium-video-card">
+                    <div class="video-facade" onclick="loadVideo(this, 'EE52iLK9Y8M')">
+                        <img src="https://img.youtube.com/vi/EE52iLK9Y8M/maxresdefault.jpg" alt="From Manual Control to Full Automation" class="thumbnail">
+                        <div class="play-overlay">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="video-title" data-en="From Manual Control to Full Automation" data-ar="من التحكم اليدوي إلى الأتمتة الكاملة" data-tr="Manuel Kontrolden Tam Otomasyona">From Manual Control to Full Automation</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- AI in Action Section -->
+        <section class="featured-video-section content" data-animation="fadeIn" data-delay="0.2">
+            <h2 class="section-title" data-en="AI in Action" data-ar="الذكاء الاصطناعي في العمل" data-tr="AI İş Başında">AI in Action</h2>
+            
+            <p class="description" data-en="Custom AI models I trained from scratch — demonstrating real-world machine learning in production systems." 
+               data-ar="نماذج ذكاء اصطناعي مخصصة دربتها من الصفر — توضح تطبيق التعلم الآلي في الأنظمة الحقيقية." 
+               data-tr="Sıfırdan eğittim özel AI modelleri — gerçek dünya makine öğrenimini üretim sistemlerinde gösteriyor.">
+                Custom AI models I trained from scratch — demonstrating real-world machine learning in production systems.
+            </p>
+            
+            <div class="video-grid">
+                <!-- Video: YShop AI Demo - STT & LLM -->
+                <div class="premium-video-card">
+                    <div style="position: relative; margin-bottom: 0.5rem;">
+                        <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">YSHOP</span>
+                    </div>
+                    <div class="video-facade" onclick="loadVideo(this, '5tWGJeg-cWQ')">
+                        <img src="https://img.youtube.com/vi/5tWGJeg-cWQ/maxresdefault.jpg" alt="YShop AI Demo" class="thumbnail">
+                        <div class="play-overlay">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="video-title" data-en="No Search Bar. No Filters. Just Talk." data-ar="لا شريط بحث. بلا فلاتر. فقط تحدث" data-tr="Arama Çubuğu Yok. Filtre Yok. Sadece Konuş.">No Search Bar. No Filters. Just Talk.</p>
+                </div>
+
+                <!-- Video: NOOTA AI Voice Translation -->
+                <div class="premium-video-card">
+                    <div style="position: relative; margin-bottom: 0.5rem;">
+                        <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">NOOTA</span>
+                    </div>
+                    <div class="video-facade" onclick="loadVideo(this, '37KYB2-55Kk')">
+                        <img src="https://img.youtube.com/vi/37KYB2-55Kk/maxresdefault.jpg" alt="NOOTA AI Voice Translation" class="thumbnail">
+                        <div class="play-overlay">
+                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="video-title" data-en="One Voice, Every Language" data-ar="صوت واحد، كل اللغات" data-tr="Bir Ses, Her Dil">One Voice, Every Language</p>
+                </div>
+            </div>
+            
+            <!-- YSHOP Delivery & Logistics Subsection -->
+            <div style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
+                <h3 data-en="YSHOP — Intelligent Logistics & Real-Time Delivery" data-ar="YSHOP — الخدمات اللوجستية الذكية والتسليم الفوري" data-tr="YSHOP — Akıllı Lojistik ve Gerçek Zamanlı Teslimat">YSHOP — Intelligent Logistics & Real-Time Delivery</h3>
+                
+                <p style="margin-top: 1rem; line-height: 1.6; color: var(--text-color);" data-en="Advanced delivery system with live map integration, adaptive courier workflows, and real-time synchronization across customer, store, and admin dashboards. Every delivery step—from navigation to secure handover—is automated and continuously synced."
+                   data-ar="نظام توصيل متقدم مع خريطة حية وسهلة الاستخدام. الرسول يرى الطريق والمسافة والعملاء والمتجر والمسؤول كلهم يشوفون موقعه في نفس الوقت. كل شي مضبوط وتلقائي من البداية للنهاية."
+                   data-tr="Canlı harita entegrasyonu, uyumlu kurye iş akışları ve müşteri, mağaza ve yönetici panellerinde gerçek zamanlı senkronizasyon ile gelişmiş teslimat sistemi. Her teslimat adımı otomatikleştirilir.">
+                    Advanced delivery system with live map integration, adaptive courier workflows, and real-time synchronization across customer, store, and admin dashboards.
+                </p>
+                
+                <div class="video-grid" style="margin-top: 2rem;">
+                    <!-- Delivery Video 1: Navigation & QR Pickup -->
+                    <div class="premium-video-card">
+                        <div style="position: relative; margin-bottom: 0.5rem;">
+                            <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">YSHOP</span>
+                        </div>
+                        <div class="video-facade" onclick="loadVideo(this, '80miH6PeC-4')">
+                            <img src="https://img.youtube.com/vi/80miH6PeC-4/maxresdefault.jpg" alt="YSHOP Delivery Navigation" class="thumbnail">
+                            <div class="play-overlay">
+                                <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="video-title" data-en="Real-Time Delivery Navigation with Adaptive Workflow & QR Verification" data-ar="الملاحة الفورية مع سير عمل قابل للتكيف والتحقق برمز QR" data-tr="Gerçek Zamanlı Teslimat Navigasyonu ve Uyumlu İş Akışı & QR Doğrulama">Real-Time Delivery Navigation with Adaptive Workflow & QR Verification</p>
+                    </div>
+
+                    <!-- Delivery Video 2: Multi-View Tracking & Live Sync -->
+                    <div class="premium-video-card">
+                        <div style="position: relative; margin-bottom: 0.5rem;">
+                            <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">YSHOP</span>
+                        </div>
+                        <div class="video-facade" onclick="loadVideo(this, 'zFJkywuC9EM')">
+                            <img src="https://img.youtube.com/vi/zFJkywuC9EM/maxresdefault.jpg" alt="YSHOP Courier Navigation" class="thumbnail">
+                            <div class="play-overlay">
+                                <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="video-title" data-en="Multi-View Tracking & Live System Sync Across Dashboards" data-ar="تتبع متعدد الآراء والمزامنة الحية عبر لوحات التحكم" data-tr="Çoklu Görüntü Takibi ve Panolar Arasında Canlı Sistem Senkronizasyonu">Multi-View Tracking & Live System Sync Across Dashboards</p>
+                    </div>
+
+                    <!-- Delivery Video 3: Final Handover & Completion -->
+                    <div class="premium-video-card">
+                        <div style="position: relative; margin-bottom: 0.5rem;">
+                            <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">YSHOP</span>
+                        </div>
+                        <div class="video-facade" onclick="loadVideo(this, 'ydj1ZET5sC0')">
+                            <img src="https://img.youtube.com/vi/ydj1ZET5sC0/maxresdefault.jpg" alt="YSHOP Delivery Completion" class="thumbnail">
+                            <div class="play-overlay">
+                                <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="video-title" data-en="Last-Mile Arrival & Secure Handover with Proximity Verification" data-ar="وصول آخر ميل والتسليم الآمن مع التحقق من القرب" data-tr="Son Mile Varışı ve Yakınlık Doğrulaması ile Güvenli El Değiştirme">Last-Mile Arrival & Secure Handover with Proximity Verification</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem; padding: 2rem; background: rgba(76, 134, 175, 0.05); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
+                <h3 data-en="How Custom AI Models Work" data-ar="كيفية عمل نماذج الذكاء الاصطناعي المخصصة" data-tr="Özel AI Modelleri Nasıl Çalışır">How Custom AI Models Work</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div style="padding: 1.5rem; background: rgba(76, 134, 175, 0.05); border-radius: 8px;">
+                        <h4 data-en="Speech-to-Text Model (STT)" data-ar="نموذج تحويل الكلام إلى نص" data-tr="Konuş-Metin Modeli (STT)" style="margin-bottom: 0.5rem;">Speech-to-Text Model (STT)</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">
+                            <span data-en="1.8B parameters • Transformer encoder" data-ar="1.8 مليار معامل • مشفر تحويلي" data-tr="1,8 milyar parametre • Transformer encoder">1.8B parameters • Transformer encoder</span><br>
+                            <span data-en="LoRA r16/a32 fine-tuning" data-ar="ضبط LoRA r16/a32" data-tr="LoRA r16/a32 ince ayarı">LoRA r16/a32 fine-tuning</span><br>
+                            <span data-en="Trained on ~480h of audio" data-ar="مدرب على ~480 ساعة صوت" data-tr="~480 saat ses ile eğitilmiş">Trained on ~480h of audio</span><br>
+                            <span data-en="Inference: ~320ms" data-ar="الاستدلال: ~320 ميلي ثانية" data-tr="Çıkarım: ~320ms">Inference: ~320ms</span>
+                        </p>
+                    </div>
+                    
+                    <div style="padding: 1.5rem; background: rgba(76, 134, 175, 0.05); border-radius: 8px;">
+                        <h4 data-en="Language Model (LLM)" data-ar="نموذج اللغة" data-tr="Dil Modeli (LLM)" style="margin-bottom: 0.5rem;">Language Model (LLM)</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">
+                            <span data-en="3.4B parameters • 28-layer decoder" data-ar="3.4 مليار معامل • فاك 28 طبقة" data-tr="3,4 milyar parametre • 28 katmanlı çözücü">3.4B parameters • 28-layer decoder</span><br>
+                            <span data-en="GQA + RoPE architecture" data-ar="معمارية GQA + RoPE" data-tr="GQA + RoPE mimarisi">GQA + RoPE architecture</span><br>
+                            <span data-en="LoRA r32/a64 fine-tuning" data-ar="ضبط LoRA r32/a64" data-tr="LoRA r32/a64 ince ayarı">LoRA r32/a64 fine-tuning</span><br>
+                            <span data-en="120K+ commerce conversations" data-ar="120K+ محادثات تجارية" data-tr="120K+ ticaret konuşması">120K+ commerce conversations</span>
+                        </p>
+                    </div>
+                    
+                    <div style="padding: 1.5rem; background: rgba(76, 134, 175, 0.05); border-radius: 8px;">
+                        <h4 data-en="Product Verification (CNN)" data-ar="التحقق من المنتج" data-tr="Ürün Doğrulama (CNN)" style="margin-bottom: 0.5rem;">Product Verification (CNN)</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">
+                            <span data-en="ResNet-50 architecture" data-ar="معمارية ResNet-50" data-tr="ResNet-50 mimarisi">ResNet-50 architecture</span><br>
+                            <span data-en="94.3% accuracy" data-ar="94.3٪ دقة" data-tr="%94,3 doğruluk">94.3% accuracy</span><br>
+                            <span data-en="Trained on 15K+ images" data-ar="مدرب على 15K+ صورة" data-tr="15K+ görüntü ile eğitilmiş">Trained on 15K+ images</span><br>
+                            <span data-en="Real-time inference" data-ar="الاستدلال الفوري" data-tr="Gerçek zamanlı çıkarım">Real-time inference</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(76, 134, 175, 0.1);">
+                    <p data-en="Status: Under active development. Multi-turn memory, Arabic support, and lower latency optimizations in progress." 
+                       data-ar="الحالة: قيد التطوير النشط. التحسينات جاري العمل عليها: دعم ذاكرة متعددة الأدوار والعربية وخفض التأخير." 
+                       data-tr="Durum: Aktif geliştirme altında. Çok turlu bellek, Arapça desteği ve daha düşük gecikme optimizasyonları devam ediyor.">
+                        Status: Under active development. Multi-turn memory, Arabic support, and lower latency optimizations in progress.
+                    </p>
+                </div>
+                
+                <!-- NOOTA Section -->
+                <div style="margin-top: 2rem; padding: 2rem; background: rgba(100, 150, 200, 0.08); border: 1px solid rgba(100, 150, 200, 0.15); border-radius: 12px;">
+                    <h3 data-en="NOOTA — Multilingual Voice Communication" data-ar="NOOTA — الاتصال الصوتي متعدد اللغات" data-tr="NOOTA — Çok Dilli Ses İletişimi">NOOTA — Multilingual Voice Communication</h3>
+                    
+                    <p style="margin-top: 1rem; line-height: 1.6;" data-en="Real-time translation platform where speakers maintain their original voice across different languages. Built with custom voice synthesis architecture through extensive experimentation across 50,000+ optimization iterations. Voice model achieves consistent clarity, stability, and natural multilingual expression." 
+                       data-ar="منصة ترجمة فورية يحتفظ فيها المتحدثون بأصواتهم الأصلية عبر لغات مختلفة. تم بناؤها بمعمارية تجميع الصوت المخصصة من خلال تجارب شاملة عبر 50,000+ تكرار تحسين. النموذج يحقق وضوحاً ثابتاً واستقراراً وتعبيراً طبيعياً متعدد اللغات." 
+                       data-tr="Konuşmacıların orijinal seslerini farklı diller arasında koruyarak gerçek zamanlı çeviri platformu. Özel ses sentezi mimarisi ile 50,000+ optimizasyon iterasyonunda kapsamlı deneyler yoluyla oluşturulmuştur. Model tutarlı netlik, stabilite ve doğal çok dilli ekspresyon sağlar.">
+                        Real-time translation platform where speakers maintain their original voice across different languages. Built with custom voice synthesis architecture through extensive optimization iterations.
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                        <div>
+                            <strong data-en="Mobile Frontend" data-ar="الواجهة الأمامية للهاتف" data-tr="Mobil Arayüzü">Mobile Frontend</strong>
+                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Swift • SwiftUI</p>
+                        </div>
+                        <div>
+                            <strong data-en="Backend API" data-ar="خادم الواجهة" data-tr="Arka Uç API'si">Backend API</strong>
+                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Node.js • Express.js</p>
+                        </div>
+                        <div>
+                            <strong data-en="Voice Engine" data-ar="محرك الصوت" data-tr="Ses Motoru">Voice Engine</strong>
+                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Python • Flask • GPU</p>
+                        </div>
+                        <div>
+                            <strong data-en="Infrastructure" data-ar="الخدمات الأساسية" data-tr="Altyapı">Infrastructure</strong>
+                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Firebase • GPU Servers</p>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #999;" data-en="Status: Under active development. Preparing for deployment on high-performance GPU infrastructure for production-ready real-time performance." 
+                       data-ar="الحالة: قيد التطوير النشط. التحضير للنشر على بنية تحتية قوية من GPU لأداء فوري جاهز للإنتاج." 
+                       data-tr="Durum: Aktif geliştirme altında. Üretim hazır gerçek zamanlı performans için yüksek performanslı GPU altyapısına dağıtım hazırlanıyor.">
+                        Status: Under active development. Preparing for deployment on high-performance GPU infrastructure for production-ready real-time performance.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
         <!-- Experience Section -->
         <section id="experience" class="experience-section content" data-animation="fadeIn" data-delay="0.2">
             <h2 class="section-title" data-en="Work Experience" data-ar="الخبرة العملية" data-tr="İş Deneyimi">Work Experience</h2>
             
             <div class="docs-grid">
+                <!-- Job 0: Al Mutlaq United Company -->
+                <div class="doc-item card full-width-experience" data-animation="fadeIn" data-delay="0.2" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
+                    <i class="ph ph-briefcase"></i>
+                    <h3 data-en="IoT & Machine Learning Researcher / Developer" data-ar="باحث ومطور إنترنت الأشياء والتعلم الآلي" data-tr="IoT & Makine Öğrenimi Araştırmacısı / Geliştirici">IoT & Machine Learning Researcher / Developer</h3>
+                    <p class="company-name" data-en="Al Mutlaq United Company · Part-time | Sep 2024 - Present" data-ar="Al Mutlaq United Company · بدوام جزئي | سبتمبر 2024 - حتى الآن" data-tr="Al Mutlaq United Company · Yarı Zamanlı | Eylül 2024 - Halen">Al Mutlaq United Company · Part-time | Sep 2024 - Present</p>
+                    <p data-en="Istanbul, Türkiye · Remote" data-ar="اسطنبول، تركيا · عن بُعد" data-tr="İstanbul, Türkiye · Uzaktan">Istanbul, Türkiye · Remote</p>
+                    
+                    <p style="margin-top: 1rem; line-height: 1.6;" data-en="Built real-time physiological stress monitoring system with IoT sensors, automated data pipeline, and AI-powered annotations. Created web-based workflow automation syncing sensor data with video recordings. Integrated vision-based AI for behavioral annotation and dataset validation. Research outcomes planned for BIODEVICES 2026."
+
+                    data-ar="بنيت نظام مراقبة إجهاد فسيولوجي في الوقت الفعلي مع مستشعرات IoT وأنابيب بيانات آلية وتعليقات بقوة الذكاء الاصطناعي. أنشأت أتمتة سير عمل قائم على الويب يزامن بيانات المستشعرات مع تسجيلات الفيديو. دمجت الذكاء الاصطناعي القائم على الرؤية لتعليق السلوك والتحقق من صحة مجموعة البيانات. نتائج البحث مخطط لعرضها في BIODEVICES 2026."
+
+                    data-tr="IoT sensörleri, otomatik veri işlem hattı ve yapay zeka destekli ek açıklamalar ile gerçek zamanlı fizyolojik stres izleme sistemi geliştirdim. Sensör verilerini video kayıtlarıyla senkronize eden web tabanlı iş akışı otomasyonu oluşturdum. Davranış açıklaması ve veri seti doğrulaması için görüş tabanlı yapay zeka entegre ettim. Araştırma sonuçları BIODEVICES 2026'da sunulmak üzere planlandı.">
+                    Built real-time physiological stress monitoring system with IoT sensors, automated data pipeline, and AI-powered annotations. Created web-based workflow automation syncing sensor data with video recordings. Integrated vision-based AI for behavioral annotation and dataset validation.
+                    </p>
+                    
+                    <p class="project-tech">
+                        <strong>Tech:</strong> IoT • Embedded Systems • Python • Data Science • Computer Vision • TensorFlow • Web Development
+                    </p>
+                    
+                    <a href="https://github.com/Alansi775/GSR-COSSINUS_VOLUNTEERS_DATA_FOR_ML/tree/main" target="_blank" class="btn-get-started" data-en="View Dataset & Code" data-ar="عرض مجموعة البيانات والكود" data-tr="Veri Setini ve Kodu Görüntüle">View Dataset & Code <i class="ph ph-arrow-square-out"></i></a>
+                </div>
+                
                 <!-- Job 1 -->
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.3">
+                <div class="doc-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-briefcase"></i>
                     <h3 data-en="AI & Embedded Systems Engineer" data-ar="مهندس الذكاء الاصطناعي والأنظمة المدمجة" data-tr="Yapay Zeka ve Gömülü Sistemler Mühendisi">AI & Embedded Systems Engineer</h3>
                     <p class="company-name" data-en="IOTROCOP Technology | Sep 2024 - Present" data-ar="IOTROCOP Technology | سبتمبر 2024 - حتى الآن" data-tr="IOTROCOP Technology | Eylül 2024 - Halen">IOTROCOP Technology | Sep 2024 - Present</p>
@@ -492,10 +820,10 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
                 </div>
                 
                 <!-- Job 2 -->
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.4">
+                <div class="doc-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-briefcase"></i>
                     <h3 data-en="AI-Driven IoT Systems Engineer" data-ar="مهندس أنظمة إنترنت الأشياء المدعومة بالذكاء الاصطناعي" data-tr="Yapay Zeka Destekli IoT Sistemleri Mühendisi">AI-Driven IoT Systems Engineer</h3>
-                    <p class="company-name" data-en="EZLAB Technology | Feb 2023 - Present" data-ar="EZLAB Technology | فبراير 2023 - حتى الآن" data-tr="EZLAB Technology | Şubat 2023 - Halen">EZLAB Technology | Feb 2023 - Present</p>
+                    <p class="company-name" data-en="LAB CIHAZLARI Technology | Feb 2023 - Present" data-ar="LAB CIHAZLARI Technology | فبراير 2023 - حتى الآن" data-tr="LAB CIHAZLARI Technology | Şubat 2023 - Halen">LAB CIHAZLARI Technology | Feb 2023 - Present</p>
                     <ul>
                         <li data-en="Built an IoT control system for biological safety cabinets using STM32 and ESP8266" data-ar="بنيت نظام تحكم IoT لخزانات السلامة البيولوجية باستخدام STM32 و ESP8266" data-tr="STM32 ve ESP8266 kullanarak biyolojik güvenlik kabinleri için IoT kontrol sistemi geliştirdim">Built an IoT control system for biological safety cabinets using STM32 and ESP8266</li>
                         <li data-en="Created Flutter apps and websites with offline control capability" data-ar="أنشأت تطبيقات Flutter ومواقع ويب تعمل بدون إنترنت" data-tr="Çevrimdışı kontrol özelliğine sahip Flutter uygulamaları ve web siteleri oluşturdum">Created Flutter apps and websites with offline control capability</li>
@@ -505,7 +833,7 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
                 </div>
                 
                 <!-- Job 3 -->
-                <div class="doc-item card full-width-experience" data-animation="fadeIn" data-delay="0.5">
+                <div class="doc-item card full-width-experience" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-briefcase"></i>
                     <h3 data-en="AI & Smart Systems Engineer" data-ar="مهندس الذكاء الاصطناعي والأنظمة الذكية" data-tr="Yapay Zeka ve Akıllı Sistemler Mühendisi">AI & Smart Systems Engineer</h3>
                     <p class="company-name" data-en="OKATAN ARGE | Sep 2024 - Feb 2025" data-ar="OKATAN ARGE | سبتمبر 2024 - فبراير 2025" data-tr="OKATAN ARGE | Eylül 2024 - Şubat 2025">OKATAN ARGE | Sep 2024 - Feb 2025</p>
@@ -523,7 +851,7 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
             <h2 class="section-title" data-en="Education" data-ar="التعليم" data-tr="Eğitim">Education</h2>
             
             <div class="docs-grid">
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.3">
+                <div class="doc-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-graduation-cap"></i>
                     <h3 data-en="Bachelor of Software Development" data-ar="بكالوريوس تطوير البرمجيات" data-tr="Yazılım Geliştirme Lisans">Bachelor of Software Development</h3>
                     <p class="company-name" data-en="Istanbul Aydin University" data-ar="جامعة اسطنبول أيدين" data-tr="İstanbul Aydın Üniversitesi">Istanbul Aydin University</p>
@@ -537,17 +865,17 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
             <h2 class="section-title" data-en="Languages" data-ar="اللغات" data-tr="Diller">Languages</h2>
             
             <div class="docs-grid">
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.3">
+                <div class="doc-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-globe-hemisphere-east"></i>
                     <h3 data-en="Arabic" data-ar="العربية" data-tr="Arapça">Arabic</h3>
                     <p data-en="Native" data-ar="اللغة الأم" data-tr="Anadil">Native</p>
                 </div>
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.4">
+                <div class="doc-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-globe-hemisphere-east"></i>
                     <h3 data-en="English" data-ar="الإنجليزية" data-tr="İngilizce">English</h3>
                     <p data-en="Fluent" data-ar="طلاقة" data-tr="Akıcı">Fluent</p>
                 </div>
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.5">
+                <div class="doc-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <i class="ph ph-globe-hemisphere-east"></i>
                     <h3 data-en="Turkish" data-ar="التركية" data-tr="Türkçe">Turkish</h3>
                     <p data-en="Intermediate" data-ar="متوسط" data-tr="Orta">Intermediate</p>
@@ -566,24 +894,24 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
             </p>
             
             <div class="contact-info-grid">
-                <div class="contact-item card" data-animation="fadeIn" data-delay="0.3">
+                <div class="contact-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <div class="icon-wrapper-small"><i class="ph ph-phone"></i></div>
                     <h3 data-en="Phone" data-ar="الهاتف" data-tr="Telefon">Phone</h3>
                     <p><a href="tel:+905392554609"><bdi>+90 539 255 46 09</bdi></a></p>
                 </div>
-                <div class="contact-item card" data-animation="fadeIn" data-delay="0.4">
+                <div class="contact-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <div class="icon-wrapper-small"><i class="ph ph-envelope"></i></div>
                     <h3 data-en="Email" data-ar="البريد الإلكتروني" data-tr="E-posta">Email</h3>
                     <p><a href="mailto:mohamedalezzi6@gmail.com">mohamedalezzi6@gmail.com</a></p>
                 </div>
-                <div class="contact-item card" data-animation="fadeIn" data-delay="0.5">
+                <div class="contact-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                     <div class="icon-wrapper-small"><i class="ph ph-map-pin"></i></div>
                     <h3 data-en="Location" data-ar="الموقع" data-tr="Konum">Location</h3>
                     <p data-en="Avcilar, Istanbul" data-ar="أفجلار، اسطنبول" data-tr="Avcılar, İstanbul">Avcilar, Istanbul</p>
                 </div>
             </div>
 
-            <form id="contact-form" class="contact-form" data-animation="fadeIn" data-delay="0.6">
+            <form id="contact-form" class="contact-form" data-animation="fadeIn" data-delay="0.6" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
                 <h3 class="section-subtitle" data-en="Send a Message" data-ar="أرسل رسالة" data-tr="Mesaj Gönderin">Send a Message</h3>
                 
                 <div id="form-success-msg" style="display:none; color: #4c86af; margin-bottom: 2rem; margin-top: 2.5rem; padding: 2rem; background-color: rgba(76, 134, 175, 0.1); border-radius: 8px; text-align: center;">
@@ -663,6 +991,26 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
     <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
     <script src="script.js" defer></script>
+    
+    <!-- Video Loader Function for Custom Facade -->
+    <script>
+        function loadVideo(element, videoId) {
+            // بناء رابط يوتيوب مع إخفاء العناصر المزعجة وتفعيل التشغيل التلقائي
+            const iframeUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&showinfo=0`;
+            
+            // إنشاء عنصر iframe
+            const iframe = document.createElement('iframe');
+            iframe.setAttribute('src', iframeUrl);
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', 'true');
+            
+            // تفريغ الغلاف المخصص ووضع الـ iframe مكانه
+            element.innerHTML = '';
+            element.appendChild(iframe);
+            element.style.cursor = 'default'; // إزالة مؤشر الضغط بعد التحميل
+        }
+    </script>
 
 </body>
 </html>

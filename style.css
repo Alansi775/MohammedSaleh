@@ -609,8 +609,8 @@ body.light-mode .badge:hover {
     gap: 1rem;
     margin-top: 1.5rem;
     padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    background-color: transparent;
+    border-radius: 0;
 }
 
 .project-images-grid img {
@@ -1419,8 +1419,115 @@ body.ar .chatbot-modal.expanded {
 }
 
 /* ========================================
-   RESPONSIVE DESIGN
+   CUSTOM VIDEO FACADE (Glassmorphism Pattern)
 ======================================== */
+
+/* إعدادات الشبكة */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+/* حاوية الفيديو */
+.premium-video-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.premium-video-card:hover {
+    transform: translateY(-5px);
+}
+
+/* الغلاف المخصص */
+.video-facade {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    background-color: #111;
+}
+
+/* الصورة المصغرة */
+.video-facade .thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+.video-facade:hover .thumbnail {
+    transform: scale(1.05);
+    filter: brightness(0.7);
+}
+
+/* زر التشغيل الزجاجي */
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.video-facade:hover .play-overlay {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.play-icon {
+    width: 24px;
+    height: 24px;
+    color: white;
+    margin-left: 4px;
+    transition: color 0.3s ease;
+}
+
+.video-facade:hover .play-icon {
+    color: #000;
+}
+
+/* تنسيق مشغل يوتيوب الفعلي */
+.video-facade iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    border: none;
+}
+
+/* عنوان الفيديو */
+.video-title {
+    margin-top: 1.2rem;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+      color: var(--text-color);
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
+  }
+  
+  .premium-video-card:hover .video-title {
+      color: var(--text-color);
 
 /* Large Screens */
 @media (max-width: 1200px) {
@@ -1790,3 +1897,4 @@ body.ar .chatbot-modal.expanded {
         right: auto !important;
     }
 }
+
