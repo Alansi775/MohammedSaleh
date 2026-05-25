@@ -203,6 +203,8 @@ nav {
     gap: 1.5rem;
     flex-grow: 1;
     justify-content: center;
+    flex-wrap: wrap;
+    max-width: 100%;
 }
 
 nav a {
@@ -1526,8 +1528,9 @@ body.ar .chatbot-modal.expanded {
       transition: color 0.3s ease;
   }
   
-  .premium-video-card:hover .video-title {
-      color: var(--text-color);
+.video-title:hover {
+    color: var(--accent-color);
+}
 
 /* Large Screens */
 @media (max-width: 1200px) {
@@ -1719,8 +1722,10 @@ body.ar .chatbot-modal.expanded {
 /* Mobile */
 @media (max-width: 480px) {
     header {
-        padding: 0.8rem 3vw;
+        padding: 0.8rem 1.2rem;
         gap: 0.6rem;
+        flex-wrap: wrap;
+        justify-content: center;
     }
     
     header h1 { 
@@ -1729,14 +1734,18 @@ body.ar .chatbot-modal.expanded {
     }
     
     nav {
-        gap: 0.4rem;
-        margin: 0.2rem 0;
+        gap: 0.5rem;
+        margin: 0.3rem 0;
+        flex-wrap: wrap;
+        order: 3;
+        width: 100%;
+        justify-content: center;
     }
-    
+
     nav a {
-        font-size: 0.75rem;
-        padding: 0.2rem 0.3rem;
-    }
+        font-size: 0.78rem;
+        padding: 0.3rem 0.4rem;
+        white-space: nowrap;
     
     .header-actions {
         gap: 0.5rem;
@@ -1791,7 +1800,8 @@ body.ar .chatbot-modal.expanded {
     }
     
     .content {
-        padding: 0 1rem;
+        padding: 0 1.2rem;
+        max-width: 100%;
     }
     
     .section-title { 
@@ -1834,8 +1844,13 @@ body.ar .chatbot-modal.expanded {
     
     .project-images-grid {
         grid-template-columns: 1fr;
-        gap: 0.6rem;
-        padding: 0.6rem;
+        gap: 0.8rem;
+        padding: 0.8rem;
+        margin-top: 1rem;
+    }
+    
+    .project-images-grid img {
+        max-height: 180px;
     }
     
     #languages .docs-grid {
@@ -1897,4 +1912,4 @@ body.ar .chatbot-modal.expanded {
         right: auto !important;
     }
 }
-
+}
