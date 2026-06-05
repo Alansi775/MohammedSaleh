@@ -695,45 +695,62 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Add validation to form submission - STRICT
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
         const name = nameInput.value.trim();
         const email = emailInput.value.trim();
         const message = messageInput.value.trim();
 
-        // Validate all fields are filled - MUST ALL BE FILLED
         if (!name) {
-            e.preventDefault();
             showValidationError('nameRequired');
             nameInput.focus();
-            return false;
+            return;
         }
         if (!email) {
-            e.preventDefault();
             showValidationError('emailRequired');
             emailInput.focus();
-            return false;
+            return;
         }
         if (!email.includes('@') || !email.includes('.')) {
-            e.preventDefault();
             showValidationError('emailInvalid');
             emailInput.focus();
-            return false;
+            return;
         }
         if (!message) {
-            e.preventDefault();
             showValidationError('messageRequired');
             messageInput.focus();
-            return false;
+            return;
         }
-        
-        // All validation passed - Allow Formspree to handle the submission
-        // Show success message after a short delay to ensure Formspree processes it
-        setTimeout(() => {
-            showSuccessMessage();
-        }, 800);
-        
-        // Return true to allow form submission (Formspree will handle it)
-        return true;
-    }, true); // Use capture phase to ensure this runs before Formspree's listener
+
+        const submitBtn = contactForm.querySelector('[type="submit"]');
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch('https://formspree.io/f/xykbdevr', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: new FormData(contactForm)
+            });
+
+            if (response.ok) {
+                showSuccessMessage();
+            } else {
+                const currentLang = localStorage.getItem('selectedLang') || 'en';
+                const errMsgs = { en: 'Something went wrong. Please try again.', ar: 'حدث خطأ. يرجى المحاولة مرة أخرى.', tr: 'Bir hata oluştu. Lütfen tekrar deneyin.' };
+                errorMessage.textContent = errMsgs[currentLang] || errMsgs.en;
+                errorMessage.style.display = 'block';
+                setTimeout(() => { errorMessage.style.display = 'none'; }, 4000);
+            }
+        } catch {
+            const currentLang = localStorage.getItem('selectedLang') || 'en';
+            const errMsgs = { en: 'Network error. Please try again.', ar: 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.', tr: 'Ağ hatası. Lütfen tekrar deneyin.' };
+            errorMessage.textContent = errMsgs[currentLang] || errMsgs.en;
+            errorMessage.style.display = 'block';
+            setTimeout(() => { errorMessage.style.display = 'none'; }, 4000);
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
 
 });
