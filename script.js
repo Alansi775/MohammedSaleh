@@ -373,31 +373,105 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'en';
     }
 
-    // Typing effect for AI responses
+    // Markdown → HTML renderer for AI responses
+    function parseMarkdown(text) {
+        const extractedLinks = [];
+
+        // Extract markdown links [label](url) before HTML escaping
+        let safe = text.replace(/\[([^\]]+)\]\(((?:https?|mailto)[^)]+)\)/g, (_, label, url) => {
+            const i = extractedLinks.length;
+            const isMailto = url.startsWith('mailto:');
+            extractedLinks.push(
+                `<a href="${url}"${isMailto ? '' : ' target="_blank" rel="noopener noreferrer"'} class="chat-link">${label}</a>`
+            );
+            return `\x00L${i}\x00`;
+        });
+
+        // Escape HTML
+        safe = safe.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        // Bold **text**
+        safe = safe.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+
+        // Bare URLs
+        safe = safe.replace(/(https?:\/\/[^\s<&"'.,;!?)[\]]+)/g,
+            '<a href="$1" target="_blank" rel="noopener noreferrer" class="chat-link">$1</a>');
+
+        // Bare email addresses
+        safe = safe.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
+            '<a href="mailto:$1" class="chat-link">$1</a>');
+
+        // Restore extracted markdown links
+        extractedLinks.forEach((link, i) => { safe = safe.split(`\x00L${i}\x00`).join(link); });
+
+        // Line-by-line: headings, bullets, standalone links, paragraphs
+        const lines = safe.split('\n');
+        const out = [];
+        let inList = false;
+
+        for (const line of lines) {
+            const trimmed = line.trim();
+
+            // Heading: ### or ##
+            if (/^#{1,3} /.test(trimmed)) {
+                if (inList) { out.push('</ul>'); inList = false; }
+                out.push(`<p class="chat-heading">${trimmed.replace(/^#{1,3} /, '')}</p>`);
+                continue;
+            }
+
+            // Bullet: *, •, -
+            const bullet = trimmed.match(/^[•\-\*] (.+)/);
+            if (bullet) {
+                if (!inList) { out.push('<ul class="chat-list">'); inList = true; }
+                out.push(`<li>${bullet[1]}</li>`);
+                continue;
+            }
+
+            if (inList) { out.push('</ul>'); inList = false; }
+
+            // Empty line
+            if (trimmed === '') {
+                out.push('<div class="chat-gap"></div>');
+                continue;
+            }
+
+            // Standalone link line: the entire line is just a link (no surrounding text)
+            const standaloneLink = /^(<a [^>]*class="chat-link"[^>]*>[^<]*<\/a>)\.?$/.test(trimmed);
+            if (standaloneLink) {
+                out.push(`<div class="chat-link-line">${trimmed.replace(/\.$/, '')}</div>`);
+                continue;
+            }
+
+            // Regular paragraph
+            out.push(`<p class="chat-para">${trimmed}</p>`);
+        }
+
+        if (inList) out.push('</ul>');
+        return out.join('');
+    }
+
+    // Typing effect — renders live HTML as each character is typed
     async function typeMessage(element, text, speed = 20) {
+        let buffer = '';
         let index = 0;
         let isUserScrolling = false;
         const messagesContainer = element.parentElement;
-        
-        // Detect user scroll
-        const scrollListener = () => {
-            isUserScrolling = true;
-        };
+
+        const scrollListener = () => { isUserScrolling = true; };
         messagesContainer.addEventListener('scroll', scrollListener);
-        
+
         while (index < text.length) {
-            element.textContent += text[index];
+            buffer += text[index];
             index++;
-            
-            // Auto-scroll only if user not scrolling
+            element.innerHTML = parseMarkdown(buffer);
+
             if (!isUserScrolling) {
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             }
-            
+
             await new Promise(r => setTimeout(r, speed));
         }
-        
-        // Clean up
+
         messagesContainer.removeEventListener('scroll', scrollListener);
     }
 
