@@ -2001,9 +2001,18 @@ body.ar .chatbot-modal.expanded {
         padding: 0.8rem;
         margin-top: 1rem;
     }
-    
+
     .project-images-grid img {
         max-height: 180px;
+    }
+
+    .project-images-grid.portrait-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .project-images-grid.portrait-grid img {
+        max-height: none;
+        height: auto;
     }
     
     #languages .docs-grid {
