@@ -553,6 +553,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Backend API URL - Production deployment
     const CHATBOT_API_URL = 'https://mohammedsaleh-chatbot.onrender.com/api/chat';
+
+    // Conversation history — sent with every request so the LLM has context
+    let conversationHistory = [];
     
     if (chatbotButton && chatbotModal) {
         chatbotButton.addEventListener('click', () => {
@@ -780,7 +783,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({
                     message: messageText,
-                    language: currentLang
+                    language: currentLang,
+                    history: conversationHistory
                 })
             });
 
@@ -800,8 +804,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Convert HTML to plain text (remove <br> tags) and preserve line breaks
                 const plainText = data.response.replace(/<br>/g, '\n');
-                
-                // Type the message in here 
+
+                // Save exchange to history (cap at 20 messages = 10 back-and-forths)
+                conversationHistory.push({ role: 'user', content: messageText });
+                conversationHistory.push({ role: 'assistant', content: plainText });
+                if (conversationHistory.length > 20) conversationHistory.splice(0, 2);
+
+                // Type the message in here
                 await typeMessage(aiResponse, plainText, 15);
             } else {
                 throw new Error('Server responded with error');

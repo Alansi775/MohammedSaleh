@@ -11,20 +11,20 @@ const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
 
 // Main export: Try Groq → Gemini → DeepSeek
-export const generateResponse = async (message, language = 'en') => {
+export const generateResponse = async (message, language = 'en', history = []) => {
   try {
     logger.info('🔵 Attempting Primary LLM (Groq)...');
-    return await generateFromGroq(message, language);
+    return await generateFromGroq(message, language, history);
   } catch (error) {
     logger.warn(`❌ Primary LLM (Groq) failed: ${error.message}`);
     logger.info('🟡 Attempting Secondary LLM (Gemini)...');
     try {
-      return await generateFromGemini(message, language);
+      return await generateFromGemini(message, language, history);
     } catch (secondaryError) {
       logger.warn(`❌ Secondary LLM (Gemini) failed: ${secondaryError.message}`);
       logger.info('🟠 Attempting Tertiary LLM (DeepSeek)...');
       try {
-        return await generateFromDeepSeek(message, language);
+        return await generateFromDeepSeek(message, language, history);
       } catch (tertiaryError) {
         logger.error(`❌ Tertiary LLM (DeepSeek) also failed: ${tertiaryError.message}`);
         throw new Error(
@@ -36,7 +36,7 @@ export const generateResponse = async (message, language = 'en') => {
 };
 
 // Primary LLM: Groq
-const generateFromGroq = async (message, language) => {
+const generateFromGroq = async (message, language, history = []) => {
   const apiKey = process.env.GROQ_API_KEY;
   const systemPrompt = process.env.SYSTEM_PROMPT || 'You are a helpful AI assistant.';
 
@@ -56,14 +56,9 @@ const generateFromGroq = async (message, language) => {
     body: JSON.stringify({
       model: 'llama-3.3-70b-versatile',
       messages: [
-        {
-          role: 'system',
-          content: systemPrompt,
-        },
-        {
-          role: 'user',
-          content: message,
-        },
+        { role: 'system', content: systemPrompt },
+        ...history,
+        { role: 'user', content: message },
       ],
       max_tokens: 500,
       temperature: 0.7,
@@ -96,7 +91,7 @@ const generateFromGroq = async (message, language) => {
 };
 
 // Secondary LLM: Gemini
-const generateFromGemini = async (message, language) => {
+const generateFromGemini = async (message, language, history = []) => {
   const apiKey = process.env.LLM_API_KEY;
   const systemPrompt = process.env.SYSTEM_PROMPT || 'You are a helpful AI assistant.';
 
@@ -107,7 +102,11 @@ const generateFromGemini = async (message, language) => {
 
   logger.info('📡 Secondary LLM (Gemini): Sending request...');
 
-  const systemMessage = `${systemPrompt}\n\n${language === 'ar' ? 'سؤال المستخدم: ' : 'User question: '}${message}`;
+  // Gemini uses 'model' for assistant role
+  const geminiHistory = history.map(m => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }],
+  }));
 
   const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
     method: 'POST',
@@ -115,14 +114,10 @@ const generateFromGemini = async (message, language) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      systemInstruction: { parts: [{ text: systemPrompt }] },
       contents: [
-        {
-          parts: [
-            {
-              text: systemMessage,
-            },
-          ],
-        },
+        ...geminiHistory,
+        { role: 'user', parts: [{ text: message }] },
       ],
       generationConfig: {
         maxOutputTokens: 500,
@@ -157,7 +152,7 @@ const generateFromGemini = async (message, language) => {
 };
 
 // Tertiary LLM: DeepSeek
-const generateFromDeepSeek = async (message, language) => {
+const generateFromDeepSeek = async (message, language, history = []) => {
   const apiKey = process.env.DEEPSEEK_API_KEY;
   const systemPrompt = process.env.SYSTEM_PROMPT || 'You are a helpful AI assistant.';
 
@@ -177,14 +172,9 @@ const generateFromDeepSeek = async (message, language) => {
     body: JSON.stringify({
       model: 'deepseek-chat',
       messages: [
-        {
-          role: 'system',
-          content: systemPrompt,
-        },
-        {
-          role: 'user',
-          content: message,
-        },
+        { role: 'system', content: systemPrompt },
+        ...history,
+        { role: 'user', content: message },
       ],
       max_tokens: 500,
       temperature: 0.7,

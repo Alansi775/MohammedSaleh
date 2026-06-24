@@ -12,7 +12,7 @@ const router = express.Router();
 // POST /api/chat
 router.post('/', async (req, res) => {
   try {
-    const { message, language = 'en' } = req.body;
+    const { message, language = 'en', history = [] } = req.body;
 
     // Validate input
     if (!message || typeof message !== 'string') {
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
     }
 
     // Generate AI response
-    const aiResponse = await generateResponse(message, language);
+    const aiResponse = await generateResponse(message, language, history);
 
     res.json({
       response: aiResponse,
