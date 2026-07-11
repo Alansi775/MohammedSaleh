@@ -359,14 +359,13 @@ document.addEventListener('DOMContentLoaded', () => {
             nnEdges = [];
             const mobile = W < 680;
             const defs = mobile ? [
-                { n:2, xr:0.07 }, { n:4, xr:0.36 },
-                { n:4, xr:0.64 }, { n:2, xr:0.93 },
+                { n:2, xr:0.20 }, { n:3, xr:0.50 }, { n:2, xr:0.80 },
             ] : [
                 { n:3, xr:0.08 }, { n:5, xr:0.22 }, { n:7, xr:0.38 },
                 { n:7, xr:0.54 }, { n:5, xr:0.70 }, { n:3, xr:0.86 },
             ];
-            const yTop  = mobile ? 0.20 : 0.16;
-            const ySpan = mobile ? 0.60 : 0.68;
+            const yTop  = mobile ? 0.25 : 0.16;
+            const ySpan = mobile ? 0.50 : 0.68;
             const layers = defs.map(d => {
                 const nodes = [];
                 for (let i = 0; i < d.n; i++) {
