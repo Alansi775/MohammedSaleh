@@ -152,91 +152,92 @@ body.ar {
 }
 
 /* ========================================
-   HEADER
+   HEADER — Floating Pill
 ======================================== */
 header {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 5vw;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    background-color: var(--header-bg);
-    backdrop-filter: blur(15px) saturate(1.8);
-    -webkit-backdrop-filter: blur(15px) saturate(1.8);
-    z-index: 999;
-    box-shadow: 0 4px 20px var(--shadow-dark);
-    border-bottom: 1px solid var(--card-border);
-    transition: background-color 0.4s ease;
+    gap: 0.4rem;
+    padding: 0.55rem 0.9rem 0.55rem 1.3rem;
+    background: rgba(13, 13, 13, 0.58);
+    backdrop-filter: blur(22px) saturate(1.8);
+    -webkit-backdrop-filter: blur(22px) saturate(1.8);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 9999px;
+    box-shadow: 0 4px 28px rgba(0,0,0,0.45), 0 0 0 0.5px rgba(255,255,255,0.04);
+    white-space: nowrap;
+    max-width: calc(100vw - 2rem);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
 }
+
+body.light-mode header {
+    background: rgba(240, 242, 245, 0.72);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 28px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.04);
+}
+
+/* scroll-margin so anchor targets clear the pill */
+section[id] { scroll-margin-top: 5rem; }
 
 header h1 {
     margin: 0;
-    font-size: 2.5rem;
-    font-weight: 300;
+    font-size: 1.15rem;
+    font-weight: 600;
     color: var(--text-color);
-    letter-spacing: -0.05em;
+    letter-spacing: -0.03em;
     transition: color 0.3s ease;
+    white-space: nowrap;
+    padding-right: 0.6rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    cursor: default;
 }
 
-header h1:hover {
-    color: var(--accent-color);
-}
+body.light-mode header h1 { border-right-color: rgba(0,0,0,0.1); }
 
-/* RTL Header */
-body.ar header {
-    flex-direction: row-reverse;
-}
+header h1:hover { color: var(--accent-color); }
 
+body.ar header { flex-direction: row-reverse; }
 body.ar header h1 {
-    padding-left: 20px;
-    padding-right: unset;
+    padding-right: 0.6rem;
+    padding-left: 0;
+    border-left: none;
+    border-right: 1px solid rgba(255,255,255,0.1);
 }
 
 /* ========================================
    NAVIGATION
 ======================================== */
-nav {
+#main-nav {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    flex-grow: 1;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 100%;
+    gap: 0.1rem;
 }
 
-nav a {
-    font-size: 1.05rem;
-    letter-spacing: 0.05rem;
+#main-nav a {
+    font-size: 0.88rem;
+    font-weight: 450;
+    letter-spacing: 0.01em;
     text-decoration: none;
-    color: var(--text-color);
+    color: rgba(224,224,224,0.78);
     position: relative;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 0.42rem 0.75rem;
+    border-radius: 9999px;
+    transition: color 0.25s ease, background 0.25s ease;
 }
 
-nav a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 3px;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--accent-color);
-    transition: width 0.4s ease;
+body.light-mode #main-nav a { color: rgba(51,51,51,0.75); }
+
+#main-nav a:hover {
+    color: var(--text-color);
+    background: rgba(255,255,255,0.07);
 }
 
-nav a:hover {
-    color: var(--accent-color);
-    transform: translateY(-3px);
-}
-
-nav a:hover::after {
-    width: 100%;
-}
+body.light-mode #main-nav a:hover { background: rgba(0,0,0,0.06); }
 
 /* ========================================
    HEADER ACTIONS
@@ -244,26 +245,105 @@ nav a:hover::after {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    flex-direction: row;
+    gap: 0.3rem;
     direction: ltr;
+    margin-left: 0.3rem;
 }
+
+/* ── Hamburger (mobile only) ── */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    transition: background 0.2s;
+}
+
+.hamburger:hover { background: rgba(255,255,255,0.08); }
+.hamburger span {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--text-color);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── Mobile nav drawer ── */
+.mobile-nav-drawer {
+    display: none;
+    position: fixed;
+    top: calc(1rem + 52px);
+    left: 50%;
+    transform: translateX(-50%) scaleY(0.95);
+    transform-origin: top center;
+    z-index: 999;
+    background: rgba(13, 13, 13, 0.88);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 20px;
+    padding: 0.8rem;
+    min-width: 200px;
+    flex-direction: column;
+    gap: 0.2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+body.light-mode .mobile-nav-drawer {
+    background: rgba(240, 242, 245, 0.92);
+    border-color: rgba(0,0,0,0.1);
+}
+
+.mobile-nav-drawer.open {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1);
+    pointer-events: auto;
+}
+
+.mobile-nav-drawer a {
+    display: block;
+    padding: 0.7rem 1.1rem;
+    border-radius: 12px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 450;
+    transition: background 0.2s;
+}
+
+.mobile-nav-drawer a:hover { background: rgba(76,134,175,0.15); color: var(--accent-color); }
 
 .lang-select {
     background-color: transparent;
     color: var(--text-color);
-    border: 1px solid var(--primary-color);
-    padding: 0.6rem 2.2rem 0.6rem 1.2rem;
-    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 0.35rem 1.6rem 0.35rem 0.7rem;
+    border-radius: 9999px;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23e0e0e0'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 10.99l3.71-3.76a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.8rem center;
-    background-size: 1.1em;
+    background-position: right 0.5rem center;
+    background-size: 0.9em;
     transition: all 0.3s ease;
-    min-width: 110px;
+    min-width: unset;
 }
 
 body.light-mode .lang-select {
@@ -356,10 +436,69 @@ main {
 }
 
 /* ========================================
-   HERO SECTION
+   HERO THEATER — Scroll-driven immersive experience
 ======================================== */
+
+/* Theater creates 300vh of scroll space */
+#hero-theater {
+    position: relative;
+    height: 300vh;
+}
+
+/* Sticky stage: fills viewport and sticks while scrolling through theater */
 .hero-section {
-    padding-top: 3rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0;
+    background: transparent;  /* blends with site background */
+}
+
+/* Neural network canvas — fills entire stage, behind everything */
+.hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+/* ── Hero content ── */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    will-change: opacity, transform;
+}
+
+/* ── Scroll indicator ── */
+.hero-scroll-indicator {
+    position: absolute;
+    bottom: 2.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    animation: heroScrollPulse 2.4s ease-in-out infinite;
+}
+
+.hero-scroll-line {
+    width: 1.5px;
+    height: 56px;
+    background: linear-gradient(to bottom, rgba(76, 134, 175, 0.9), transparent);
+    border-radius: 2px;
+    margin: 0 auto;
+}
+
+@keyframes heroScrollPulse {
+    0%, 100% { transform: translateX(-50%) translateY(0);    opacity: 0.45; }
+    50%       { transform: translateX(-50%) translateY(14px); opacity: 1;    }
 }
 
 .tag-box {
@@ -1629,39 +1768,31 @@ body.ar .chatbot-modal.expanded {
     }
 }
 
-/* Tablets */
+/* Tablets & Mobile — pill collapses, hamburger appears */
 @media (max-width: 768px) {
+    #main-nav { display: none; }
+    .hamburger { display: flex; }
+    .mobile-nav-drawer { display: flex; }
+
+    /* Tighter pill on small screens */
     header {
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem 2vw;
-        gap: 0.8rem;
-        position: static;
+        padding: 0.5rem 0.7rem 0.5rem 1rem;
+        gap: 0.25rem;
     }
-    
-    body.ar header {
-        flex-direction: column;
-    }
-    
+
     header h1 {
-        font-size: 1.8rem;
-        margin-bottom: 0.4rem;
-        padding: 0 !important;
+        font-size: 1rem;
+        padding-right: 0.5rem;
     }
-    
-    nav {
-        flex-wrap: wrap;
-        margin: 0.4rem 0;
-        gap: 0.6rem;
-    }
-    
-    nav a {
-        font-size: 0.9rem;
-    }
-    
+
+    body.ar header h1 { padding-left: 0.5rem; }
+
+    /* Hide CTA button — space is tight */
+    header .btn-signing { display: none; }
+
     .header-actions {
-        flex-direction: row;
-        flex-wrap: wrap;
+        gap: 0.15rem;
+        flex-wrap: nowrap;
         justify-content: center;
         gap: 0.8rem;
     }
@@ -1776,55 +1907,20 @@ body.ar .chatbot-modal.expanded {
 
 /* Mobile */
 @media (max-width: 480px) {
-    header {
-        padding: 0.8rem 1.2rem;
-        gap: 0.6rem;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    header h1 { 
-        font-size: 1.5rem;
-        margin-bottom: 0.3rem;
-    }
-    
-    nav {
-        gap: 0.5rem;
-        margin: 0.3rem 0;
-        flex-wrap: wrap;
-        order: 3;
-        width: 100%;
-        justify-content: center;
+    header { padding: 0.45rem 0.6rem 0.45rem 0.9rem; }
+    header h1 { font-size: 0.92rem; }
+
+    .btn-icon { padding: 0.25rem; }
+    .btn-icon img { width: 18px; height: 18px; }
+
+    .lang-select {
+        padding: 0.28rem 1.3rem 0.28rem 0.55rem;
+        font-size: 0.75rem;
     }
 
-    nav a {
-        font-size: 0.78rem;
-        padding: 0.3rem 0.4rem;
-        white-space: nowrap;
-    
-    .header-actions {
-        gap: 0.5rem;
-    }
-    
-    .lang-select {
-        padding: 0.4rem 1.6rem 0.4rem 0.6rem;
-        font-size: 0.75rem;
-        min-width: 90px;
-    }
-    
-    body.ar .lang-select {
-        padding: 0.4rem 0.6rem 0.4rem 1.6rem;
-        background-position: left 0.5rem center;
-    }
-    
-    .btn-icon {
-        padding: 0.3rem;
-        font-size: 1.3rem;
-    }
-    
     .btn-signing {
-        font-size: 0.85rem;
-        padding: 0.6rem 1rem;
+        font-size: 0.82rem;
+        padding: 0.55rem 1.1rem;
     }
     
     main h1 { 
@@ -1966,5 +2062,4 @@ body.ar .chatbot-modal.expanded {
         left: 50% !important;
         right: auto !important;
     }
-}
 }

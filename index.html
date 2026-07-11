@@ -82,58 +82,90 @@
 
     <div class="background-animation"></div>
 
-    <header>
+    <header id="main-header">
         <h1 id="site-logo" data-en="Mohammed Saleh" data-ar="محمد صالح" data-tr="Mohammed Saleh">Mohammed Saleh</h1>
-        <nav>
-            <a href="#home" data-en="Home" data-ar="الرئيسية" data-tr="Anasayfa">Home</a>
-            <a href="#about" data-en="About" data-ar="عني" data-tr="Hakkımda">About Me</a>
-            <a href="#skills" data-en="Skills" data-ar="المهارات" data-tr="Beceriler">Skills</a>
-            <a href="#projects" data-en="Projects" data-ar="المشاريع" data-tr="Projeler">Projects</a>
-            <a href="#experience" data-en="Experience" data-ar="الخبرة" data-tr="Deneyim">Experience</a>
-            <a href="#education" data-en="Education" data-ar="التعليم" data-tr="Eğitim">Education</a>
-            <a href="#contact" data-en="Contact" data-ar="تواصل" data-tr="İletişim">Contact</a>
+
+        <nav id="main-nav">
+            <a href="#home"       data-en="Home"       data-ar="الرئيسية" data-tr="Anasayfa">Home</a>
+            <a href="#about"      data-en="About"      data-ar="عني"      data-tr="Hakkımda">About</a>
+            <a href="#skills"     data-en="Skills"     data-ar="المهارات" data-tr="Beceriler">Skills</a>
+            <a href="#projects"   data-en="Projects"   data-ar="المشاريع" data-tr="Projeler">Projects</a>
+            <a href="#experience" data-en="Experience" data-ar="الخبرة"   data-tr="Deneyim">Experience</a>
+            <a href="#contact"    data-en="Contact"    data-ar="تواصل"    data-tr="İletişim">Contact</a>
         </nav>
+
         <div class="header-actions">
-            <select id="language-switcher" class="lang-select" style="order: 1;">
-                <option value="en">English</option>
+            <select id="language-switcher" class="lang-select">
+                <option value="en">EN</option>
                 <option value="ar">العربية</option>
-                <option value="tr">Türkçe</option>
+                <option value="tr">TR</option>
             </select>
-            <button id="theme-toggle" class="btn-icon" style="order: 2;">
+            <button id="theme-toggle" class="btn-icon">
                 <img src="assets/sun-light-icon.png" alt="Light Mode" class="icon-light-mode">
                 <img src="assets/moon-dark-icon.png" alt="Dark Mode" class="icon-dark-mode">
             </button>
-            <a href="#contact" class="btn-signing" style="order: 3;" data-en="Let's Talk" data-ar="تواصل معي" data-tr="İletişim">Contact</a>
+            <a href="#contact" class="btn-signing" data-en="Let's Talk" data-ar="تواصل معي" data-tr="İletişim">Let's Talk</a>
         </div>
+
+        <!-- Mobile hamburger -->
+        <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
     </header>
 
+    <!-- Mobile nav drawer -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+        <a href="#home"       data-en="Home"       data-ar="الرئيسية" data-tr="Anasayfa">Home</a>
+        <a href="#about"      data-en="About"      data-ar="عني"      data-tr="Hakkımda">About</a>
+        <a href="#skills"     data-en="Skills"     data-ar="المهارات" data-tr="Beceriler">Skills</a>
+        <a href="#projects"   data-en="Projects"   data-ar="المشاريع" data-tr="Projeler">Projects</a>
+        <a href="#experience" data-en="Experience" data-ar="الخبرة"   data-tr="Deneyim">Experience</a>
+        <a href="#contact"    data-en="Contact"    data-ar="تواصل"    data-tr="İletişim">Contact</a>
+    </div>
+
     <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero-section content">
-            <div class="tag-box" data-animation="fadeIn" data-delay="0.1">
-                <i class="ph ph-sparkle"></i>
-                <span data-en="Innovative Solutions" data-ar="حلول مبتكرة" data-tr="Yenilikçi Çözümler">Innovative Solutions</span>
+        <!-- ═══ HERO THEATER — scroll-driven immersive experience ═══ -->
+        <div id="hero-theater">
+        <section id="home" class="hero-section">
+
+            <!-- Canvas: animated neural network -->
+            <canvas id="hero-canvas" class="hero-canvas"></canvas>
+
+            <!-- Hero content (theater JS controls opacity/transform) -->
+            <div class="hero-content content">
+                <div class="tag-box">
+                    <i class="ph ph-sparkle"></i>
+                    <span data-en="Innovative Solutions" data-ar="حلول مبتكرة" data-tr="Yenilikçi Çözümler">Innovative Solutions</span>
+                </div>
+
+                <h1 id="main-title"
+                    data-en="Building Intelligent Systems, from AI Models to Real-World Products"
+                    data-ar="بناء الأنظمة الذكية، من نماذج الذكاء الاصطناعي إلى المنتجات الحقيقية"
+                    data-tr="Yapay Zeka Modellerinden Gerçek Dünya Ürünlerine Kadar Akıllı Sistemler Geliştiriyorum">
+                    Building Intelligent Systems, <br>from AI Models to Real-World Products
+                </h1>
+
+                <p class="description"
+                   data-en="I design and train AI models, then integrate them into real-world systems. My expertise spans mobile apps, embedded systems, autonomous drones, cloud platforms, and databases — creating intelligent solutions that solve complex problems."
+                   data-ar="أصمم وأدرب نماذج الذكاء الاصطناعي، ثم أدمجها في الأنظمة الحقيقية. تغطي مهاراتي تطبيقات الجوال والأنظمة المدمجة والطائرات بدون طيار والمنصات السحابية وقواعد البيانات — مما يخلق حلولاً ذكية تحل المشاكل المعقدة."
+                   data-tr="Yapay Zeka modellerini tasarlar ve eğitirim, ardından gerçek dünya sistemlerine entegre ederim. Uzmanlığım mobil uygulamalar, gömülü sistemler, otonom dronlar, bulut platformları ve veritabanlarını kapsıyor — karmaşık sorunları çözen akıllı çözümler yaratıyorum.">
+                    I design and train AI models, then integrate them into real-world systems. My expertise spans mobile apps, embedded systems, autonomous drones, cloud platforms, and databases — creating intelligent solutions that solve complex problems.
+                </p>
+
+                <div class="buttons">
+                    <a href="#projects" class="btn-get-started" data-en="Explore My Work" data-ar="استكشف أعمالي" data-tr="Çalışmalarımı Keşfet">Explore My Work</a>
+                    <a href="#contact" class="btn-signing" data-en="Let's Connect" data-ar="تواصل معي" data-tr="İletişime Geç">Let's Connect</a>
+                </div>
             </div>
-            
-            <h1 id="main-title" 
-                data-en="Building Intelligent Systems, from AI Models to Real-World Products" 
-                data-ar="بناء الأنظمة الذكية، من نماذج الذكاء الاصطناعي إلى المنتجات الحقيقية" 
-                data-tr="Yapay Zeka Modellerinden Gerçek Dünya Ürünlerine Kadar Akıllı Sistemler Geliştiriyorum">
-                Building Intelligent Systems, <br>from AI Models to Real-World Products
-            </h1>
-            
-            <p class="description" 
-               data-en="I design and train AI models, then integrate them into real-world systems. My expertise spans mobile apps, embedded systems, autonomous drones, cloud platforms, and databases — creating intelligent solutions that solve complex problems." 
-               data-ar="أصمم وأدرب نماذج الذكاء الاصطناعي، ثم أدمجها في الأنظمة الحقيقية. تغطي مهاراتي تطبيقات الجوال والأنظمة المدمجة والطائرات بدون طيار والمنصات السحابية وقواعد البيانات — مما يخلق حلولاً ذكية تحل المشاكل المعقدة." 
-               data-tr="Yapay Zeka modellerini tasarlar ve eğitirim, ardından gerçek dünya sistemlerine entegre ederim. Uzmanlığım mobil uygulamalar, gömülü sistemler, otonom dronlar, bulut platformları ve veritabanlarını kapsıyor — karmaşık sorunları çözen akıllı çözümler yaratıyorum.">
-                I design and train AI models, then integrate them into real-world systems. My expertise spans mobile apps, embedded systems, autonomous drones, cloud platforms, and databases — creating intelligent solutions that solve complex problems.
-            </p>
-            
-            <div class="buttons" data-animation="fadeIn" data-delay="0.9">
-                <a href="#projects" class="btn-get-started" data-en="Explore My Work" data-ar="استكشف أعمالي" data-tr="Çalışmalarımı Keşfet">Explore My Work</a>
-                <a href="#contact" class="btn-signing" data-en="Let's Connect" data-ar="تواصل معي" data-tr="İletişime Geç">Let's Connect</a>
+
+            <!-- Scroll indicator -->
+            <div class="hero-scroll-indicator">
+                <div class="hero-scroll-line"></div>
             </div>
+
         </section>
+        </div>
+        <!-- ═══ END HERO THEATER ═══ -->
 
         <!-- About Section -->
         <section id="about" class="about-me-section content" data-animation="fadeIn" data-delay="0.2">
@@ -791,11 +823,11 @@ Eliminates language barriers through real-time AI voice cloning and neural trans
                     <p class="company-name" data-en="Al Mutlaq United Company · Part-time | Sep 2024 - Present" data-ar="Al Mutlaq United Company · بدوام جزئي | سبتمبر 2024 - حتى الآن" data-tr="Al Mutlaq United Company · Yarı Zamanlı | Eylül 2024 - Halen">Al Mutlaq United Company · Part-time | Sep 2024 - Present</p>
                     <p data-en="Istanbul, Türkiye · Remote" data-ar="اسطنبول، تركيا · عن بُعد" data-tr="İstanbul, Türkiye · Uzaktan">Istanbul, Türkiye · Remote</p>
                     
-                    <p style="margin-top: 1rem; line-height: 1.6;" data-en="Built real-time physiological stress monitoring system with IoT sensors, automated data pipeline, and AI-powered annotations. Created web-based workflow automation syncing sensor data with video recordings. Integrated vision-based AI for behavioral annotation and dataset validation. Research outcomes planned for BIODEVICES 2026."
+                    <p style="margin-top: 1rem; line-height: 1.6;" data-en="Built real-time physiological stress monitoring system with IoT sensors, automated data pipeline, and AI-powered annotations. Created web-based workflow automation syncing sensor data with video recordings. Integrated vision-based AI for behavioral annotation and dataset validation. Research outcomes planned for BIODEVICES 2027."
 
-                    data-ar="بنيت نظام مراقبة إجهاد فسيولوجي في الوقت الفعلي مع مستشعرات IoT وأنابيب بيانات آلية وتعليقات بقوة الذكاء الاصطناعي. أنشأت أتمتة سير عمل قائم على الويب يزامن بيانات المستشعرات مع تسجيلات الفيديو. دمجت الذكاء الاصطناعي القائم على الرؤية لتعليق السلوك والتحقق من صحة مجموعة البيانات. نتائج البحث مخطط لعرضها في BIODEVICES 2026."
+                    data-ar="بنيت نظام مراقبة إجهاد فسيولوجي في الوقت الفعلي مع مستشعرات IoT وأنابيب بيانات آلية وتعليقات بقوة الذكاء الاصطناعي. أنشأت أتمتة سير عمل قائم على الويب يزامن بيانات المستشعرات مع تسجيلات الفيديو. دمجت الذكاء الاصطناعي القائم على الرؤية لتعليق السلوك والتحقق من صحة مجموعة البيانات. نتائج البحث مخطط لعرضها في BIODEVICES 2027."
 
-                    data-tr="IoT sensörleri, otomatik veri işlem hattı ve yapay zeka destekli ek açıklamalar ile gerçek zamanlı fizyolojik stres izleme sistemi geliştirdim. Sensör verilerini video kayıtlarıyla senkronize eden web tabanlı iş akışı otomasyonu oluşturdum. Davranış açıklaması ve veri seti doğrulaması için görüş tabanlı yapay zeka entegre ettim. Araştırma sonuçları BIODEVICES 2026'da sunulmak üzere planlandı.">
+                    data-tr="IoT sensörleri, otomatik veri işlem hattı ve yapay zeka destekli ek açıklamalar ile gerçek zamanlı fizyolojik stres izleme sistemi geliştirdim. Sensör verilerini video kayıtlarıyla senkronize eden web tabanlı iş akışı otomasyonu oluşturdum. Davranış açıklaması ve veri seti doğrulaması için görüş tabanlı yapay zeka entegre ettim. Araştırma sonuçları BIODEVICES 2027'da sunulmak üzere planlandı.">
                     Built real-time physiological stress monitoring system with IoT sensors, automated data pipeline, and AI-powered annotations. Created web-based workflow automation syncing sensor data with video recordings. Integrated vision-based AI for behavioral annotation and dataset validation.
                     </p>
                     

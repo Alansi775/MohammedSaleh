@@ -316,13 +316,228 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen for scroll
     window.addEventListener('scroll', onScroll, { passive: true });
-    
+
     // Run once on load
     animateVisibleElements();
-    
+
     // Run again after a small delay to catch everything
     setTimeout(animateVisibleElements, 100);
     setTimeout(animateVisibleElements, 500);
+
+    // ═══════════════════════════════════════════════════════════════
+    // HERO THEATER — Canvas Neural Network + Drone Animation Engine
+    // ═══════════════════════════════════════════════════════════════
+    (function initHeroTheater() {
+        const theater    = document.getElementById('hero-theater');
+        const canvas     = document.getElementById('hero-canvas');
+        const heroContent = document.querySelector('.hero-content');
+        const heroScrollInd = document.querySelector('.hero-scroll-indicator');
+        if (!theater || !canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let W, H;
+        let nnNodes = [], nnEdges = [];
+        let animTime = 0;
+        let lastTs   = performance.now();
+
+        // ── Helpers ──────────────────────────────────────────────
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function lerp(a, b, t)    { return a + (b - a) * clamp(t, 0, 1); }
+        function easeOut(t)       { t = clamp(t,0,1); return 1 - (1-t)*(1-t)*(1-t); }
+        function subP(p, s, e)    { return clamp((p - s) / (e - s), 0, 1); }
+
+        // ── Canvas resize ─────────────────────────────────────────
+        function resize() {
+            W = canvas.width  = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+            buildNN();
+        }
+
+        // ── Neural network layout ─────────────────────────────────
+        function buildNN() {
+            nnNodes = [];
+            nnEdges = [];
+            const defs = [
+                { n:3, xr:0.08 }, { n:5, xr:0.22 }, { n:7, xr:0.38 },
+                { n:7, xr:0.54 }, { n:5, xr:0.70 }, { n:3, xr:0.86 },
+            ];
+            const layers = defs.map(d => {
+                const nodes = [];
+                for (let i = 0; i < d.n; i++) {
+                    const node = {
+                        x: d.xr * W,
+                        y: H * (0.16 + 0.68 * (d.n === 1 ? 0.5 : i / (d.n - 1))),
+                        phase: Math.random() * Math.PI * 2,
+                        flash: 0,   // 0 = none, 1 = full flash
+                    };
+                    nodes.push(node);
+                    nnNodes.push(node);
+                }
+                return nodes;
+            });
+            for (let li = 0; li < layers.length - 1; li++) {
+                layers[li].forEach(from => {
+                    layers[li+1].forEach(to => {
+                        nnEdges.push({ from, to, phase: Math.random() * Math.PI * 2 });
+                    });
+                });
+            }
+        }
+
+        // ── Scroll progress through theater ───────────────────────
+        function getProgress() {
+            const scrolled = window.scrollY - theater.offsetTop;
+            const maxScroll = theater.offsetHeight - window.innerHeight;
+            return clamp(scrolled / maxScroll, 0, 1);
+        }
+
+        // ── Draw neural network on canvas ─────────────────────────
+        function drawNN(p, t, dt) {
+            ctx.clearRect(0, 0, W, H);
+
+            const edgeReveal = subP(p, 0.07, 0.55);
+            const nodeReveal = subP(p, 0.03, 0.42);
+            const dataFlow   = subP(p, 0.30, 0.78);
+            const exitFade   = subP(p, 0.82, 0.98);
+
+            // Decay all node flash values each frame
+            nnNodes.forEach(n => { n.flash = Math.max(0, n.flash - dt * 1.2); });
+
+            // ── Edges ──
+            nnEdges.forEach((edge, i) => {
+                const eT = clamp(edgeReveal * nnEdges.length / (nnEdges.length * 0.72) - i / nnEdges.length, 0, 1);
+                if (eT < 0.01) return;
+                const alpha = eT * (1 - exitFade);
+
+                ctx.beginPath();
+                ctx.moveTo(edge.from.x, edge.from.y);
+                ctx.lineTo(edge.to.x,   edge.to.y);
+                ctx.strokeStyle = `rgba(76,134,175,${alpha * 0.22})`;
+                ctx.lineWidth   = 0.9;
+                ctx.stroke();
+
+                // Data packet + flash trigger on arrival
+                if (dataFlow > 0.05 && eT > 0.45) {
+                    const flow = ((t * 0.18 + edge.phase) % 1);
+                    const px   = lerp(edge.from.x, edge.to.x, flow);
+                    const py   = lerp(edge.from.y, edge.to.y, flow);
+                    const intensity = dataFlow * eT * (1 - exitFade);
+
+                    // When packet reaches the destination node, trigger flash
+                    if (flow > 0.93) { edge.to.flash = Math.min(1, edge.to.flash + 0.4); }
+
+                    // Glow halo
+                    const g = ctx.createRadialGradient(px, py, 0, px, py, 10);
+                    g.addColorStop(0, `rgba(76,170,255,${intensity * 0.35})`);
+                    g.addColorStop(1, 'rgba(76,134,175,0)');
+                    ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI*2);
+                    ctx.fillStyle = g; ctx.fill();
+
+                    // Core dot
+                    ctx.beginPath(); ctx.arc(px, py, 2.8, 0, Math.PI*2);
+                    ctx.fillStyle = `rgba(140,215,255,${intensity * 0.95})`; ctx.fill();
+                }
+            });
+
+            // ── Nodes ──
+            nnNodes.forEach((node, i) => {
+                const nT = clamp(nodeReveal * nnNodes.length / (nnNodes.length * 0.78) - i / nnNodes.length, 0, 1);
+                if (nT < 0.01) return;
+
+                const pulse = (Math.sin(t * 0.9 + node.phase) * 0.5 + 0.5);
+                const r     = 4.5 + pulse * 2.5 * dataFlow;
+                const alpha = nT * (1 - exitFade);
+                const fl    = node.flash;
+
+                // Flash burst — white-blue explosion when data arrives
+                if (fl > 0.01) {
+                    const fg = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 9 * fl);
+                    fg.addColorStop(0,   `rgba(220,245,255,${fl * 0.95})`);
+                    fg.addColorStop(0.2, `rgba(76,200,255,${fl * 0.55})`);
+                    fg.addColorStop(1,   'rgba(76,134,175,0)');
+                    ctx.beginPath(); ctx.arc(node.x, node.y, r * 9 * fl, 0, Math.PI*2);
+                    ctx.fillStyle = fg; ctx.fill();
+
+                    // Inner white core
+                    ctx.beginPath(); ctx.arc(node.x, node.y, r * (1 + fl * 1.2), 0, Math.PI*2);
+                    ctx.fillStyle = `rgba(255,255,255,${fl * 0.85})`; ctx.fill();
+                }
+
+                // Outer glow
+                const g = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 5);
+                g.addColorStop(0, `rgba(76,134,175,${alpha * (0.45 + fl * 0.4)})`);
+                g.addColorStop(1, 'rgba(76,134,175,0)');
+                ctx.beginPath(); ctx.arc(node.x, node.y, r * 5, 0, Math.PI*2);
+                ctx.fillStyle = g; ctx.fill();
+
+                // Core
+                ctx.beginPath(); ctx.arc(node.x, node.y, r, 0, Math.PI*2);
+                ctx.fillStyle   = `rgba(76,134,175,${alpha})`;  ctx.fill();
+                ctx.strokeStyle = `rgba(160,225,255,${alpha + fl * 0.4})`;
+                ctx.lineWidth   = 1.5; ctx.stroke();
+            });
+        }
+
+        // ── Hero content visibility ───────────────────────────────
+        function updateContent(p) {
+            if (!heroContent) return;
+            const fadeIn  = subP(p, 0, 0.06);
+            const fadeOut = subP(p, 0.76, 0.94);
+            const lift    = -fadeOut * 85;
+            heroContent.style.opacity   = Math.min(fadeIn * 10, 1) * (1 - fadeOut);
+            heroContent.style.transform = `translateY(${lift}px)`;
+
+            if (heroScrollInd) {
+                heroScrollInd.style.opacity = Math.max(0, 1 - p * 10).toFixed(2);
+            }
+        }
+
+        // ── Main animation loop ───────────────────────────────────
+        function loop(ts) {
+            const dt = (ts - lastTs) * 0.001;
+            lastTs   = ts;
+            animTime += dt;
+
+            const p = getProgress();
+            drawNN(p, animTime, dt);
+            updateContent(p);
+
+            requestAnimationFrame(loop);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        requestAnimationFrame(loop);
+    })();
+
+    // ===================================================
+    // Hamburger menu (mobile nav drawer)
+    // ===================================================
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileDrawer = document.getElementById('mobile-nav-drawer');
+
+    if (hamburgerBtn && mobileDrawer) {
+        hamburgerBtn.addEventListener('click', () => {
+            const open = hamburgerBtn.classList.toggle('open');
+            mobileDrawer.classList.toggle('open', open);
+        });
+
+        // Close drawer when any link is clicked
+        mobileDrawer.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('open');
+                mobileDrawer.classList.remove('open');
+            });
+        });
+
+        // Close drawer when clicking outside
+        document.addEventListener('click', e => {
+            if (!hamburgerBtn.contains(e.target) && !mobileDrawer.contains(e.target)) {
+                hamburgerBtn.classList.remove('open');
+                mobileDrawer.classList.remove('open');
+            }
+        });
+    }
 
     // ===================================================
     // 5. Chatbot Logic
