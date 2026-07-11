@@ -443,6 +443,7 @@ main {
 #hero-theater {
     position: relative;
     height: 300vh;
+    height: 300dvh;
 }
 
 /* Sticky stage: fills viewport and sticks while scrolling through theater */
@@ -450,6 +451,7 @@ main {
     position: sticky;
     top: 0;
     height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;

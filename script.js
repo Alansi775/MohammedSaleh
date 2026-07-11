@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // ── Canvas resize ─────────────────────────────────────────
         function resize() {
             W = canvas.width  = window.innerWidth;
-            H = canvas.height = window.innerHeight;
+            H = canvas.height = window.visualViewport?.height ?? window.innerHeight;
             buildNN();
         }
 
@@ -357,16 +357,22 @@ document.addEventListener('DOMContentLoaded', () => {
         function buildNN() {
             nnNodes = [];
             nnEdges = [];
-            const defs = [
+            const mobile = W < 680;
+            const defs = mobile ? [
+                { n:2, xr:0.07 }, { n:4, xr:0.36 },
+                { n:4, xr:0.64 }, { n:2, xr:0.93 },
+            ] : [
                 { n:3, xr:0.08 }, { n:5, xr:0.22 }, { n:7, xr:0.38 },
                 { n:7, xr:0.54 }, { n:5, xr:0.70 }, { n:3, xr:0.86 },
             ];
+            const yTop  = mobile ? 0.20 : 0.16;
+            const ySpan = mobile ? 0.60 : 0.68;
             const layers = defs.map(d => {
                 const nodes = [];
                 for (let i = 0; i < d.n; i++) {
                     const node = {
                         x: d.xr * W,
-                        y: H * (0.16 + 0.68 * (d.n === 1 ? 0.5 : i / (d.n - 1))),
+                        y: H * (yTop + ySpan * (d.n === 1 ? 0.5 : i / (d.n - 1))),
                         phase: Math.random() * Math.PI * 2,
                         flash: 0,   // 0 = none, 1 = full flash
                     };
@@ -506,6 +512,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         window.addEventListener('resize', resize);
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', resize);
+        }
         resize();
         requestAnimationFrame(loop);
     })();
