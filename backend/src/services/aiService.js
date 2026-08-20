@@ -7,7 +7,7 @@
 import { logger } from '../utils/logger.js';
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent';
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
 
 // Main export: Try Groq → Gemini → DeepSeek
@@ -54,7 +54,7 @@ const generateFromGroq = async (message, language, history = []) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
+      model: 'openai/gpt-oss-120b',
       messages: [
         { role: 'system', content: systemPrompt },
         ...history,
