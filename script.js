@@ -359,13 +359,13 @@ document.addEventListener('DOMContentLoaded', () => {
             nnEdges = [];
             const mobile = W < 680;
             const defs = mobile ? [
-                { n:2, xr:0.20 }, { n:3, xr:0.50 }, { n:2, xr:0.80 },
+                { n:2, xr:0.72 }, { n:3, xr:0.84 }, { n:2, xr:0.94 },
             ] : [
-                { n:3, xr:0.08 }, { n:5, xr:0.22 }, { n:7, xr:0.38 },
-                { n:7, xr:0.54 }, { n:5, xr:0.70 }, { n:3, xr:0.86 },
+                { n:3, xr:0.70 }, { n:4, xr:0.80 }, { n:5, xr:0.89 },
+                { n:4, xr:0.97 },
             ];
-            const yTop  = mobile ? 0.25 : 0.16;
-            const ySpan = mobile ? 0.50 : 0.68;
+            const yTop  = mobile ? 0.28 : 0.20;
+            const ySpan = mobile ? 0.42 : 0.60;
             const layers = defs.map(d => {
                 const nodes = [];
                 for (let i = 0; i < d.n; i++) {
@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function getProgress() {
             const scrolled = window.scrollY - theater.offsetTop;
             const maxScroll = theater.offsetHeight - window.innerHeight;
-            return clamp(scrolled / maxScroll, 0, 1);
+            return maxScroll > 0 ? clamp(scrolled / maxScroll, 0, 1) : 0;
         }
 
         // ── Draw neural network on canvas ─────────────────────────
@@ -486,14 +486,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // ── Hero content visibility ───────────────────────────────
         function updateContent(p) {
             if (!heroContent) return;
-            const fadeIn  = subP(p, 0, 0.06);
-            const fadeOut = subP(p, 0.76, 0.94);
-            const lift    = -fadeOut * 85;
-            heroContent.style.opacity   = Math.min(fadeIn * 10, 1) * (1 - fadeOut);
-            heroContent.style.transform = `translateY(${lift}px)`;
+            // The introduction must be readable immediately; only the
+            // background animation responds to the scroll position.
+            heroContent.style.opacity = '1';
+            heroContent.style.transform = 'none';
 
             if (heroScrollInd) {
-                heroScrollInd.style.opacity = Math.max(0, 1 - p * 10).toFixed(2);
+                heroScrollInd.style.opacity = p > 0 ? '0' : '1';
             }
         }
 
@@ -504,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
             animTime += dt;
 
             const p = getProgress();
-            drawNN(p, animTime, dt);
+            drawNN(Math.max(0.58, p), animTime, dt);
             updateContent(p);
 
             requestAnimationFrame(loop);
