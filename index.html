@@ -45,7 +45,7 @@
         html.dark-mode-preload { background-color: #0d0d0d; }
         
         /* Featured Video Styles just for the video container for the featured video */
-        /* This ensures the video is responsive and maintains its aspect ratio */
+        /* This ensures the video is responsive and maintains its aspect ratio via padding-bottom */
         .featured-video-container {
             position: relative;
             width: 100%;
@@ -125,14 +125,7 @@
     </div>
 
     <main>
-        <!-- ═══ HERO THEATER — scroll-driven immersive experience ═══ -->
-        <div id="hero-theater">
         <section id="home" class="hero-section">
-
-            <!-- Canvas: animated neural network -->
-            <canvas id="hero-canvas" class="hero-canvas"></canvas>
-
-            <!-- Hero content (theater JS controls opacity/transform) -->
             <div class="hero-content content">
                 <div class="tag-box">
                     <i class="ph ph-sparkle"></i>
@@ -165,8 +158,6 @@
             </div>
 
         </section>
-        </div>
-        <!-- ═══ END HERO THEATER ═══ -->
 
         <!-- About Section -->
         <section id="about" class="about-me-section content" data-animation="fadeIn" data-delay="0.2">
