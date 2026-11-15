@@ -72,6 +72,9 @@ export function initAssistant({ t, lang }){
   };
   $('#aiExpand')?.addEventListener('click', ()=> setBig(!big));
 
+  watchScroll();
+  $('#aiLatest')?.addEventListener('click', ()=> scroll(true));
+
   /* Anywhere outside dismisses it — the backdrop, or a click on the
      page itself. The launcher is excluded, or its own click would
      reopen what it just closed. */
@@ -186,6 +189,11 @@ async function ask(text){
     const data = await res.json();
     const answer = (data.response || '').trim();
 
+    /* A reply that lands in 300ms snaps the thinking state on and off
+       like a flicker. Hold it long enough to be read as a pause. */
+    const held = performance.now() - t0;
+    if (held < 650) await new Promise(r => setTimeout(r, 650 - held));
+
     typing.remove();
     if (!answer) throw new Error('empty');
 
@@ -219,15 +227,22 @@ function addMsg(who, text, isError){
   el.className = `msg msg--${who}` + (isError ? ' msg--err' : '');
   el.innerHTML = `<div class="msg__b">${who === 'ai' ? md(text) : esc(text)}</div>`;
   log.appendChild(el);
-  scroll();
+  scroll(who === 'me');
   return el;
 }
 
+/* The wait is not dead time: the orb turns over and the word shimmers
+   across itself, so the pause reads as the model working rather than
+   as the page having stalled. */
 function addTyping(){
   const log = $('#aiLog');
   const el = document.createElement('div');
-  el.className = 'msg msg--ai';
-  el.innerHTML = `<div class="msg__b msg__typing"><i></i><i></i><i></i></div>`;
+  el.className = 'msg msg--ai msg--think';
+  el.innerHTML = `
+    <div class="msg__b msg__typing">
+      <span class="ai__orb ai__orb--sm" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="think">${esc(tr('ai.think'))}</span>
+    </div>`;
   log.appendChild(el);
   scroll();
   return el;
@@ -277,30 +292,104 @@ function note(text){
   scroll();
 }
 
-function scroll(){
-  const log = $('#aiLog');
-  if (log) log.scrollTop = log.scrollHeight;
+/* ==================================================================
+   FOLLOWING THE ANSWER
+
+   Scrolling to the bottom on every update pinned the reader to the
+   end of a reply they had not read: try to scroll up mid-answer and
+   the next frame dragged you back down. By the time it finished you
+   had read nothing.
+
+   So the log follows only while you are ALREADY at the bottom. Scroll
+   up and it lets go, and says so with a button that takes you back.
+   Sending a message always re-attaches, because that is you asking
+   for the newest thing.
+================================================================== */
+let stick = true;
+const NEAR = 60;            // px from the bottom that still counts as "at the bottom"
+
+function atBottom(log){
+  return log.scrollHeight - log.scrollTop - log.clientHeight < NEAR;
 }
 
-/* Type the answer in at reading pace. Whole words, not characters:
-   character-typing mangles Arabic, because a letter's form depends on
-   the letter that has not been appended yet. */
+function watchScroll(){
+  const log = $('#aiLog');
+  if (!log || log.dataset.watched) return;
+  log.dataset.watched = '1';
+  log.addEventListener('scroll', ()=>{
+    stick = atBottom(log);
+    $('#aiPanel')?.classList.toggle('is-away', !stick);
+  }, { passive:true });
+}
+
+function scroll(force){
+  const log = $('#aiLog');
+  if (!log) return;
+  if (force) stick = true;
+  if (!stick) return;
+  log.scrollTop = log.scrollHeight;
+  $('#aiPanel')?.classList.remove('is-away');
+}
+
+/* ==================================================================
+   THE REVEAL
+
+   The answer arrives whole, so there is nothing to stream. Printing
+   it at once reads as a canned reply; appending it word by word and
+   re-rendering the markdown each step reflowed the whole bubble 200
+   times and kept dragging the scroll with it.
+
+   So it is laid out ONCE, in full, and then each word is faded up out of
+   a blur on a staggered delay. The browser runs the whole thing on
+   the compositor, the layout never moves after the first frame, and
+   the reader can scroll back up through a paragraph while the next
+   one is still arriving.
+
+   Words, not characters: character-typing mangles Arabic, where a
+   letter's form depends on the letter that has not been written yet.
+================================================================== */
+const STEP = 26;            // ms between words
+const CAP  = 5200;          // never make anyone wait longer than this
+
+function wrapWords(root){
+  const skip = new Set(['CODE', 'PRE']);
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => skip.has(n.parentNode.nodeName)
+      ? NodeFilter.FILTER_REJECT
+      : (n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT)
+  });
+
+  const texts = [];
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) texts.push(n);
+
+  let i = 0;
+  for (const node of texts){
+    const frag = document.createDocumentFragment();
+    for (const part of node.nodeValue.split(/(\s+)/)){
+      if (!part) continue;
+      if (!part.trim()){ frag.appendChild(document.createTextNode(part)); continue; }
+      const sp = document.createElement('span');
+      sp.className = 'rw';
+      sp.style.setProperty('--d', Math.min(i++ * STEP, CAP) + 'ms');
+      sp.textContent = part;
+      frag.appendChild(sp);
+    }
+    node.parentNode.replaceChild(frag, node);
+  }
+  return Math.min(i * STEP, CAP) + 420;        // + the fade itself
+}
+
 function typeOut(el, text){
   const body = el.querySelector('.msg__b');
-  if (RM){ body.innerHTML = md(text); scroll(); return Promise.resolve(); }
+  body.innerHTML = md(text);
 
-  const words = text.split(/(\s+)/);
-  let i = 0;
-  return new Promise(resolve=>{
-    const step = ()=>{
-      const chunk = words.slice(0, i += 2).join('');
-      body.innerHTML = md(chunk);
-      scroll();
-      if (i < words.length) setTimeout(step, 24);
-      else resolve();
-    };
-    step();
-  });
+  if (RM){ scroll(); return Promise.resolve(); }
+
+  const total = wrapWords(body);
+  /* one scroll, before a single word has appeared — after this the
+     bubble's height never changes again */
+  scroll();
+  return new Promise(resolve => setTimeout(resolve, total));
 }
 
 /* The model replies in light markdown. This renders the subset it

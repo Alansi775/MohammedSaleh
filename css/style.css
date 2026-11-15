@@ -1013,12 +1013,12 @@ html[dir="rtl"] .msg__b{ line-height:1.85 }
 }
 
 .msg__typing{ display:flex; gap:5px; align-items:center; padding:15px; }
-.msg__typing i{
+.msg__typing > i{
   width:6px; height:6px; border-radius:50%; background:var(--faint);
   animation:dots 1.3s var(--e-soft) infinite;
 }
-.msg__typing i:nth-child(2){ animation-delay:.16s }
-.msg__typing i:nth-child(3){ animation-delay:.32s }
+.msg__typing > i:nth-child(2){ animation-delay:.16s }
+.msg__typing > i:nth-child(3){ animation-delay:.32s }
 @keyframes dots{ 0%,60%,100%{ transform:translateY(0); opacity:.4 } 30%{ transform:translateY(-4px); opacity:1 } }
 
 .ai__note{ margin:2px 0 0; text-align:center; font-size:9.5px; color:var(--faint); }
@@ -1499,3 +1499,61 @@ html[dir="rtl"] .ai__intro{ direction:rtl; text-align:right; }
    show nothing. */
 .ai__status[data-state="idle"],
 .ai__status[data-state="ready"]{ display:none; }
+
+/* ==================================================================
+   THE ANSWER ARRIVING
+
+   The reply is laid out once, in full, and then each word fades up
+   out of a blur on a staggered delay. Nothing reflows after the
+   first frame — the whole reveal runs on the compositor — so you can
+   read back up through a paragraph while the next one is still
+   appearing. --d is set per word in assistant.js.
+================================================================== */
+.rw{
+  display:inline-block;
+  opacity:0;
+  filter:blur(5px);
+  transform:translateY(.18em);
+  animation:rwIn .42s var(--e) var(--d,0ms) forwards;
+}
+@keyframes rwIn{ to{ opacity:1; filter:blur(0); transform:none; } }
+
+/* The wait, made legible. A shimmer crossing the word says the model
+   is working; three bouncing dots say the page is loading. They are
+   not the same claim. */
+.msg--think .msg__b{
+  display:flex; align-items:center; gap:9px;
+  background:none; border:none; padding-inline:0;
+}
+.think{
+  font-size:13px; font-weight:500; color:var(--muted);
+  background:linear-gradient(100deg,
+    var(--muted) 0%, var(--muted) 36%,
+    var(--fg) 50%,
+    var(--muted) 64%, var(--muted) 100%);
+  background-size:280% 100%;
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent;
+  animation:shimmer 1.9s linear infinite;
+}
+@keyframes shimmer{ from{ background-position:180% 0 } to{ background-position:-80% 0 } }
+
+/* Shown only once the reader has scrolled away from the end, so the
+   log can stop dragging them down without stranding them. */
+.ai__latest{
+  position:absolute; z-index:4;
+  inset-inline:auto; left:50%; translate:-50% 0;
+  bottom:84px;
+  padding:7px 15px; border-radius:999px;
+  font-size:12px; font-weight:500;
+  color:var(--inv-fg); background:var(--inv-bg);
+  box-shadow:0 8px 24px rgba(0,0,0,.22);
+  opacity:0; visibility:hidden; transform:translateY(8px);
+  transition:opacity .3s var(--e), transform .3s var(--e), visibility .3s;
+}
+.ai.is-away .ai__latest{ opacity:1; visibility:visible; transform:none; }
+
+@media (prefers-reduced-motion:reduce){
+  .rw{ opacity:1 !important; filter:none !important; transform:none !important; animation:none !important }
+  .think{ animation:none; -webkit-text-fill-color:currentColor; color:var(--muted) }
+}
