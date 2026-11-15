@@ -1476,3 +1476,11 @@ html[dir="rtl"] .pipe .ans{ font-size:16px; font-weight:700; }
      stops competing with the headline it is behind. */
   .field{ opacity:.38; }
 }
+
+
+/* The log is pinned LTR so the bubble column does not mirror. The
+   greeting inside it is the one thing that IS prose, and it is split
+   into one span per word for the reveal — so bidi reordering never
+   got the chance to run and the words came out backwards. It opts
+   back in to the paragraph direction it should have had. */
+html[dir="rtl"] .ai__intro{ direction:rtl; text-align:right; }
