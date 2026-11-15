@@ -58,6 +58,7 @@
     <nav class="nav__links">
       <a href="#work" data-i18n="nav.work"></a>
       <a href="#system" data-i18n="nav.system"></a>
+      <a href="#method" data-i18n="nav.method"></a>
       <a href="#stack" data-i18n="nav.stack"></a>
       <a href="#path" data-i18n="nav.path"></a>
       <a href="#contact" data-i18n="nav.contact"></a>
@@ -81,6 +82,7 @@
   <nav class="menu__links">
     <a href="#work" data-i18n="nav.work"></a>
     <a href="#system" data-i18n="nav.system"></a>
+    <a href="#method" data-i18n="nav.method"></a>
     <a href="#stack" data-i18n="nav.stack"></a>
     <a href="#path" data-i18n="nav.path"></a>
     <a href="#contact" data-i18n="nav.contact"></a>
@@ -177,6 +179,98 @@
     </div>
 
     <div class="grid" id="workGrid"></div>
+  </div>
+</section>
+
+<!-- ======================== METHOD ======================
+     A condensed read of the OMR case study. Almost nobody clicks
+     through to a case study, so the argument lives on the page and
+     the link is for the people who want the measurements.
+================================================================= -->
+<section class="sec method" id="method">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker mono"><b data-i18n="m.k"></b></span>
+      <h2 class="display reveal-lines" data-i18n="m.h"></h2>
+      <p class="lede reveal" data-i18n="m.sub"></p>
+    </div>
+
+    <figure class="pipe reveal">
+      <svg viewBox="0 0 900 260" role="img" aria-labelledby="pipeCap">
+        <g class="dim">
+          <rect x="20" y="96" width="92" height="68" rx="10"/>
+          <path d="M44 130 h44 M44 142 h30 M44 118 h34"/>
+        </g>
+        <text class="lbl" x="66" y="188" data-i18n="m.d1"></text>
+
+        <path class="wire" d="M112 130 H176"/>
+
+        <g class="dim">
+          <rect x="176" y="34" width="150" height="26" rx="6"/>
+          <rect x="176" y="68" width="150" height="26" rx="6"/>
+          <rect x="176" y="102" width="150" height="26" rx="6"/>
+          <rect x="176" y="136" width="150" height="26" rx="6"/>
+          <rect x="176" y="170" width="150" height="26" rx="6"/>
+          <rect x="176" y="204" width="150" height="26" rx="6"/>
+        </g>
+        <text class="lbl" x="251" y="250" data-i18n="m.d2"></text>
+
+        <path class="wire" d="M326 47 C 370 47 372 130 400 130
+                               M326 81 C 370 81 376 130 400 130
+                               M326 115 C 372 115 380 130 400 130
+                               M326 149 C 372 149 380 130 400 130
+                               M326 183 C 370 183 376 130 400 130
+                               M326 217 C 370 217 372 130 400 130"/>
+
+        <g class="acc">
+          <circle cx="440" cy="130" r="40"/>
+          <path d="M424 130 l11 11 l21 -23"/>
+        </g>
+        <text class="lbl" x="440" y="192" data-i18n="m.d3"></text>
+
+        <path class="wire" d="M480 130 H540"/>
+
+        <g class="dim">
+          <circle cx="566" cy="100" r="7"/><circle cx="606" cy="100" r="7"/><circle cx="646" cy="100" r="7"/>
+          <circle cx="566" cy="130" r="7"/><circle cx="606" cy="130" r="7"/><circle cx="646" cy="130" r="7"/>
+          <circle cx="566" cy="160" r="7"/><circle cx="606" cy="160" r="7"/><circle cx="646" cy="160" r="7"/>
+          <path d="M566 100 h80 M566 130 h80 M566 160 h80 M566 100 v60 M606 100 v60 M646 100 v60" opacity=".45"/>
+        </g>
+        <text class="lbl" x="606" y="196" data-i18n="m.d4"></text>
+
+        <path class="wire" d="M672 130 H736"/>
+
+        <g class="dim"><rect x="736" y="96" width="140" height="68" rx="10"/></g>
+        <text class="ans" x="806" y="136">A B D C</text>
+        <text class="lbl" x="806" y="188" data-i18n="m.d5"></text>
+      </svg>
+      <figcaption class="mono" id="pipeCap" data-i18n="m.cap"></figcaption>
+    </figure>
+
+    <div class="mcards">
+      <article class="mcard reveal">
+        <span class="mono">01</span>
+        <h3 data-i18n="m.c1t"></h3>
+        <p data-i18n="m.c1d"></p>
+      </article>
+      <article class="mcard reveal">
+        <span class="mono">02</span>
+        <h3 data-i18n="m.c2t"></h3>
+        <p data-i18n="m.c2d"></p>
+        <span class="mnum mono">−1.6 pts · 30 → 49</span>
+      </article>
+      <article class="mcard reveal">
+        <span class="mono">03</span>
+        <h3 data-i18n="m.c3t"></h3>
+        <p data-i18n="m.c3d"></p>
+        <span class="mnum mono">86 · 0 · 2</span>
+      </article>
+    </div>
+
+    <a class="btn btn--solid mread" href="case/omr.html">
+      <span data-i18n="m.read"></span>
+      <svg viewBox="0 0 24 24"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+    </a>
   </div>
 </section>
 

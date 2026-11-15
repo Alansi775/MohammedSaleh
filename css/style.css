@@ -954,6 +954,11 @@ html[dir="rtl"] .ai__id b{ letter-spacing:normal }
   flex:1; overflow-y:auto; overscroll-behavior:contain;
   padding:18px; display:flex; flex-direction:column; gap:12px;
   scrollbar-width:thin;
+  /* LAYOUT direction only. A chat reads the same way in every
+     language — your messages on the right, the reply on the left —
+     so the rows are not mirrored. The text inside each bubble still
+     sets its own direction, below. */
+  direction:ltr;
 }
 .ai__log::-webkit-scrollbar{ width:7px }
 .ai__log::-webkit-scrollbar-thumb{ background:var(--line); border-radius:7px }
@@ -981,6 +986,11 @@ html[dir="rtl"] .ai__chip:hover{ transform:translateX(-2px); }
   font-size:14.5px; line-height:1.56;
   /* an unbroken URL or address must not push the bubble past the panel */
   overflow-wrap:anywhere;
+  /* each bubble takes its direction from its own first strong
+     character, so an Arabic reply reads right-to-left inside a row
+     that is laid out left-to-right */
+  unicode-bidi:plaintext;
+  text-align:start;
 }
 html[dir="rtl"] .msg__b{ line-height:1.85 }
 .msg--me .msg__b{ background:var(--fg); color:var(--bg); border-end-end-radius:6px; }
@@ -1075,9 +1085,11 @@ html[dir="rtl"] .ai__send svg{ transform:scaleX(-1) }
 body.ai-big .ai__veil{ opacity:1; visibility:visible; }
 
 .ai.is-big{
+  /* inset:auto already clears every side. An inset-inline-end:auto
+     after it resolved to left:auto in RTL and cancelled the centring,
+     so the expanded panel sat off to one side in Arabic. */
   inset:auto;
   top:50%; left:50%;
-  inset-inline-end:auto;
   translate:-50% -50%;
   width:min(860px, calc(100vw - 48px));
   height:min(760px, calc(100svh - 96px));
@@ -1339,3 +1351,71 @@ html[dir="rtl"] body.is-touring::after{ letter-spacing:.02em; text-transform:non
   mask-image:linear-gradient(to top,#000 62%,transparent);
 }
 html[data-theme="dark"] .card--text:not(.card--wide) .glyph{ opacity:.5; }
+
+/* ==================================================================
+   METHOD
+   A condensed read of the case study, on the page itself. Almost
+   nobody follows a "case study" link, and the reasoning is the part
+   worth seeing.
+================================================================== */
+.pipe{ margin:0 0 clamp(28px,4vh,44px); }
+.pipe svg{
+  width:100%; height:auto; display:block;
+  background:var(--surface);
+  border:1px solid var(--line-soft);
+  border-radius:var(--r-xl);
+  padding:clamp(14px,2.4vw,30px);
+}
+.pipe figcaption{
+  margin-top:14px; max-width:60ch;
+  color:var(--faint); text-transform:none; letter-spacing:.01em;
+  font-family:var(--ff); font-size:13.5px; line-height:1.6;
+}
+
+/* diagram ink, shared with the case page's figures */
+.pipe .dim circle,.pipe .dim rect,.pipe .dim path{
+  fill:none; stroke:var(--fg); stroke-width:1.2; opacity:.5;
+  vector-effect:non-scaling-stroke;
+}
+.pipe .acc circle,.pipe .acc path{
+  fill:none; stroke:var(--accent); stroke-width:1.6;
+  stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke;
+}
+.pipe .wire{ fill:none; stroke:var(--fg); stroke-width:1; opacity:.3; vector-effect:non-scaling-stroke; }
+.pipe .lbl{
+  fill:var(--faint); font-family:var(--ff-mono);
+  font-size:11px; text-anchor:middle; letter-spacing:.06em;
+}
+.pipe .ans{
+  fill:var(--fg); font-family:var(--ff-mono);
+  font-size:17px; font-weight:600; text-anchor:middle; letter-spacing:.1em;
+}
+
+.mcards{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(12px,1.5vw,18px);
+  margin-bottom:clamp(28px,4vh,40px);
+}
+@media (max-width:900px){ .mcards{ grid-template-columns:1fr } }
+.mcard{
+  background:var(--surface); border-radius:var(--r-l);
+  padding:clamp(22px,2.6vw,32px);
+  display:flex; flex-direction:column; gap:12px;
+  transition:background .4s var(--e);
+}
+.mcard:hover{ background:var(--surface-2); }
+.mcard h3{
+  margin:0; font-size:clamp(16px,1.7vw,19px); font-weight:600;
+  letter-spacing:-.02em; line-height:1.3;
+}
+html[dir="rtl"] .mcard h3{ letter-spacing:normal; font-weight:700; line-height:1.55; }
+.mcard p{
+  margin:0; font-size:14.5px; line-height:1.65; color:var(--muted);
+}
+html[dir="rtl"] .mcard p{ line-height:1.95; }
+.mnum{
+  margin-top:auto; padding-top:8px;
+  color:var(--accent); font-size:11px;
+}
+.mread svg{ width:15px; height:15px; }
+html[dir="rtl"] .mread svg{ transform:scaleX(-1); }

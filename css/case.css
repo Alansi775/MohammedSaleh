@@ -84,8 +84,15 @@ html[dir="rtl"] .chero__t{ letter-spacing:normal; line-height:1.34; font-weight:
   background:var(--line-soft);
   border-block:1px solid var(--line-soft);
 }
+@media (max-width:760px){
+  .facts > div:nth-child(odd){ padding-inline-start:0; }
+}
 @media (max-width:760px){ .facts{ grid-template-columns:repeat(2,1fr) } }
-.facts > div{ background:var(--bg); padding:20px 18px 20px 0; }
+/* The cells are separated by a 1px gap showing the background, so
+   each needs padding on BOTH sides — text was running up against the
+   divider on the left of every cell after the first. */
+.facts > div{ background:var(--bg); padding:22px 20px; }
+.facts > div:first-child{ padding-inline-start:0; }
 .facts dt{ margin-bottom:7px; }
 .facts dd{ margin:0; font-size:14.5px; line-height:1.5; color:var(--fg); }
 
@@ -219,3 +226,10 @@ html[dir="rtl"] .cfoot .btn svg{ transform:scaleX(-1); }
   .facts > div{ padding:16px 14px 16px 0; }
   .fig svg{ padding:12px; border-radius:var(--r-m); }
 }
+
+
+/* the case page's bar carries the same controls as the site, pinned
+   to one arrangement for the same reason they are pinned there */
+.nav__right{ display:flex; align-items:center; gap:6px; justify-self:end; }
+.case .nav__in--case{ direction:ltr; }
+@media (max-width:620px){ .case .nav__title{ display:none } }

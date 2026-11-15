@@ -6,8 +6,83 @@
    get out of the way.
 ================================================================== */
 
-const $ = (s, r = document) => r.querySelector(s);
+import { C } from './case-i18n.js';
+
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ==================================================================
+   LANGUAGE
+   The same storage key the rest of the site uses, so a reader who
+   switched to Arabic on the portfolio does not land here in English.
+================================================================== */
+const LANGS = ['en', 'ar', 'tr'];
+const DIR = { en:'ltr', ar:'rtl', tr:'ltr' };
+const LS_LANG = 'ms.lang';
+
+let lang = (()=>{
+  try {
+    const saved = localStorage.getItem(LS_LANG);
+    if (LANGS.includes(saved)) return saved;
+  } catch(e){}
+  const n = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  return LANGS.includes(n) ? n : 'en';
+})();
+
+const t = k => (C[lang] && C[lang][k]) ?? (C.en[k] ?? '');
+
+function movePill(wrap, btn){
+  if (!wrap || !btn) return;
+  const pill = wrap.querySelector('.seg__pill');
+  if (!pill) return;
+  const pad = parseFloat(getComputedStyle(wrap).paddingLeft) || 0;
+  pill.style.width = btn.offsetWidth + 'px';
+  pill.style.transform = `translateX(${btn.offsetLeft - pad}px)`;
+}
+
+function applyLang(next){
+  lang = next;
+  try { localStorage.setItem(LS_LANG, lang); } catch(e){}
+
+  const root = document.documentElement;
+  root.lang = lang;
+  root.dir  = DIR[lang];
+
+  $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+
+  /* A handful of sentences carry <strong> or <em> inside them. Those
+     strings come from this repository, never from user input, so
+     inserting them as markup is safe here — splitting each one into
+     three nodes to avoid it would make the dictionary unreadable. */
+  $$('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+
+  document.title = t('c.title');
+
+  $$('[data-setlang]').forEach(b => b.classList.toggle('is-on', b.dataset.setlang === lang));
+  const chip = $('#langbtn span');
+  if (chip) chip.textContent = { en:'EN', ar:'\u0639', tr:'TR' }[lang] || lang.toUpperCase();
+  movePill($('.seg'), $(`.seg [data-setlang="${lang}"]`));
+}
+
+function initLang(){
+  document.addEventListener('click', e=>{
+    const b = e.target.closest('[data-setlang]');
+    if (b) applyLang(b.dataset.setlang);
+  });
+  $('#langbtn')?.addEventListener('click', ()=>{
+    applyLang(LANGS[(LANGS.indexOf(lang) + 1) % LANGS.length]);
+  });
+
+  applyLang(lang);
+
+  const settle = ()=> movePill($('.seg'), $(`.seg [data-setlang="${lang}"]`));
+  if (document.fonts?.ready) document.fonts.ready.then(settle);
+  if (window.ResizeObserver){
+    const el = $('.seg');
+    if (el) new ResizeObserver(settle).observe(el);
+  }
+}
 
 const LS_THEME = 'ms.theme';
 const DAY = [7, 19];
@@ -83,5 +158,6 @@ function initProgress(){
   paint();
 }
 
+initLang();
 initTheme();
 initProgress();

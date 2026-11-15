@@ -333,6 +333,12 @@ function md(s){
   h = h.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   h = h.replace(/(^|[\s(])\*([^*\n]+)\*/g, '$1<em>$2</em>');
 
+  /* A reply cut off by the token limit can leave an opening ** with no
+     partner, which then shows as literal asterisks in the page. Close
+     it rather than print it. */
+  if ((h.match(/\*\*/g) || []).length === 1) h = h.replace(/\*\*(.*)$/s, '<strong>$1</strong>');
+  h = h.replace(/\*\*/g, '');
+
   /* Links first, and the pattern has to accept mailto: as well as http.
      It did not, so "[addr](mailto:addr)" fell through to the bare-email
      rule below, which linked the bracket text and left "(mailto:addr)"
@@ -346,6 +352,13 @@ function md(s){
      "[addr](mailto:addr" with no closing paren. Salvage the label so
      the page never shows a dangling "(mailto:" fragment. */
   h = h.replace(/\[([^\]]+)\]\((?:https?:\/\/|mailto:)[^)\s]*$/g, '$1');
+
+  /* Bare URLs. The model often writes "Watch: https://youtu.be/..."
+     with no markdown around it, and an unlinked video link is the one
+     thing in a reply somebody actually wants to press. The lookahead
+     keeps it from touching a URL that is already inside an href. */
+  h = h.replace(/(^|[\s(\[])(https?:\/\/[^\s<)\]]+[^\s<)\].,;:!?])(?![^<]*<\/a>)/g,
+                '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
 
   // then any bare address left over, as long as it is not already linked
   h = h.replace(/(^|[\s(\[])([\w.+-]+@[\w.-]+\.\w{2,})(?![^<]*<\/a>)/g,
