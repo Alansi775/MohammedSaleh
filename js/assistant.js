@@ -348,10 +348,16 @@ function md(s){
       ? `<a href="${url}">${label}</a>`
       : `<a href="${url}" target="_blank" rel="noopener">${label}</a>`);
 
-  /* A reply can be truncated by the token limit mid-link, leaving
-     "[addr](mailto:addr" with no closing paren. Salvage the label so
-     the page never shows a dangling "(mailto:" fragment. */
-  h = h.replace(/\[([^\]]+)\]\((?:https?:\/\/|mailto:)[^)\s]*$/g, '$1');
+  /* A reply can be cut off by the token limit anywhere inside a link,
+     and each stopping point leaves a different wreck:
+         "[label](http://..."   no closing paren
+         "[label]"              no target at all
+         "[label"               not even a closing bracket
+     All three used to print their punctuation. Keep the label, drop
+     the syntax — a visible "[Watch on YouTube" helps nobody. */
+  h = h.replace(/\[([^\]]*)\]\((?:https?:\/\/|mailto:)[^)\s]*$/, '$1');
+  h = h.replace(/\[([^\]]*)\]\s*$/, '$1');
+  h = h.replace(/\[([^\]\n]*)$/, '$1');
 
   /* Bare URLs. The model often writes "Watch: https://youtu.be/..."
      with no markdown around it, and an unlinked video link is the one

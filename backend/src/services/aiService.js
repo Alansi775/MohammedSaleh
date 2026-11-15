@@ -60,7 +60,7 @@ const generateFromGroq = async (message, language, history = []) => {
         ...history,
         { role: 'user', content: message },
       ],
-      max_tokens: 900,
+      max_tokens: 1500,
       temperature: 0.7,
     }),
   });
@@ -176,7 +176,7 @@ const generateFromDeepSeek = async (message, language, history = []) => {
         ...history,
         { role: 'user', content: message },
       ],
-      max_tokens: 900,
+      max_tokens: 1500,
       temperature: 0.7,
     }),
   });
