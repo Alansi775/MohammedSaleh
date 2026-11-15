@@ -1443,3 +1443,36 @@ html[dir="rtl"] .pipe .ans{
 }
 html[dir="rtl"] .pipe .lbl{ font-size:12.5px; }
 html[dir="rtl"] .pipe .ans{ font-size:16px; font-weight:700; }
+
+
+/* ==================================================================
+   PHONE: CARDS
+   Two things only showed up on a real phone. A wide text card drops
+   to one column under 900px, and its schematic kept its absolute
+   band at the foot of the card — drawn straight through the chips
+   and the link row. And the stat block, pinned to the top corner,
+   collided with a title that now wraps across the full width.
+   Both stop being overlays and become part of the flow.
+================================================================== */
+@media (max-width:900px){
+  .card--wide.card--text .card__body{ padding-bottom:132px; }
+  .card--wide.card--text .glyph{ height:126px; opacity:.3; }
+  html[data-theme="dark"] .card--wide.card--text .glyph{ opacity:.46; }
+}
+
+@media (max-width:720px){
+  /* the stat joins the flow above the copy rather than floating over it */
+  .stat{
+    position:static; text-align:start;
+    display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+    padding:clamp(20px,5vw,26px) clamp(20px,5vw,26px) 0;
+  }
+  .stat b{ line-height:1; }
+  .stat .mono{ max-width:none; }
+  .card .card__body{ padding-top:14px; }
+
+  /* the field is an instrument, not a light show. On a phone it holds
+     one converged frame (see field.js) and sits further back, so it
+     stops competing with the headline it is behind. */
+  .field{ opacity:.38; }
+}

@@ -23,6 +23,14 @@ export function initField(canvas){
   const ctx = canvas.getContext('2d', { alpha: true });
   if (!ctx) return;
 
+  /* On a phone the loop was the first thing you met and the last
+     thing you wanted: eight traces breathing behind the headline,
+     on a device that is already fighting for frames. The field is
+     worth keeping — it is what the work is about — so the phone
+     gets ONE frame of it, held at convergence. Instrument, not
+     animation. */
+  const STILL = matchMedia('(hover:none) and (max-width:900px)').matches;
+
   let w = 0, h = 0, dpr = 1, raf = null;
   let running = true;
 
@@ -129,13 +137,22 @@ export function initField(canvas){
     }
 
     ctx.globalAlpha = 1;
-    raf = requestAnimationFrame(frame);
+    if (!STILL) raf = requestAnimationFrame(frame);
   };
+
+  /* the held frame: conv() near its peak, so the traces have
+     collapsed and the decision line is drawn. */
+  const HOLD = 5500;
 
   const start = ()=>{ if (!raf){ running = true; raf = requestAnimationFrame(frame); } };
   const stop  = ()=>{ running = false; if (raf){ cancelAnimationFrame(raf); raf = null; } };
 
   resize();
+  if (STILL){
+    frame(HOLD);
+    addEventListener('resize', ()=>{ resize(); frame(HOLD); }, { passive:true });
+    return;
+  }
   start();
 
   addEventListener('resize', ()=>{ resize(); }, { passive:true });
