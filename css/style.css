@@ -357,27 +357,18 @@ html[dir="rtl"] .menu a{ letter-spacing:normal; }
 .hero__in{ position:relative; z-index:1; }
 
 .hero__meta{
-  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
   margin-bottom:clamp(22px,4vh,38px);
 }
+/* the affiliation leads, so it takes the foreground */
+.hero__at{ color:var(--fg); }
+/* a hairline, not a bullet: it separates without decorating */
+.hero__sep{ width:14px; height:1px; background:var(--line); flex:none; }
+@media (max-width:620px){
+  .hero__sep{ display:none }
+  .hero__meta{ gap:4px 10px }
+}
 .dot{ width:3px; height:3px; border-radius:50%; background:var(--faint); }
-
-.pulse{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:5px 12px 5px 9px;
-  border:1px solid var(--line); border-radius:var(--r-pill);
-  color:var(--muted);
-}
-.pulse i{
-  width:6px; height:6px; border-radius:50%; background:var(--live);
-  box-shadow:0 0 0 0 rgba(29,185,84,.55);
-  animation:pulse 2.6s var(--e-soft) infinite;
-}
-@keyframes pulse{
-  0%{ box-shadow:0 0 0 0 rgba(29,185,84,.5) }
-  70%{ box-shadow:0 0 0 7px rgba(29,185,84,0) }
-  100%{ box-shadow:0 0 0 0 rgba(29,185,84,0) }
-}
 
 .hero__title{
   margin:0;
