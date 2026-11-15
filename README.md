@@ -24,6 +24,38 @@ stylesheet, and an `index.html` that opens from disk.
 
 ---
 
+## The assistant
+
+The site carries a working AI assistant, served by a Node backend in
+`backend/` that runs a **three-model fallback chain — Groq → Gemini →
+DeepSeek** — so one provider going down never takes it offline. It
+answers in English or Arabic, keeps conversation context, and knows the
+projects, stack and availability.
+
+Three things the UI does that a bolted-on chat widget does not:
+
+- **It wakes the service before you need it.** The backend sits on a
+  free tier that sleeps, and a cold request takes ~25s. The page sends
+  a warming ping on the first sign of intent — a scroll, a key, a tap —
+  so the first real question is not the one that waits. A live status
+  dot reports *waking / online / offline* honestly rather than spinning.
+- **Answers are typed in at reading pace, by word.** They arrive whole,
+  and printing them instantly reads as canned. Word-by-word, not
+  character-by-character: character typing mangles Arabic, because a
+  letter's form depends on the letter that has not been appended yet.
+- **The markdown is rendered, and the input is escaped first.** The
+  model emits headings, both bullet styles, rules, bold, code and
+  links. All of it is escaped before any of it is parsed, so a reply
+  can never inject markup. Covered by unit tests, including an
+  injection probe.
+
+> Running it locally: the backend's CORS allowlist decides which origins
+> may call it. `http://localhost:5500` is on the list, so serve the site
+> on that port during development, or add your origin in
+> `backend/src/server.js`.
+
+---
+
 ## The two signature pieces
 
 **The hero is a signal field.** Eight traces of noisy data — the shape
@@ -49,12 +81,13 @@ index.html          markup + the pre-paint theme script
 css/style.css       one stylesheet, token-driven
 js/
   app.js            language, theme, rendering, filtering
+  assistant.js      the AI panel, markdown renderer, warm-up
   field.js          the hero's signal field
   scenes.js         the scroll-scrubbed system loop
   data.js           projects, metrics, skills, experience
   i18n.js           every string, in three languages
 assets/             project screenshots
-backend/            optional Node service for the contact form
+backend/            Node service: Groq → Gemini → DeepSeek fallback
 ```
 
 The only external resources are three Google Fonts. Everything else —
@@ -138,8 +171,8 @@ unseen.
 ## Running it
 
 ```bash
-python3 -m http.server 5174
-# http://localhost:5174
+python3 -m http.server 5500      # a port the backend's CORS allows
+# http://localhost:5500
 ```
 
 No build, no install.

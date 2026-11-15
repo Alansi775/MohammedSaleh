@@ -7,6 +7,7 @@ import { T, LANGS, DIR, LANG_LEVELS } from './i18n.js';
 import { LINKS, METRICS, PIPELINE, PROJECTS, FILTERS, SKILLS, EXPERIENCE } from './data.js';
 import { initField } from './field.js';
 import { initSystem } from './scenes.js';
+import { initAssistant, relabelAssistant } from './assistant.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -39,6 +40,7 @@ function applyLang(next, { rerender = true } = {}){
   document.title = t('meta.title');
 
   $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  $$('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
 
   $$('[data-setlang]').forEach(b => b.classList.toggle('is-on', b.dataset.setlang === lang));
   const chip = $('#langbtn span');
@@ -48,6 +50,7 @@ function applyLang(next, { rerender = true } = {}){
   if (rerender){
     renderAll();
     initSystem({ t, PIPELINE });
+    relabelAssistant();
     splitHeadlines();
     movePill($('#filters'), $('#filters .is-on'));
   }
@@ -558,6 +561,7 @@ function boot(){
   initCopy();
   initField($('#field'));
   initSystem({ t, PIPELINE });
+  initAssistant({ t, lang: () => lang });
 
   document.body.classList.add('is-ready');
 

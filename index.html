@@ -237,6 +237,38 @@
 
 </main>
 
+<!-- ===================== ASSISTANT ===================== -->
+<button class="ai__launcher" id="aiLauncher" aria-expanded="false" aria-controls="aiPanel">
+  <span class="ai__orb" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span class="ai__label" data-i18n="ai.open"></span>
+</button>
+
+<section class="ai" id="aiPanel" aria-label="AI assistant">
+  <header class="ai__head">
+    <div class="ai__id">
+      <span class="ai__orb ai__orb--sm" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div>
+        <b data-i18n="ai.title"></b>
+        <span class="ai__status mono" id="aiStatus" data-state="idle"><i></i><span></span></span>
+      </div>
+    </div>
+    <button class="ai__x" id="aiClose" aria-label="Close">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </header>
+
+  <div class="ai__log" id="aiLog"></div>
+
+  <form class="ai__form" id="aiForm">
+    <textarea id="aiInput" rows="1" data-i18n-ph="ai.ph" autocomplete="off"></textarea>
+    <button class="ai__send" type="submit" aria-label="Send">
+      <svg viewBox="0 0 24 24"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+    </button>
+  </form>
+
+  <p class="ai__foot mono" data-i18n="ai.foot"></p>
+</section>
+
 <div class="toast" id="toast" role="status"></div>
 
 <script type="module" src="js/app.js"></script>

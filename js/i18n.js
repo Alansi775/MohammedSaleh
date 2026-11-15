@@ -12,6 +12,19 @@ export const T = {
   en: {
     'meta.title': 'Mohammed Saleh — AI, Autonomous & Embedded Systems',
 
+    'ai.open':'Ask AI',
+    'ai.title':'Mohammed\u2019s assistant',
+    'ai.idle':'Idle', 'ai.waking':'Waking', 'ai.ready':'Online', 'ai.down':'Offline',
+    'ai.hi':'Ask me about Mohammed.',
+    'ai.sub':'Trained on his projects, stack and experience. Answers in English or Arabic.',
+    'ai.q1':'What has he actually shipped?',
+    'ai.q2':'Explain the EMG gesture model.',
+    'ai.q3':'Is he available for work?',
+    'ai.ph':'Ask anything\u2026',
+    'ai.foot':'Groq \u2192 Gemini \u2192 DeepSeek fallback \u00b7 built by Mohammed',
+    'ai.cold':'That first reply woke the server. The next ones are fast.',
+    'ai.error':'I could not reach the service. Try again in a moment.',
+
     'nav.work': 'Work', 'nav.system': 'System', 'nav.stack': 'Stack',
     'nav.path': 'Path', 'nav.contact': 'Contact',
 
@@ -130,6 +143,19 @@ export const T = {
   ar: {
     'meta.title': 'محمد صالح — ذكاء اصطناعي وأنظمة ذاتية ومدمجة',
 
+    'ai.open':'اسأل الذكاء',
+    'ai.title':'مساعد محمد',
+    'ai.idle':'خامل', 'ai.waking':'يستيقظ', 'ai.ready':'متصل', 'ai.down':'غير متصل',
+    'ai.hi':'اسألني عن محمد.',
+    'ai.sub':'مدرَّب على مشاريعه وأدواته وخبرته. يجيب بالعربية أو الإنجليزية.',
+    'ai.q1':'ما الذي أنجزه فعلاً؟',
+    'ai.q2':'اشرح نموذج الإيماءات من إشارة العضلات.',
+    'ai.q3':'هل هو متاح للعمل؟',
+    'ai.ph':'اسأل أي شيء\u2026',
+    'ai.foot':'تسلسل بديل Groq \u2192 Gemini \u2192 DeepSeek \u00b7 من بناء محمد',
+    'ai.cold':'الردّ الأول أيقظ الخادم. ما بعده أسرع.',
+    'ai.error':'تعذّر الوصول إلى الخدمة. أعد المحاولة بعد لحظة.',
+
     'nav.work': 'الأعمال', 'nav.system': 'المنظومة', 'nav.stack': 'الأدوات',
     'nav.path': 'المسار', 'nav.contact': 'تواصل',
 
@@ -247,6 +273,19 @@ export const T = {
 
   tr: {
     'meta.title': 'Mohammed Saleh — Yapay Zekâ, Otonom ve Gömülü Sistemler',
+
+    'ai.open':'Yapay zekâya sor',
+    'ai.title':'Mohammed\u2019in asistanı',
+    'ai.idle':'Boşta', 'ai.waking':'Uyanıyor', 'ai.ready':'Çevrimiçi', 'ai.down':'Çevrimdışı',
+    'ai.hi':'Bana Mohammed\u2019i sorun.',
+    'ai.sub':'Projeleri, teknolojileri ve deneyimi üzerine eğitildi. İngilizce veya Arapça yanıtlar.',
+    'ai.q1':'Gerçekte neler yayına aldı?',
+    'ai.q2':'EMG jest modelini anlat.',
+    'ai.q3':'İş için müsait mi?',
+    'ai.ph':'Ne isterseniz sorun\u2026',
+    'ai.foot':'Groq \u2192 Gemini \u2192 DeepSeek yedeklemesi \u00b7 Mohammed tarafından',
+    'ai.cold':'İlk yanıt sunucuyu uyandırdı. Sonrakiler hızlı.',
+    'ai.error':'Servise ulaşılamadı. Birazdan tekrar deneyin.',
 
     'nav.work': 'Çalışmalar', 'nav.system': 'Sistem', 'nav.stack': 'Teknolojiler',
     'nav.path': 'Deneyim', 'nav.contact': 'İletişim',
