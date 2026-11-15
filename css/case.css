@@ -24,7 +24,11 @@
   width:16px; height:16px; fill:none; stroke:currentColor;
   stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
 }
-html[dir="rtl"] .backlink svg{ transform:scaleX(-1); }
+/* The bar is pinned to one arrangement, so the back control stays on
+   the left in every language — and an arrow that flipped to point
+   right while its button sat on the left pointed away from where it
+   actually goes. The footer's arrow DOES still flip, because the
+   footer follows the document's direction. */
 
 /* ---- the reading column ---- */
 .case .wrap{ max-width:1100px; }
