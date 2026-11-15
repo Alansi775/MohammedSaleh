@@ -1484,3 +1484,18 @@ html[dir="rtl"] .pipe .ans{ font-size:16px; font-weight:700; }
    got the chance to run and the words came out backwards. It opts
    back in to the paragraph direction it should have had. */
 html[dir="rtl"] .ai__intro{ direction:rtl; text-align:right; }
+
+
+/* The expand button holds two icons, swapped by opacity. Both were
+   grid ITEMS, so the button laid them out in two rows and the visible
+   one sat in the upper one — half a row above the close button beside
+   it. They share one cell now. */
+#aiExpand svg{ grid-area:1 / 1; }
+
+/* "Online", with a green dot, next to a name. That is a 2007 chat
+   roster, not an instrument. The states worth saying are the ones
+   that change what you should expect: the backend waking from a cold
+   start, or not answering at all. Idle and ready say nothing, so they
+   show nothing. */
+.ai__status[data-state="idle"],
+.ai__status[data-state="ready"]{ display:none; }

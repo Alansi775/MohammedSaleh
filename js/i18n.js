@@ -197,7 +197,7 @@ export const T = {
     'ai.shots':'افتح اللقطات',
     'ai.seeon':'في الصفحة',
     'ai.tour':'خذني في جولة على الأعمال',
-    'ai.open':'اسأل الذكاء',
+    'ai.open':'اسأل AI',
     'ai.title':'مساعد محمد',
     'ai.idle':'خامل', 'ai.waking':'يستيقظ', 'ai.ready':'متصل', 'ai.down':'غير متصل',
     'ai.hi':'اسألني عن محمد.',
