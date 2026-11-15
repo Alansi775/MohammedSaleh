@@ -207,10 +207,6 @@ async function ask(text){
     const hits = detectProjects(text, answer);
     if (hits.length) offerJump(hits);
 
-    /* a cold start is the single most likely bad first impression, so
-       it gets named rather than hidden */
-    if (performance.now() - t0 > 9000) note(tr('ai.cold'));
-
   } catch (err){
     typing.remove();
     addMsg('ai', tr('ai.error'), true);
@@ -231,9 +227,23 @@ function addMsg(who, text, isError){
   return el;
 }
 
-/* The wait is not dead time: the orb turns over and the word shimmers
-   across itself, so the pause reads as the model working rather than
-   as the page having stalled. */
+/* ==================================================================
+   THE WAIT
+
+   The backend sleeps on a free tier, so a first request can take
+   twenty seconds. The old UI apologised for that afterwards — "that
+   reply woke the server" — which draws attention to the plumbing and
+   tells the reader something they cannot act on.
+
+   The wait says what it is instead, while it happens. The orb turns
+   over, the word shimmers across itself, and the word CHANGES as the
+   seconds pass: reading, gathering, drafting. Nothing here is a lie —
+   that is the order the thing actually works in — and a long pause
+   reads as consideration rather than as a page that has stalled.
+================================================================== */
+const THINK = ['ai.think', 'ai.think2', 'ai.think3', 'ai.think4'];
+const THINK_EVERY = 2600;
+
 function addTyping(){
   const log = $('#aiLog');
   const el = document.createElement('div');
@@ -241,10 +251,28 @@ function addTyping(){
   el.innerHTML = `
     <div class="msg__b msg__typing">
       <span class="ai__orb ai__orb--sm" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="think">${esc(tr('ai.think'))}</span>
+      <span class="think is-in">${esc(tr(THINK[0]))}</span>
     </div>`;
   log.appendChild(el);
   scroll();
+
+  /* the phrases advance and then hold on the last one — they do not
+     cycle, because a loop would say the work had started over */
+  let i = 0;
+  const word = el.querySelector('.think');
+  const timer = setInterval(()=>{
+    if (++i >= THINK.length){ clearInterval(timer); return; }
+    word.classList.remove('is-in');
+    setTimeout(()=>{
+      word.textContent = tr(THINK[i]);
+      word.classList.add('is-in');
+    }, 220);
+  }, THINK_EVERY);
+
+  /* whoever removes the row stops the clock with it */
+  const kill = el.remove.bind(el);
+  el.remove = ()=>{ clearInterval(timer); kill(); };
+
   return el;
 }
 

@@ -31,9 +31,8 @@ export const T = {
     'ai.q2':'Explain the EMG gesture model.',
     'ai.q3':'Is he available for work?',
     'ai.ph':'Ask anything\u2026',
-    'ai.think':'Thinking', 'ai.latest':'Jump to the latest',
+    'ai.think':'Thinking', 'ai.think2':'Reading his work', 'ai.think3':'Gathering the details', 'ai.think4':'Putting it together', 'ai.latest':'Jump to the latest',
     'ai.foot':'Answers are generated, so check anything that matters.',
-    'ai.cold':'That first reply woke the server. The next ones are fast.',
     'ai.error':'I could not reach the service. Try again in a moment.',
 
     'nav.work': 'Work', 'nav.system': 'System', 'nav.stack': 'Stack',
@@ -202,9 +201,8 @@ export const T = {
     'ai.q2':'اشرح نموذج الإيماءات من إشارة العضلات.',
     'ai.q3':'هل هو متاح للعمل؟',
     'ai.ph':'اسأل أي شيء\u2026',
-    'ai.think':'يفكّر', 'ai.latest':'انزل إلى الأحدث',
+    'ai.think':'يفكّر', 'ai.think2':'يقرأ أعماله', 'ai.think3':'يجمع التفاصيل', 'ai.think4':'يصوغ الجواب', 'ai.latest':'انزل إلى الأحدث',
     'ai.foot':'الإجابات مولّدة، فتحقّق مما يهمّك منها.',
-    'ai.cold':'الردّ الأول أيقظ الخادم. ما بعده أسرع.',
     'ai.error':'تعذّر الوصول إلى الخدمة. أعد المحاولة بعد لحظة.',
 
     'nav.work': 'الأعمال', 'nav.system': 'المنظومة', 'nav.stack': 'الأدوات',
@@ -373,9 +371,8 @@ export const T = {
     'ai.q2':'EMG jest modelini anlat.',
     'ai.q3':'İş için müsait mi?',
     'ai.ph':'Ne isterseniz sorun\u2026',
-    'ai.think':'D\u00fc\u015f\u00fcn\u00fcyor', 'ai.latest':'En yeniye git',
+    'ai.think':'D\u00fc\u015f\u00fcn\u00fcyor', 'ai.think2':'\u00c7al\u0131\u015fmalar\u0131n\u0131 okuyor', 'ai.think3':'Detaylar\u0131 topluyor', 'ai.think4':'Yan\u0131t\u0131 kuruyor', 'ai.latest':'En yeniye git',
     'ai.foot':'Yan\u0131tlar \u00fcretilir; \u00f6nemli bir \u015fey varsa do\u011frulay\u0131n.',
-    'ai.cold':'İlk yanıt sunucuyu uyandırdı. Sonrakiler hızlı.',
     'ai.error':'Servise ulaşılamadı. Birazdan tekrar deneyin.',
 
     'nav.work': 'Çalışmalar', 'nav.system': 'Sistem', 'nav.stack': 'Teknolojiler',

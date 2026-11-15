@@ -1565,3 +1565,8 @@ html[dir="rtl"] .ai__form textarea{ line-height:1.95; min-height:50px; }
   .rb{ opacity:1 !important; filter:none !important; transform:none !important; animation:none !important }
   .think{ animation:none; -webkit-text-fill-color:currentColor; color:var(--muted) }
 }
+
+/* each phrase crosses out and the next crosses in, so the change
+   reads as a step rather than a glitch */
+.think{ transition:opacity .22s var(--e), transform .22s var(--e); }
+.think:not(.is-in){ opacity:.25; transform:translateY(3px); }
