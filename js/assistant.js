@@ -322,6 +322,16 @@ function watchScroll(){
   }, { passive:true });
 }
 
+/* Bring the START of a message to the top of the log, rather than
+   slamming to the bottom of it. */
+function showFrom(el){
+  const log = $('#aiLog');
+  if (!log || !stick) return;
+  const target = Math.min(el.offsetTop - 10, log.scrollHeight - log.clientHeight);
+  log.scrollTop = Math.max(0, target);
+  $('#aiPanel')?.classList.remove('is-away');
+}
+
 function scroll(force){
   const log = $('#aiLog');
   if (!log) return;
@@ -334,61 +344,55 @@ function scroll(force){
 /* ==================================================================
    THE REVEAL
 
-   The answer arrives whole, so there is nothing to stream. Printing
-   it at once reads as a canned reply; appending it word by word and
-   re-rendering the markdown each step reflowed the whole bubble 200
-   times and kept dragging the scroll with it.
+   The first attempt at this wrapped every word in its own inline-block
+   and faded them in on a stagger. In English it looked right. In
+   Arabic it was unreadable: an inline-block is an atomic box, so the
+   bidi algorithm can no longer reorder across the words, and
+   "\u0646\u0628\u0630\u0629 \u0639\u0646 \u0645\u062d\u0645\u062f" came out "\u0645\u062d\u0645\u062f \u0639\u0646 \u0646\u0628\u0630\u0629". Splitting a run of text
+   into boxes destroys bidi \u2014 the same mistake the greeting made.
 
-   So it is laid out ONCE, in full, and then each word is faded up out of
-   a blur on a staggered delay. The browser runs the whole thing on
-   the compositor, the layout never moves after the first frame, and
-   the reader can scroll back up through a paragraph while the next
-   one is still arriving.
+   So nothing inside a line is ever split. The answer is laid out once
+   in full, and the reveal runs a level up: paragraph by paragraph,
+   heading by heading, each block fading up out of a blur on a
+   staggered delay. Every line keeps its own text run, so Arabic
+   reorders and joins exactly as it should.
 
-   Words, not characters: character-typing mangles Arabic, where a
-   letter's form depends on the letter that has not been written yet.
+   Layout is still final before anything is visible, so the reader can
+   scroll back through the answer while the rest of it is arriving.
 ================================================================== */
-const STEP = 26;            // ms between words
-const CAP  = 5200;          // never make anyone wait longer than this
+const BSTEP = 110;          // ms between blocks
+const BCAP  = 2600;         // never hold the last block longer than this
 
-function wrapWords(root){
-  const skip = new Set(['CODE', 'PRE']);
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-    acceptNode: n => skip.has(n.parentNode.nodeName)
-      ? NodeFilter.FILTER_REJECT
-      : (n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT)
-  });
-
-  const texts = [];
-  for (let n = walker.nextNode(); n; n = walker.nextNode()) texts.push(n);
+function revealBlocks(body){
+  const blocks = [...body.children];
+  if (!blocks.length) return 0;
 
   let i = 0;
-  for (const node of texts){
-    const frag = document.createDocumentFragment();
-    for (const part of node.nodeValue.split(/(\s+)/)){
-      if (!part) continue;
-      if (!part.trim()){ frag.appendChild(document.createTextNode(part)); continue; }
-      const sp = document.createElement('span');
-      sp.className = 'rw';
-      sp.style.setProperty('--d', Math.min(i++ * STEP, CAP) + 'ms');
-      sp.textContent = part;
-      frag.appendChild(sp);
-    }
-    node.parentNode.replaceChild(frag, node);
+  const mark = el => {
+    el.classList.add('rb');
+    el.style.setProperty('--d', Math.min(i++ * BSTEP, BCAP) + 'ms');
+  };
+
+  for (const b of blocks){
+    /* a list reveals its items, not itself \u2014 otherwise a six-point
+       answer lands as one slab */
+    if (b.tagName === 'UL' || b.tagName === 'OL') [...b.children].forEach(mark);
+    else mark(b);
   }
-  return Math.min(i * STEP, CAP) + 420;        // + the fade itself
+  return Math.min(i * BSTEP, BCAP) + 460;
 }
 
 function typeOut(el, text){
   const body = el.querySelector('.msg__b');
   body.innerHTML = md(text);
 
-  if (RM){ scroll(); return Promise.resolve(); }
+  if (RM){ showFrom(el); return Promise.resolve(); }
 
-  const total = wrapWords(body);
-  /* one scroll, before a single word has appeared — after this the
-     bubble's height never changes again */
-  scroll();
+  const total = revealBlocks(body);
+  /* the TOP of the reply, not the bottom of the log. Jumping to the
+     end of an answer you have not read is how the old one lost people
+     \u2014 you start at the first line, as you would in anything else. */
+  showFrom(el);
   return new Promise(resolve => setTimeout(resolve, total));
 }
 

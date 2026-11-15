@@ -1105,9 +1105,18 @@ body.ai-big .ai__veil{ opacity:1; visibility:visible; }
 }
 
 /* the expand / collapse control swaps its glyph with the state */
-#aiExpand{ margin-inline-start:auto; }
+/* The two icons are absolutely positioned so they can cross-fade in
+   place. They had nothing to position AGAINST — .ai__x is not a
+   containing block — so they resolved against an ancestor and the
+   visible one floated a few pixels above the close button beside it.
+   The button is the containing block now, and inset:0 + margin:auto
+   centres them in it. */
+#aiExpand{ margin-inline-start:auto; position:relative; }
 #aiClose{ margin-inline-start:0; }
-#aiExpand svg{ position:absolute; transition:opacity .3s var(--e), transform .4s var(--e); }
+#aiExpand svg{
+  position:absolute; inset:0; margin:auto;
+  transition:opacity .3s var(--e), transform .4s var(--e);
+}
 #aiExpand .i-shrink{ opacity:0; transform:scale(.7); }
 .ai.is-big #aiExpand .i-grow{ opacity:0; transform:scale(.7); }
 .ai.is-big #aiExpand .i-shrink{ opacity:1; transform:none; }
@@ -1486,12 +1495,6 @@ html[dir="rtl"] .pipe .ans{ font-size:16px; font-weight:700; }
 html[dir="rtl"] .ai__intro{ direction:rtl; text-align:right; }
 
 
-/* The expand button holds two icons, swapped by opacity. Both were
-   grid ITEMS, so the button laid them out in two rows and the visible
-   one sat in the upper one — half a row above the close button beside
-   it. They share one cell now. */
-#aiExpand svg{ grid-area:1 / 1; }
-
 /* "Online", with a green dot, next to a name. That is a 2007 chat
    roster, not an instrument. The states worth saying are the ones
    that change what you should expect: the backend waking from a cold
@@ -1503,20 +1506,20 @@ html[dir="rtl"] .ai__intro{ direction:rtl; text-align:right; }
 /* ==================================================================
    THE ANSWER ARRIVING
 
-   The reply is laid out once, in full, and then each word fades up
-   out of a blur on a staggered delay. Nothing reflows after the
-   first frame — the whole reveal runs on the compositor — so you can
-   read back up through a paragraph while the next one is still
-   appearing. --d is set per word in assistant.js.
+   Block by block, never word by word. Wrapping each word in its own
+   inline-block made every word an atomic box, which stops the bidi
+   algorithm reordering across them — Arabic came out backwards. A
+   paragraph keeps its text in one run, so it reorders and joins
+   correctly, and still fades up out of a blur on a stagger.
+   --d is set per block in assistant.js.
 ================================================================== */
-.rw{
-  display:inline-block;
+.rb{
   opacity:0;
-  filter:blur(5px);
-  transform:translateY(.18em);
-  animation:rwIn .42s var(--e) var(--d,0ms) forwards;
+  filter:blur(6px);
+  transform:translateY(7px);
+  animation:rbIn .56s var(--e) var(--d,0ms) forwards;
 }
-@keyframes rwIn{ to{ opacity:1; filter:blur(0); transform:none; } }
+@keyframes rbIn{ to{ opacity:1; filter:blur(0); transform:none; } }
 
 /* The wait, made legible. A shimmer crossing the word says the model
    is working; three bouncing dots say the page is loading. They are
@@ -1526,7 +1529,7 @@ html[dir="rtl"] .ai__intro{ direction:rtl; text-align:right; }
   background:none; border:none; padding-inline:0;
 }
 .think{
-  font-size:13px; font-weight:500; color:var(--muted);
+  font-size:13px; font-weight:500;
   background:linear-gradient(100deg,
     var(--muted) 0%, var(--muted) 36%,
     var(--fg) 50%,
@@ -1553,7 +1556,12 @@ html[dir="rtl"] .ai__intro{ direction:rtl; text-align:right; }
 }
 .ai.is-away .ai__latest{ opacity:1; visibility:visible; transform:none; }
 
+/* Arabic sits taller than Latin at the same size: the descenders of
+   ء and ي ran into the bottom of the field and the placeholder was
+   shaved off. The line gets the room it needs. */
+html[dir="rtl"] .ai__form textarea{ line-height:1.95; min-height:50px; }
+
 @media (prefers-reduced-motion:reduce){
-  .rw{ opacity:1 !important; filter:none !important; transform:none !important; animation:none !important }
+  .rb{ opacity:1 !important; filter:none !important; transform:none !important; animation:none !important }
   .think{ animation:none; -webkit-text-fill-color:currentColor; color:var(--muted) }
 }
