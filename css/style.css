@@ -1159,7 +1159,10 @@ html[dir="rtl"] .card--wide.card--text .glyph{
    place in the row you were reading.
 ================================================================== */
 .lb{
-  position:fixed; inset:0; z-index:950;
+  /* height, not inset:0. On iOS inset:0 resolves against the LARGE
+     viewport, so the bottom of the viewer sits behind the browser bar
+     and the image is cut. svh is the visible height. */
+  position:fixed; top:0; left:0; right:0; height:100svh; z-index:950;
   /* minmax(0,1fr), not 1fr. A bare 1fr is minmax(AUTO,1fr), and that
      auto minimum is the image's intrinsic height — so a tall portrait
      screenshot grew the row past the viewport and was cropped off the
@@ -1179,8 +1182,13 @@ body.lb-on{ overflow:hidden; }
 
 .lb__stage{
   position:relative; z-index:1;
-  display:grid; place-items:center;
-  padding:clamp(56px,8vh,90px) clamp(16px,6vw,100px) 12px;
+  /* FLEX, not grid. As a grid item the image's max-height:100% resolved
+     against an implicit AUTO row — that is, against its own height — so
+     it never constrained anything and a tall screenshot ran off the
+     bottom. A flex container has a definite height here, so the
+     percentage has something real to measure against. */
+  display:flex; align-items:center; justify-content:center;
+  padding:clamp(48px,7vh,80px) clamp(16px,6vw,100px) 10px;
   min-height:0;
   overflow:hidden;
 }
@@ -1188,6 +1196,8 @@ body.lb-on{ overflow:hidden; }
   max-width:100%; max-height:100%;
   width:auto; height:auto;
   object-fit:contain;
+  flex:0 1 auto;
+  min-height:0;
   border-radius:14px;
   box-shadow:0 10px 30px rgba(0,0,0,.18), 0 40px 90px rgba(0,0,0,.28);
   background:var(--surface);

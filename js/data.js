@@ -159,6 +159,10 @@ export const SKILLS = [
 
 export const EXPERIENCE = [
   {
+    id: 'msgone', org: 'MSG One', range: '2026 — Present', type: 't.full',
+    bullets: ['e.msg.1', 'e.msg.2', 'e.msg.3', 'e.msg.4']
+  },
+  {
     id: 'ytu', org: 'YTÜ Yıldız Teknopark', range: '2026 — Present', type: 't.part',
     bullets: ['e.ytu.1', 'e.ytu.2', 'e.ytu.3']
   },
