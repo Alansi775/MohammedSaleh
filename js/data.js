@@ -88,7 +88,7 @@ export const PROJECTS = [
       { k: 'l.demo',  url: 'https://youtu.be/5tWGJeg-cWQ' },
       { k: 'l.demo2', url: 'https://youtu.be/PXxgTgSYX7Y' }
     ],
-    stack: ['PX4 / Pixhawk', 'MAVSDK', 'OpenCV', 'Jetson', 'ROS'],
+    stack: ['Orange Cube · PX4', 'MAVSDK', 'Jetson Xavier', 'Arducam', 'Here4 RTK GNSS', 'Fibre-optic CAN', 'OpenCV', 'ROS'],
     stat: { v: '6DOF', k: 's.control' }
   },
   {

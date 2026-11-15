@@ -17,6 +17,8 @@
       is both truthful about the latency and easier to follow.
 ================================================================== */
 
+import { detectProjects, projectHasMedia, goToProject, startTour, stopTour } from './navigate.js';
+
 const API = 'https://mohammedsaleh-chatbot.onrender.com/api/chat';
 
 const $  = (s, r = document) => r.querySelector(s);
@@ -107,7 +109,23 @@ export function initAssistant({ t, lang }){
   /* suggested openers, delegated so they survive a language switch */
   panel.addEventListener('click', e=>{
     const chip = e.target.closest('[data-ask]');
-    if (chip && !busy) ask(chip.textContent.trim());
+    if (chip && !busy){ ask(chip.textContent.trim()); return; }
+
+    if (e.target.closest('[data-tour]')){
+      setOpen(false);
+      startTour({ onStep: ()=>{} });
+      return;
+    }
+
+    const go = e.target.closest('[data-go]');
+    if (go){
+      /* collapse out of the expanded view, otherwise the scroll lands
+         behind a full-screen panel and nothing appears to happen */
+      panel.classList.remove('is-big');
+      document.body.classList.remove('ai-big');
+      setOpen(false);
+      goToProject(go.dataset.go, { openGallery: !!go.dataset.gallery });
+    }
   });
 
   /* ---- wake the service on the first sign of intent ------------ */
@@ -175,6 +193,12 @@ async function ask(text){
     await typeOut(addMsg('ai', ''), answer);
     setStatus('ready');
 
+    /* If the exchange was clearly about one project, offer to take the
+       reader to it. Matched on the question AND the answer, so a reply
+       that names the project still counts when the question did not. */
+    const hits = detectProjects(text, answer);
+    if (hits.length) offerJump(hits);
+
     /* a cold start is the single most likely bad first impression, so
        it gets named rather than hidden */
     if (performance.now() - t0 > 9000) note(tr('ai.cold'));
@@ -207,6 +231,41 @@ function addTyping(){
   log.appendChild(el);
   scroll();
   return el;
+}
+
+/* The page is the portfolio; the chat is a way into it. These do the
+   walking: reset the filter, scroll to the card, mark it, and open the
+   screenshots if there are any. */
+function offerJump(ids){
+  const log = $('#aiLog');
+  const row = document.createElement('div');
+  row.className = 'ai__act';
+
+  /* One match gets a labelled pair of controls. Several get a chip
+     each, because the useful thing then is the choice, not the verb. */
+  if (ids.length === 1){
+    const id = ids[0];
+    row.innerHTML =
+      `<button class="ai__go" data-go="${id}">
+         <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+         ${esc(tr('ai.jump'))}
+       </button>` +
+      (projectHasMedia(id)
+        ? `<button class="ai__go ai__go--ghost" data-go="${id}" data-gallery="1">
+             <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg>
+             ${esc(tr('ai.shots'))}
+           </button>`
+        : '');
+  } else {
+    row.innerHTML =
+      `<span class="ai__actk mono">${esc(tr('ai.seeon'))}</span>` +
+      ids.map(id =>
+        `<button class="ai__go ai__go--ghost" data-go="${id}">${esc(tr(id + '.t'))}</button>`
+      ).join('');
+  }
+
+  log.appendChild(row);
+  scroll();
 }
 
 function note(text){
@@ -319,13 +378,23 @@ function autosize(el){
 export function renderSuggestions(){
   const host = $('#aiLog');
   if (!host || history.length) return;
+  /* The greeting resolves word by word the first time the panel opens.
+     Words, not characters — character typing breaks Arabic, where a
+     letter's shape depends on the letter after it. */
+  const hi = tr('ai.hi').split(/\s+/)
+    .map((w, i) => `<span class="aw" style="--i:${i}">${esc(w)}</span>`).join(' ');
+
   host.innerHTML = `
     <div class="ai__intro" id="aiSuggest">
-      <p class="ai__hi">${esc(tr('ai.hi'))}</p>
+      <p class="ai__hi">${hi}</p>
       <p class="ai__sub">${esc(tr('ai.sub'))}</p>
+      <button class="ai__tour" data-tour>
+        <span class="ai__orb ai__orb--sm" aria-hidden="true"><i></i><i></i><i></i></span>
+        ${esc(tr('ai.tour'))}
+      </button>
       <div class="ai__chips">
-        ${['ai.q1','ai.q2','ai.q3'].map(k =>
-          `<button class="ai__chip" data-ask>${esc(tr(k))}</button>`).join('')}
+        ${['ai.q1','ai.q2','ai.q3'].map((k, i) =>
+          `<button class="ai__chip" data-ask style="--i:${i}">${esc(tr(k))}</button>`).join('')}
       </div>
     </div>`;
 }

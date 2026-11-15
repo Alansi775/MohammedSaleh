@@ -243,6 +243,29 @@
   <span class="ai__label" data-i18n="ai.open"></span>
 </button>
 
+<!-- ======================= LIGHTBOX ======================= -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="lb__stage">
+    <img id="lbImg" alt="">
+  </div>
+
+  <div class="lb__bar">
+    <span class="mono" id="lbCount">01 / 01</span>
+    <span class="lb__nav">
+      <button id="lbPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <button id="lbNext" aria-label="Next">
+        <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </span>
+  </div>
+
+  <button class="lb__x" id="lbClose" aria-label="Close">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</div>
+
 <div class="ai__veil" id="aiVeil" aria-hidden="true"></div>
 <section class="ai" id="aiPanel" aria-label="AI assistant">
   <header class="ai__head">

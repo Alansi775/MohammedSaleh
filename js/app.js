@@ -8,6 +8,7 @@ import { LINKS, METRICS, PIPELINE, PROJECTS, FILTERS, SKILLS, EXPERIENCE } from 
 import { initField } from './field.js';
 import { initSystem } from './scenes.js';
 import { initAssistant, relabelAssistant } from './assistant.js';
+import { initLightbox } from './lightbox.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -41,6 +42,7 @@ function applyLang(next, { rerender = true } = {}){
 
   $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
   $$('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.body.dataset.tourhint = t('ai.stop');
 
   $$('[data-setlang]').forEach(b => b.classList.toggle('is-on', b.dataset.setlang === lang));
   const chip = $('#langbtn span');
@@ -187,6 +189,12 @@ function runCount(el){
 /* ---- work ------------------------------------------------------ */
 
 const ARROW = '<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+const PLAY  = '<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></svg>';
+
+/* A row of identically-shaped buttons gives no clue that half of them
+   open a video. The mark goes in front of the label, where it is read
+   before the click rather than after it. */
+const isVideo = url => /youtu\.be|youtube\.com|vimeo\.com/.test(url);
 
 /* Projects with no screenshots would otherwise be a blank half-card.
    Each gets a drawn schematic instead — the shape of the system it
@@ -217,38 +225,46 @@ const GLYPH = {
     </svg>`,
 
   /* A Matrice-class airframe in plan view: four arms off a central
-     body, folding joints, twin-blade props with hub detail, landing
-     legs, and a gimbal under the nose. */
+     body, folding joints, two-blade props drawn as real tapered
+     blades, landing legs, and a gimbal under the nose. */
   drone: `<svg class="glyph" viewBox="0 0 520 210" preserveAspectRatio="xMidYMax meet">
-      <g opacity=".9">
+      <g>
+        <!-- the disc each prop sweeps -->
+        <circle cx="120" cy="45" r="58" opacity=".14"/>
+        <circle cx="400" cy="45" r="58" opacity=".14"/>
+        <circle cx="120" cy="165" r="58" opacity=".14"/>
+        <circle cx="400" cy="165" r="58" opacity=".14"/>
+
         <!-- arms -->
         <path d="M212 86 L126 48 M308 86 L394 48 M212 124 L126 162 M308 124 L394 162" stroke-width="2.4"/>
         <!-- folding joints -->
         <circle cx="168" cy="67" r="5"/><circle cx="352" cy="67" r="5"/>
         <circle cx="168" cy="143" r="5"/><circle cx="352" cy="143" r="5"/>
-        <!-- motors -->
+
+        <!-- props -->
+        <path d="M 120 45 C 100 36 75 37 62 43 C 77 52 103 51 120 45 Z"/><path d="M 120 45 C 140 54 165 53 178 47 C 163 38 137 39 120 45 Z"/>
+        <path d="M 400 45 C 380 36 355 37 342 43 C 357 52 383 51 400 45 Z"/><path d="M 400 45 C 420 54 445 53 458 47 C 443 38 417 39 400 45 Z"/>
+        <path d="M 120 165 C 100 156 75 157 62 163 C 77 172 103 171 120 165 Z"/><path d="M 120 165 C 140 174 165 173 178 167 C 163 158 137 159 120 165 Z"/>
+        <path d="M 400 165 C 380 156 355 157 342 163 C 357 172 383 171 400 165 Z"/><path d="M 400 165 C 420 174 445 173 458 167 C 443 158 417 159 400 165 Z"/>
+
+        <!-- motors sit above the blades -->
         <circle cx="120" cy="45" r="11"/><circle cx="400" cy="45" r="11"/>
         <circle cx="120" cy="165" r="11"/><circle cx="400" cy="165" r="11"/>
-        <circle cx="120" cy="45" r="4"/><circle cx="400" cy="45" r="4"/>
-        <circle cx="120" cy="165" r="4"/><circle cx="400" cy="165" r="4"/>
-        <!-- two-blade props, drawn as swept ellipses -->
-        <ellipse cx="120" cy="45"  rx="62" ry="9" opacity=".45"/>
-        <ellipse cx="400" cy="45"  rx="62" ry="9" opacity=".45"/>
-        <ellipse cx="120" cy="165" rx="62" ry="9" opacity=".45"/>
-        <ellipse cx="400" cy="165" rx="62" ry="9" opacity=".45"/>
+        <circle cx="120" cy="45" r="3.5"/><circle cx="400" cy="45" r="3.5"/>
+        <circle cx="120" cy="165" r="3.5"/><circle cx="400" cy="165" r="3.5"/>
+
         <!-- fuselage -->
         <path d="M212 78 h96 a26 26 0 0 1 26 26 v2 a26 26 0 0 1-26 26 h-96
                  a26 26 0 0 1-26-26 v-2 a26 26 0 0 1 26-26 z"/>
-        <!-- payload bay + compute stack -->
+        <!-- compute bay -->
         <rect x="226" y="92" width="68" height="26" rx="5" opacity=".7"/>
         <path d="M238 99 h18 M238 106 h30 M238 112 h12" opacity=".7"/>
         <!-- landing legs -->
         <path d="M206 130 L190 184 M314 130 L330 184 M178 184 h24 M318 184 h24" stroke-width="2"/>
-        <!-- gimbal / sensor head -->
+        <!-- gimbal -->
         <path d="M260 131 v12" stroke-width="2"/>
         <circle cx="260" cy="154" r="13"/>
         <circle cx="260" cy="154" r="6"/>
-        <!-- field of view -->
         <path d="M260 167 L222 200 M260 167 L298 200" opacity=".35"/>
       </g>
     </svg>`,
@@ -332,7 +348,7 @@ function renderWork(){
       : (GLYPH[p.id] || '');
 
     return `
-      <article class="card ${wide ? 'card--wide' : ''} ${p.media.length ? '' : 'card--text'}" data-cat="${esc(p.cat)}">
+      <article class="card ${wide ? 'card--wide' : ''} ${p.media.length ? '' : 'card--text'}" data-cat="${esc(p.cat)}" data-id="${esc(p.id)}">
         ${p.stat ? `<span class="stat"><b>${esc(p.stat.v)}</b><span class="mono">${esc(t(p.stat.k))}</span></span>` : ''}
         <div class="card__body">
           <span class="card__top">
@@ -343,8 +359,11 @@ function renderWork(){
           <p class="card__o">${esc(t(p.id + '.o'))}</p>
           <p class="card__d">${esc(t(p.id + '.d'))}</p>
           <div class="chips">${p.stack.map(s => `<span class="chip">${esc(s)}</span>`).join('')}</div>
-          ${p.links.length ? `<div class="card__links">${p.links.map(l =>
-            `<a class="linkbtn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(t(l.k))}${ARROW}</a>`).join('')}</div>` : ''}
+          ${p.links.length ? `<div class="card__links">${p.links.map(l => {
+            const v = isVideo(l.url);
+            return `<a class="linkbtn${v ? ' linkbtn--v' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener">`
+                 + (v ? PLAY : '') + esc(t(l.k)) + (v ? '' : ARROW) + `</a>`;
+          }).join('')}</div>` : ''}
         </div>
         ${media}
       </article>`;
@@ -676,6 +695,7 @@ function boot(){
   initField($('#field'));
   initSystem({ t, PIPELINE });
   initAssistant({ t, lang: () => lang });
+  initLightbox({ t });
 
   document.body.classList.add('is-ready');
 

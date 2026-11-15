@@ -675,7 +675,12 @@ html[dir="rtl"] .chip{ font-family:var(--ff-mono); }
 }
 .glyph path,.glyph circle,.glyph rect,.glyph line{
   fill:none; stroke:var(--fg); stroke-width:1; vector-effect:non-scaling-stroke;
+  stroke-linejoin:round;
 }
+/* A white line on black carries less apparent weight than a black line
+   on white, so the drawing is lifted in the dark theme to match. */
+html[data-theme="dark"] .glyph{ opacity:.62; }
+html[data-theme="dark"] .card--wide.card--text .glyph{ opacity:.46; }
 
 .stat{
   position:absolute; z-index:2; top:clamp(26px,3vw,40px); inset-inline-end:clamp(26px,3vw,40px);
@@ -1128,20 +1133,10 @@ body.ai-big .ai__veil{ opacity:1; visibility:visible; }
 body.is-ready .w--accent{ background-position:100% 50%; }
 .hero__title:hover .w--accent{ background-position:0% 50%; }
 
-/* a hairline that draws itself under the accent as the page arrives */
-.w--accent::after{
-  content:''; position:absolute; left:0; right:0; bottom:.04em; height:2px;
-  border-radius:2px; background:var(--accent); opacity:.35;
-  transform:scaleX(0); transform-origin:left center;
-  transition:transform 1.1s var(--e) 1.1s, opacity .4s var(--e);
-}
-html[dir="rtl"] .w--accent::after{ transform-origin:right center; }
-body.is-ready .w--accent::after{ transform:scaleX(1); }
-.hero__title:hover .w--accent::after{ opacity:.7; }
+
 
 @media (prefers-reduced-motion:reduce){
   .w--accent{ background:none; -webkit-text-fill-color:currentColor; color:var(--accent); }
-  .w--accent::after{ display:none }
 }
 
 /* On a wide text card the body is capped, which leaves the right side
@@ -1166,3 +1161,180 @@ html[dir="rtl"] .card--wide.card--text .glyph{
     mask-image:linear-gradient(to top,#000 40%,transparent);
   }
 }
+
+/* ==================================================================
+   LIGHTBOX
+   The page behind stays legible through the blur, so you keep your
+   place in the row you were reading.
+================================================================== */
+.lb{
+  position:fixed; inset:0; z-index:950;
+  /* minmax(0,1fr), not 1fr. A bare 1fr is minmax(AUTO,1fr), and that
+     auto minimum is the image's intrinsic height — so a tall portrait
+     screenshot grew the row past the viewport and was cropped off the
+     bottom. minmax(0,…) lets the row shrink, so max-height can bite. */
+  display:grid; grid-template-rows:minmax(0,1fr) auto;
+  opacity:0; visibility:hidden;
+  transition:opacity .4s var(--e), visibility .4s;
+}
+.lb.is-on{ opacity:1; visibility:visible; }
+.lb::before{
+  content:''; position:absolute; inset:0; z-index:0;
+  background:color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter:blur(26px) saturate(130%);
+  -webkit-backdrop-filter:blur(26px) saturate(130%);
+}
+body.lb-on{ overflow:hidden; }
+
+.lb__stage{
+  position:relative; z-index:1;
+  display:grid; place-items:center;
+  padding:clamp(56px,8vh,90px) clamp(16px,6vw,100px) 12px;
+  min-height:0;
+  overflow:hidden;
+}
+.lb__stage img{
+  max-width:100%; max-height:100%;
+  width:auto; height:auto;
+  object-fit:contain;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18), 0 40px 90px rgba(0,0,0,.28);
+  background:var(--surface);
+  will-change:transform;
+}
+.lb.is-closing .lb__stage img{ box-shadow:none; }
+
+.lb__bar{
+  position:relative; z-index:1;
+  display:flex; align-items:center; justify-content:center;
+  gap:18px; padding:14px 18px calc(22px + var(--safe-b));
+  direction:ltr;
+}
+.lb__nav{ display:flex; gap:8px; }
+.lb__nav[hidden]{ display:none; }
+.lb__bar button,.lb__x{
+  width:42px; height:42px; border-radius:50%;
+  display:grid; place-items:center;
+  border:1px solid var(--line);
+  background:color-mix(in srgb, var(--bg) 70%, transparent);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  color:var(--fg);
+  transition:background .3s var(--e), transform .3s var(--e), border-color .3s;
+}
+.lb__bar button:hover,.lb__x:hover{ background:var(--fg); color:var(--bg); border-color:var(--fg); }
+.lb__bar button:active{ transform:scale(.92); }
+.lb__bar svg,.lb__x svg{
+  width:18px; height:18px; fill:none; stroke:currentColor;
+  stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+}
+.lb__x{
+  position:absolute; z-index:2;
+  top:calc(18px + var(--safe-t)); right:18px;
+}
+
+/* the shelf images now advertise that they open */
+.shelf img{ cursor:zoom-in; }
+
+/* a link that opens a video says so before you press it */
+.linkbtn--v{ padding-inline-start:11px; }
+.linkbtn--v svg{ width:14px; height:14px; opacity:.85; }
+
+@media (prefers-reduced-motion:reduce){
+  .lb__stage img{ will-change:auto }
+}
+
+/* ==================================================================
+   ASSISTANT — actions, tour, kinetic opening
+================================================================== */
+
+/* the greeting resolves word by word the first time the panel opens */
+.aw{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(.4em);
+  filter:blur(8px);
+  animation:awIn .9s var(--e) forwards;
+  animation-delay:calc(var(--i) * 70ms + 120ms);
+}
+@keyframes awIn{ to{ opacity:1; transform:none; filter:blur(0) } }
+
+.ai__sub{ opacity:0; animation:awIn .8s var(--e) .5s forwards; }
+.ai__chip{ opacity:0; animation:awIn .7s var(--e) forwards;
+           animation-delay:calc(var(--i) * 80ms + 760ms); }
+
+/* the tour invitation sits above the suggestions */
+.ai__tour{
+  display:inline-flex; align-items:center; gap:9px;
+  margin-bottom:14px; padding:11px 16px 11px 11px;
+  border-radius:var(--r-pill);
+  background:var(--fg); color:var(--bg);
+  font-size:13.5px; font-weight:500;
+  opacity:0; animation:awIn .8s var(--e) .62s forwards;
+  transition:transform .35s var(--e);
+}
+.ai__tour:hover{ transform:translateY(-1px); }
+
+/* the row of controls under an answer */
+.ai__act{ display:flex; flex-wrap:wrap; align-items:center; gap:7px; margin-top:2px; }
+.ai__actk{ font-size:9.5px; margin-inline-end:2px; }
+.ai__go{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:8px 13px; border-radius:var(--r-pill);
+  background:var(--fg); color:var(--bg);
+  font-size:13px; font-weight:500; text-align:start;
+  transition:transform .3s var(--e), opacity .3s;
+}
+.ai__go--ghost{
+  background:transparent; color:var(--fg);
+  border:1px solid var(--line);
+}
+.ai__go--ghost:hover{ background:var(--hover); border-color:var(--fg); }
+.ai__go:active{ transform:scale(.96); }
+.ai__go svg{
+  width:14px; height:14px; flex:none;
+  fill:none; stroke:currentColor; stroke-width:1.8;
+  stroke-linecap:round; stroke-linejoin:round;
+}
+
+/* ==================================================================
+   THE TOUR
+   A card the tour has arrived at gets one pulse — enough to find it
+   after a long scroll, not enough to be a light show.
+================================================================== */
+.card.is-found{
+  animation:found 2.2s var(--e);
+}
+@keyframes found{
+  0%   { box-shadow:0 0 0 0 var(--accent-soft), 0 0 0 0 rgba(0,0,0,0) }
+  18%  { box-shadow:0 0 0 3px var(--accent-soft), 0 18px 50px rgba(0,0,0,.14) }
+  100% { box-shadow:0 0 0 0 rgba(0,0,0,0), 0 0 0 0 rgba(0,0,0,0) }
+}
+
+/* while a tour is running the page says so, and says how to stop */
+body.is-touring::after{
+  content:attr(data-tourhint);
+  position:fixed; z-index:870;
+  bottom:calc(22px + var(--safe-b)); left:50%; transform:translateX(-50%);
+  padding:9px 18px; border-radius:var(--r-pill);
+  background:var(--fg); color:var(--bg);
+  font-family:var(--ff-mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  pointer-events:none;
+  animation:awIn .5s var(--e);
+}
+html[dir="rtl"] body.is-touring::after{ letter-spacing:.02em; text-transform:none; font-size:12px; }
+
+@media (prefers-reduced-motion:reduce){
+  .aw,.ai__sub,.ai__chip,.ai__tour{ opacity:1 !important; animation:none !important; transform:none !important; filter:none !important }
+  .card.is-found{ animation:none; outline:2px solid var(--accent); outline-offset:3px }
+}
+
+/* A narrow text card has no free column, so the schematic gets a band
+   of its own at the foot of the card and the body reserves that space.
+   Previously it was drawn under the chips and the buttons. */
+.card--text:not(.card--wide) .card__body{ padding-bottom:138px; }
+.card--text:not(.card--wide) .glyph{
+  height:132px; opacity:.34;
+  -webkit-mask-image:linear-gradient(to top,#000 62%,transparent);
+  mask-image:linear-gradient(to top,#000 62%,transparent);
+}
+html[data-theme="dark"] .card--text:not(.card--wide) .glyph{ opacity:.5; }
