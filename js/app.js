@@ -191,24 +191,131 @@ const ARROW = '<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>';
 /* Projects with no screenshots would otherwise be a blank half-card.
    Each gets a drawn schematic instead — the shape of the system it
    describes, in the page's own line weight. */
+/* Projects with no screenshots would otherwise be a blank half-card.
+   Each gets a technical schematic instead — drawn in the page's own
+   line weight, at the level of an assembly drawing rather than an
+   icon. They are plan views, which is how these airframes and boards
+   are actually documented. */
 const GLYPH = {
-  emg: `<svg class="glyph" viewBox="0 0 400 160" preserveAspectRatio="none">
-          <path d="M0 110 L40 110 L52 60 L64 140 L78 40 L92 120 L104 95 L130 95 L142 70 L154 125 L168 55 L182 108 L200 100 L400 100"/>
-          <line x1="200" y1="20" x2="200" y2="150"/></svg>`,
-  drone: `<svg class="glyph" viewBox="0 0 400 160" preserveAspectRatio="none">
-          <circle cx="120" cy="60" r="16"/><circle cx="280" cy="60" r="16"/>
-          <circle cx="120" cy="120" r="16"/><circle cx="280" cy="120" r="16"/>
-          <path d="M120 60 L280 120M280 60 L120 120"/>
-          <rect x="178" y="78" width="44" height="24" rx="6"/></svg>`,
-  smarthome: `<svg class="glyph" viewBox="0 0 400 160" preserveAspectRatio="none">
-          <path d="M150 140 L150 70 L200 32 L250 70 L250 140 Z"/>
-          <path d="M200 140 L200 96M176 96 L224 96"/>
-          <circle cx="200" cy="70" r="7"/>
-          <path d="M60 140 L120 140M280 140 L340 140"/></svg>`,
-  minibus: `<svg class="glyph" viewBox="0 0 400 160" preserveAspectRatio="none">
-          <rect x="90" y="52" width="220" height="62" rx="14"/>
-          <circle cx="140" cy="122" r="12"/><circle cx="260" cy="122" r="12"/>
-          <path d="M120 70 L170 70M190 70 L240 70M260 70 L286 70"/></svg>`
+
+  /* EMG: eight channels of raw signal, a detection window, and the
+     classified gesture after it. */
+  emg: `<svg class="glyph" viewBox="0 0 520 190" preserveAspectRatio="xMidYMax meet">
+      <path d="M0 150 L30 150 L38 128 L46 168 L54 112 L62 158 L70 140 L96 140 L104 120 L112 164 L120 104 L128 152 L136 142 L170 142
+               L178 118 L186 170 L194 100 L202 160 L210 138 L240 138"/>
+      <path d="M0 110 L34 110 L42 96 L50 124 L58 86 L66 118 L74 106 L108 106 L116 92 L124 126 L132 84 L140 116 L148 104 L240 104" opacity=".55"/>
+      <path d="M0 70 L40 70 L48 60 L56 82 L64 54 L72 78 L80 68 L240 68" opacity=".3"/>
+      <rect x="150" y="40" width="92" height="130" rx="6" opacity=".55"/>
+      <path d="M242 104 L286 104"/>
+      <path d="M286 72 L286 136 M286 72 L300 72 M286 136 L300 136"/>
+      <rect x="300" y="78" width="78" height="52" rx="8"/>
+      <path d="M316 104 h10 M334 94 v20 M346 99 v10 M358 90 v28" />
+      <path d="M378 104 L414 104"/>
+      <path d="M430 128 v-22 a10 10 0 0 1 10-10 h2 a10 10 0 0 1 10 10 v22
+               M452 106 v-14 a9 9 0 0 1 9-9 h2 a9 9 0 0 1 9 9 v36
+               M414 128 h78 v26 a14 14 0 0 1-14 14 h-50 a14 14 0 0 1-14-14 z"/>
+    </svg>`,
+
+  /* A Matrice-class airframe in plan view: four arms off a central
+     body, folding joints, twin-blade props with hub detail, landing
+     legs, and a gimbal under the nose. */
+  drone: `<svg class="glyph" viewBox="0 0 520 210" preserveAspectRatio="xMidYMax meet">
+      <g opacity=".9">
+        <!-- arms -->
+        <path d="M212 86 L126 48 M308 86 L394 48 M212 124 L126 162 M308 124 L394 162" stroke-width="2.4"/>
+        <!-- folding joints -->
+        <circle cx="168" cy="67" r="5"/><circle cx="352" cy="67" r="5"/>
+        <circle cx="168" cy="143" r="5"/><circle cx="352" cy="143" r="5"/>
+        <!-- motors -->
+        <circle cx="120" cy="45" r="11"/><circle cx="400" cy="45" r="11"/>
+        <circle cx="120" cy="165" r="11"/><circle cx="400" cy="165" r="11"/>
+        <circle cx="120" cy="45" r="4"/><circle cx="400" cy="45" r="4"/>
+        <circle cx="120" cy="165" r="4"/><circle cx="400" cy="165" r="4"/>
+        <!-- two-blade props, drawn as swept ellipses -->
+        <ellipse cx="120" cy="45"  rx="62" ry="9" opacity=".45"/>
+        <ellipse cx="400" cy="45"  rx="62" ry="9" opacity=".45"/>
+        <ellipse cx="120" cy="165" rx="62" ry="9" opacity=".45"/>
+        <ellipse cx="400" cy="165" rx="62" ry="9" opacity=".45"/>
+        <!-- fuselage -->
+        <path d="M212 78 h96 a26 26 0 0 1 26 26 v2 a26 26 0 0 1-26 26 h-96
+                 a26 26 0 0 1-26-26 v-2 a26 26 0 0 1 26-26 z"/>
+        <!-- payload bay + compute stack -->
+        <rect x="226" y="92" width="68" height="26" rx="5" opacity=".7"/>
+        <path d="M238 99 h18 M238 106 h30 M238 112 h12" opacity=".7"/>
+        <!-- landing legs -->
+        <path d="M206 130 L190 184 M314 130 L330 184 M178 184 h24 M318 184 h24" stroke-width="2"/>
+        <!-- gimbal / sensor head -->
+        <path d="M260 131 v12" stroke-width="2"/>
+        <circle cx="260" cy="154" r="13"/>
+        <circle cx="260" cy="154" r="6"/>
+        <!-- field of view -->
+        <path d="M260 167 L222 200 M260 167 L298 200" opacity=".35"/>
+      </g>
+    </svg>`,
+
+  /* An answer sheet: the identity block, a grid of bubbles with a few
+     filled, and the booklet-type box the reader learns to find. */
+  omr: `<svg class="glyph" viewBox="0 0 520 200" preserveAspectRatio="xMidYMax meet">
+      <rect x="86" y="18" width="348" height="176" rx="10"/>
+      <!-- identity block -->
+      <rect x="106" y="34" width="118" height="44" rx="5" opacity=".6"/>
+      <g opacity=".75">
+        <circle cx="120" cy="48" r="3.4"/><circle cx="134" cy="48" r="3.4"/><circle cx="148" cy="48" r="3.4"/>
+        <circle cx="162" cy="48" r="3.4"/><circle cx="176" cy="48" r="3.4"/><circle cx="190" cy="48" r="3.4"/>
+        <circle cx="120" cy="64" r="3.4"/><circle cx="134" cy="64" r="3.4"/><circle cx="148" cy="64" r="3.4"/>
+        <circle cx="162" cy="64" r="3.4"/><circle cx="176" cy="64" r="3.4"/><circle cx="190" cy="64" r="3.4"/>
+      </g>
+      <!-- booklet-type box -->
+      <rect x="310" y="34" width="56" height="26" rx="5"/>
+      <circle cx="326" cy="47" r="5"/>
+      <circle cx="350" cy="47" r="5" fill="currentColor" stroke="none"/>
+      <!-- answer grid -->
+      <g opacity=".85">
+        <circle cx="118" cy="104" r="5"/><circle cx="136" cy="104" r="5" fill="currentColor" stroke="none"/><circle cx="154" cy="104" r="5"/><circle cx="172" cy="104" r="5"/>
+        <circle cx="118" cy="126" r="5"/><circle cx="136" cy="126" r="5"/><circle cx="154" cy="126" r="5" fill="currentColor" stroke="none"/><circle cx="172" cy="126" r="5"/>
+        <circle cx="118" cy="148" r="5" fill="currentColor" stroke="none"/><circle cx="136" cy="148" r="5"/><circle cx="154" cy="148" r="5"/><circle cx="172" cy="148" r="5"/>
+        <circle cx="118" cy="170" r="5"/><circle cx="136" cy="170" r="5"/><circle cx="154" cy="170" r="5"/><circle cx="172" cy="170" r="5" fill="currentColor" stroke="none"/>
+
+        <circle cx="236" cy="104" r="5"/><circle cx="254" cy="104" r="5"/><circle cx="272" cy="104" r="5" fill="currentColor" stroke="none"/><circle cx="290" cy="104" r="5"/>
+        <circle cx="236" cy="126" r="5" fill="currentColor" stroke="none"/><circle cx="254" cy="126" r="5"/><circle cx="272" cy="126" r="5"/><circle cx="290" cy="126" r="5"/>
+        <circle cx="236" cy="148" r="5"/><circle cx="254" cy="148" r="5"/><circle cx="272" cy="148" r="5"/><circle cx="290" cy="148" r="5" fill="currentColor" stroke="none"/>
+        <circle cx="236" cy="170" r="5"/><circle cx="254" cy="170" r="5" fill="currentColor" stroke="none"/><circle cx="272" cy="170" r="5"/><circle cx="290" cy="170" r="5"/>
+
+        <circle cx="354" cy="104" r="5"/><circle cx="372" cy="104" r="5"/><circle cx="390" cy="104" r="5"/><circle cx="408" cy="104" r="5" fill="currentColor" stroke="none"/>
+        <circle cx="354" cy="126" r="5"/><circle cx="372" cy="126" r="5" fill="currentColor" stroke="none"/><circle cx="390" cy="126" r="5"/><circle cx="408" cy="126" r="5"/>
+        <circle cx="354" cy="148" r="5" fill="currentColor" stroke="none"/><circle cx="372" cy="148" r="5"/><circle cx="390" cy="148" r="5"/><circle cx="408" cy="148" r="5"/>
+        <circle cx="354" cy="170" r="5"/><circle cx="372" cy="170" r="5"/><circle cx="390" cy="170" r="5" fill="currentColor" stroke="none"/><circle cx="408" cy="170" r="5"/>
+      </g>
+      <!-- the detected column/row graph -->
+      <path d="M118 92 v92 M236 92 v92 M354 92 v92" opacity=".22"/>
+      <path d="M104 104 h316 M104 126 h316" opacity=".16"/>
+    </svg>`,
+
+  smarthome: `<svg class="glyph" viewBox="0 0 520 190" preserveAspectRatio="xMidYMax meet">
+      <path d="M196 176 L196 92 L260 42 L324 92 L324 176 Z"/>
+      <path d="M260 176 L260 124 M232 124 L288 124"/>
+      <circle cx="260" cy="92" r="9"/><circle cx="260" cy="92" r="3.5" fill="currentColor" stroke="none"/>
+      <path d="M236 70 a34 34 0 0 1 48 0" opacity=".45"/>
+      <path d="M226 58 a48 48 0 0 1 68 0" opacity=".25"/>
+      <rect x="86" y="120" width="72" height="46" rx="7"/>
+      <path d="M100 134 h20 M100 144 h34 M100 154 h14" opacity=".6"/>
+      <path d="M158 143 L196 143" opacity=".5"/>
+      <rect x="362" y="120" width="72" height="46" rx="7"/>
+      <path d="M376 134 h20 M376 144 h34 M376 154 h14" opacity=".6"/>
+      <path d="M324 143 L362 143" opacity=".5"/>
+    </svg>`,
+
+  minibus: `<svg class="glyph" viewBox="0 0 520 180" preserveAspectRatio="xMidYMax meet">
+      <path d="M134 60 h208 a30 30 0 0 1 28 19 l16 42 a14 14 0 0 1-13 19 H134 a14 14 0 0 1-14-14 V74 a14 14 0 0 1 14-14 z"/>
+      <path d="M150 78 h44 v30 h-44 z M206 78 h44 v30 h-44 z M262 78 h44 v30 h-44 z" opacity=".55"/>
+      <path d="M318 78 h26 l14 30 h-40 z" opacity=".55"/>
+      <circle cx="182" cy="140" r="17"/><circle cx="182" cy="140" r="6"/>
+      <circle cx="330" cy="140" r="17"/><circle cx="330" cy="140" r="6"/>
+      <path d="M120 128 h40 M352 128 h30" opacity=".4"/>
+      <path d="M402 44 a30 30 0 0 1 0 44" opacity=".35"/>
+      <path d="M414 32 a46 46 0 0 1 0 68" opacity=".2"/>
+      <circle cx="396" cy="66" r="5" fill="currentColor" stroke="none"/>
+    </svg>`
 };
 
 let filter = 'all';
@@ -432,8 +539,15 @@ function splitHeadlines(){
   $$('[data-split]').forEach(el=>{
     const text = el.textContent.trim();
     if (!text) return;
+    /* A word wrapped in ~tildes~ in the dictionary is the accent word.
+       Marking it in the copy rather than by index means each language
+       can place its own emphasis where the sentence actually wants it. */
     el.innerHTML = text.split(/\s+/)
-      .map((w, i) => `<span class="w" style="--i:${i}">${esc(w)}</span>`)
+      .map((w, i) => {
+        const hit = /^~.+~[.,،؛!?]?$/.test(w);
+        const clean = w.replace(/~/g, '');
+        return `<span class="w${hit ? ' w--accent' : ''}" style="--i:${i}">${esc(clean)}</span>`;
+      })
       .join(' ');
   });
 

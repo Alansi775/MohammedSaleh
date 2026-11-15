@@ -47,6 +47,7 @@ export function initAssistant({ t, lang }){
     open = v;
     panel.classList.toggle('is-open', v);
     launcher.classList.toggle('is-open', v);
+    if (!v){ panel.classList.remove('is-big'); document.body.classList.remove('ai-big'); }
     launcher.setAttribute('aria-expanded', String(v));
     if (v){
       wake();
@@ -56,7 +57,32 @@ export function initAssistant({ t, lang }){
 
   launcher.addEventListener('click', ()=> setOpen(!open));
   $('#aiClose')?.addEventListener('click', ()=> setOpen(false));
-  addEventListener('keydown', e=>{ if (e.key === 'Escape' && open) setOpen(false); });
+
+  /* Expanded: the panel takes the middle of the screen and the page
+     behind it goes soft, so a long answer can be read without the
+     portfolio competing for attention. */
+  let big = false;
+  const setBig = v=>{
+    big = v;
+    panel.classList.toggle('is-big', v);
+    document.body.classList.toggle('ai-big', v);
+    $('#aiExpand')?.setAttribute('aria-label', v ? 'Collapse' : 'Expand');
+  };
+  $('#aiExpand')?.addEventListener('click', ()=> setBig(!big));
+
+  /* Anywhere outside dismisses it — the backdrop, or a click on the
+     page itself. The launcher is excluded, or its own click would
+     reopen what it just closed. */
+  document.addEventListener('pointerdown', e=>{
+    if (!open) return;
+    if (e.target.closest('#aiPanel') || e.target.closest('#aiLauncher')) return;
+    setOpen(false);
+  });
+
+  addEventListener('keydown', e=>{
+    if (e.key !== 'Escape' || !open) return;
+    big ? setBig(false) : setOpen(false);   // Escape steps back one level
+  });
 
   /* ---- send ---------------------------------------------------- */
   form?.addEventListener('submit', e=>{
@@ -256,6 +282,11 @@ function md(s){
     url.startsWith('mailto:')
       ? `<a href="${url}">${label}</a>`
       : `<a href="${url}" target="_blank" rel="noopener">${label}</a>`);
+
+  /* A reply can be truncated by the token limit mid-link, leaving
+     "[addr](mailto:addr" with no closing paren. Salvage the label so
+     the page never shows a dangling "(mailto:" fragment. */
+  h = h.replace(/\[([^\]]+)\]\((?:https?:\/\/|mailto:)[^)\s]*$/g, '$1');
 
   // then any bare address left over, as long as it is not already linked
   h = h.replace(/(^|[\s(\[])([\w.+-]+@[\w.-]+\.\w{2,})(?![^<]*<\/a>)/g,

@@ -1062,3 +1062,107 @@ html[dir="rtl"] .ai__send svg{ transform:scaleX(-1) }
 .msg__b h3{ font-size:1.02em } .msg__b h4{ font-size:.96em }
 .msg__b h3:first-child,.msg__b h4:first-child{ margin-top:0 }
 .msg__b hr{ border:0; border-top:1px solid var(--line); margin:.9em 0 }
+
+/* ==================================================================
+   ASSISTANT — expanded state
+   A long answer deserves the middle of the screen, with the portfolio
+   behind it softened rather than hidden: you keep your place.
+================================================================== */
+.ai__veil{
+  position:fixed; inset:0; z-index:884;
+  background:color-mix(in srgb, var(--bg) 58%, transparent);
+  backdrop-filter:blur(16px) saturate(130%);
+  -webkit-backdrop-filter:blur(16px) saturate(130%);
+  opacity:0; visibility:hidden;
+  transition:opacity .45s var(--e), visibility .45s;
+}
+body.ai-big .ai__veil{ opacity:1; visibility:visible; }
+
+.ai.is-big{
+  inset:auto;
+  top:50%; left:50%;
+  inset-inline-end:auto;
+  translate:-50% -50%;
+  width:min(860px, calc(100vw - 48px));
+  height:min(760px, calc(100svh - 96px));
+  transform-origin:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.14),0 40px 100px rgba(0,0,0,.30);
+}
+.ai.is-big .ai__log{ padding:26px clamp(26px,5vw,56px); }
+.ai.is-big .msg__b{ max-width:76%; font-size:15.5px; }
+.ai.is-big .ai__form{ padding:14px clamp(20px,4vw,44px); }
+.ai.is-big .ai__foot{ padding-inline:clamp(20px,4vw,44px); }
+@media (max-width:620px){
+  .ai.is-big{ width:calc(100vw - 20px); height:calc(100svh - 80px); }
+}
+
+/* the expand / collapse control swaps its glyph with the state */
+#aiExpand{ margin-inline-start:auto; }
+#aiClose{ margin-inline-start:0; }
+#aiExpand svg{ position:absolute; transition:opacity .3s var(--e), transform .4s var(--e); }
+#aiExpand .i-shrink{ opacity:0; transform:scale(.7); }
+.ai.is-big #aiExpand .i-grow{ opacity:0; transform:scale(.7); }
+.ai.is-big #aiExpand .i-shrink{ opacity:1; transform:none; }
+
+/* ==================================================================
+   ACCENT WORD
+   One word in the headline carries colour. It is marked in the copy,
+   not by index, so each language can emphasise the word its own
+   sentence leans on.
+================================================================== */
+.w--accent{
+  position:relative;
+  background:linear-gradient(
+    100deg,
+    var(--accent) 0%,
+    color-mix(in srgb, var(--accent) 55%, var(--fg)) 38%,
+    var(--accent) 72%,
+    color-mix(in srgb, var(--accent) 55%, var(--fg)) 100%);
+  background-size:260% 100%;
+  background-position:0% 50%;
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent;
+  transition:background-position 1.6s var(--e);
+}
+/* the sweep runs once as the hero settles, then again on hover */
+body.is-ready .w--accent{ background-position:100% 50%; }
+.hero__title:hover .w--accent{ background-position:0% 50%; }
+
+/* a hairline that draws itself under the accent as the page arrives */
+.w--accent::after{
+  content:''; position:absolute; left:0; right:0; bottom:.04em; height:2px;
+  border-radius:2px; background:var(--accent); opacity:.35;
+  transform:scaleX(0); transform-origin:left center;
+  transition:transform 1.1s var(--e) 1.1s, opacity .4s var(--e);
+}
+html[dir="rtl"] .w--accent::after{ transform-origin:right center; }
+body.is-ready .w--accent::after{ transform:scaleX(1); }
+.hero__title:hover .w--accent::after{ opacity:.7; }
+
+@media (prefers-reduced-motion:reduce){
+  .w--accent{ background:none; -webkit-text-fill-color:currentColor; color:var(--accent); }
+  .w--accent::after{ display:none }
+}
+
+/* On a wide text card the body is capped, which leaves the right side
+   free. The schematic belongs there rather than under the copy, where
+   it was showing through the chips and the buttons. */
+.card--wide.card--text .glyph{
+  inset:auto 0 0 auto;
+  width:46%; height:72%;
+  opacity:.3;
+  -webkit-mask-image:linear-gradient(to left,#000 55%,transparent);
+  mask-image:linear-gradient(to left,#000 55%,transparent);
+}
+html[dir="rtl"] .card--wide.card--text .glyph{
+  inset:auto auto 0 0;
+  -webkit-mask-image:linear-gradient(to right,#000 55%,transparent);
+  mask-image:linear-gradient(to right,#000 55%,transparent);
+}
+@media (max-width:900px){
+  .card--wide.card--text .glyph{
+    inset:auto 0 0 0; width:100%; height:34%;
+    -webkit-mask-image:linear-gradient(to top,#000 40%,transparent);
+    mask-image:linear-gradient(to top,#000 40%,transparent);
+  }
+}

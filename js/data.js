@@ -37,6 +37,19 @@ const shots = (prefix, n, from = 0) =>
 
 export const PROJECTS = [
   {
+    id: 'omr',
+    span: 6,
+    year: '2026',
+    cat: 'ai',
+    orientation: 'wide',
+    media: [],
+    links: [
+      { k: 'l.site', url: 'https://msgdeneme.com' }
+    ],
+    stack: ['OpenCV', 'ONNX', 'NestJS', 'SwiftUI', 'Flutter', 'PostgreSQL'],
+    stat: { v: '86/0', k: 's.omr' }
+  },
+  {
     id: 'emg',
     span: 6,
     year: '2026',

@@ -12,6 +12,11 @@ export const T = {
   en: {
     'meta.title': 'Mohammed Saleh — AI, Autonomous & Embedded Systems',
 
+    'omr.t':'Optical mark reading from a phone camera',
+    'omr.o':'Turkish mock-exam platform \u00b7 iOS, Flutter, backend, CV',
+    'omr.d':'A student photographs a paper answer sheet and the system returns a scored result. The alternative in this market is a dedicated OMR scanner costing thousands; the goal was to reach its accuracy with a phone camera. Circles are detected under 16 thresholding strategies in parallel, merged by majority vote, then assembled into a graph that yields columns, rows and answers. Measured against that commercial scanner on the same papers: 86 correct, 0 wrong, 2 refused \u2014 and both refusals were boxes the student left blank.',
+    'l.site':'Live site',
+    's.omr':'correct / wrong vs scanner',
     'ai.open':'Ask AI',
     'ai.title':'Mohammed\u2019s assistant',
     'ai.idle':'Idle', 'ai.waking':'Waking', 'ai.ready':'Online', 'ai.down':'Offline',
@@ -21,7 +26,7 @@ export const T = {
     'ai.q2':'Explain the EMG gesture model.',
     'ai.q3':'Is he available for work?',
     'ai.ph':'Ask anything\u2026',
-    'ai.foot':'Groq \u2192 Gemini \u2192 DeepSeek fallback \u00b7 built by Mohammed',
+    'ai.foot':'Answers are generated, so check anything that matters.',
     'ai.cold':'That first reply woke the server. The next ones are fast.',
     'ai.error':'I could not reach the service. Try again in a moment.',
 
@@ -31,11 +36,11 @@ export const T = {
     'hero.role': 'AI · Autonomous Systems · Embedded',
     'hero.loc': 'Istanbul, Türkiye',
     'hero.l1': 'I build systems',
-    'hero.l2': 'that sense,',
+    'hero.l2': 'that ~sense~,',
     'hero.l3': 'decide and act.',
     'hero.sub': 'Machine learning on real signals — from the sensor and the firmware up to the model and the interface. Shipped, not demoed.',
     'hero.scroll': 'Scroll',
-    'hero.avail': 'Open to work',
+    'hero.now': 'Research \u00b7 YT\u00dc Y\u0131ld\u0131z Teknopark',
 
     'm.params': 'Parameters, largest model',
     'm.latency': 'End-to-end inference',
@@ -143,6 +148,11 @@ export const T = {
   ar: {
     'meta.title': 'محمد صالح — ذكاء اصطناعي وأنظمة ذاتية ومدمجة',
 
+    'omr.t':'قراءة الأوبتك من كاميرا الجوال',
+    'omr.o':'منصة اختبارات تجريبية تركية \u00b7 iOS وFlutter وباك-إند ورؤية حاسوبية',
+    'omr.d':'الطالب يصوّر ورقة الإجابة والنظام يعيد نتيجة مصحّحة. البديل في السوق جهاز قارئ أوبتك بآلاف الدولارات، والهدف كان بلوغ دقته بكاميرا جوال. تُكشف الدوائر بستّ عشرة استراتيجية تعتيم بالتوازي، تُدمج بتصويت الأغلبية، ثم تُبنى منها شبكة تُستخرج منها الأعمدة والصفوف والإجابات. وبالقياس على الجهاز التجاري نفسه وبنفس الأوراق: ٨٦ صحيحة، صفر خاطئة، واثنتان مرفوضتان \u2014 وكلتاهما مربّع تركه الطالب فارغاً.',
+    'l.site':'الموقع',
+    's.omr':'صحيحة / خاطئة مقابل الجهاز',
     'ai.open':'اسأل الذكاء',
     'ai.title':'مساعد محمد',
     'ai.idle':'خامل', 'ai.waking':'يستيقظ', 'ai.ready':'متصل', 'ai.down':'غير متصل',
@@ -152,7 +162,7 @@ export const T = {
     'ai.q2':'اشرح نموذج الإيماءات من إشارة العضلات.',
     'ai.q3':'هل هو متاح للعمل؟',
     'ai.ph':'اسأل أي شيء\u2026',
-    'ai.foot':'تسلسل بديل Groq \u2192 Gemini \u2192 DeepSeek \u00b7 من بناء محمد',
+    'ai.foot':'الإجابات مولّدة، فتحقّق مما يهمّك منها.',
     'ai.cold':'الردّ الأول أيقظ الخادم. ما بعده أسرع.',
     'ai.error':'تعذّر الوصول إلى الخدمة. أعد المحاولة بعد لحظة.',
 
@@ -162,11 +172,11 @@ export const T = {
     'hero.role': 'ذكاء اصطناعي · أنظمة ذاتية · أنظمة مدمجة',
     'hero.loc': 'إسطنبول، تركيا',
     'hero.l1': 'أبني أنظمة',
-    'hero.l2': 'تستشعر،',
+    'hero.l2': '~تستشعر~،',
     'hero.l3': 'تقرّر، وتتصرّف.',
     'hero.sub': 'تعلّم آلي على إشارات حقيقية — من الحسّاس والبرمجيات الثابتة حتى النموذج والواجهة. أنظمة تعمل فعلاً، لا عروض.',
     'hero.scroll': 'مرّر',
-    'hero.avail': 'متاح للعمل',
+    'hero.now': 'بحث \u00b7 YT\u00dc Y\u0131ld\u0131z Teknopark',
 
     'm.params': 'معاملات أكبر نموذج',
     'm.latency': 'زمن الاستدلال الكامل',
@@ -274,6 +284,11 @@ export const T = {
   tr: {
     'meta.title': 'Mohammed Saleh — Yapay Zekâ, Otonom ve Gömülü Sistemler',
 
+    'omr.t':'Telefon kamerasından optik form okuma',
+    'omr.o':'T\u00fcrk deneme s\u0131nav\u0131 platformu \u00b7 iOS, Flutter, backend, CV',
+    'omr.d':'\u00d6\u011frenci cevap k\u00e2\u011f\u0131d\u0131n\u0131 foto\u011fraf\u0131yor, sistem puanlanm\u0131\u015f sonucu d\u00f6nd\u00fcr\u00fcyor. Pazardaki alternatif binlerce dolarl\u0131k optik okuyucu; hedef ayn\u0131 do\u011fruluk seviyesine telefon kameras\u0131yla ula\u015fmakt\u0131. Daireler 16 farkl\u0131 e\u015fikleme stratejisiyle paralel tespit ediliyor, \u00e7o\u011funluk oyuyla birle\u015ftiriliyor, ard\u0131ndan s\u00fctun, sat\u0131r ve cevaplar\u0131 veren bir graf kuruluyor. Ayn\u0131 k\u00e2\u011f\u0131tlarda ticari tarayc\u0131yla kar\u015f\u0131la\u015ft\u0131r\u0131ld\u0131\u011f\u0131nda: 86 do\u011fru, 0 yanl\u0131\u015f, 2 reddedilen \u2014 ve her iki reddedilen de \u00f6\u011frencinin bo\u015f b\u0131rakt\u0131\u011f\u0131 kutuydu.',
+    'l.site':'Canl\u0131 site',
+    's.omr':'do\u011fru / yanl\u0131\u015f (tarayc\u0131ya kar\u015f\u0131)',
     'ai.open':'Yapay zekâya sor',
     'ai.title':'Mohammed\u2019in asistanı',
     'ai.idle':'Boşta', 'ai.waking':'Uyanıyor', 'ai.ready':'Çevrimiçi', 'ai.down':'Çevrimdışı',
@@ -283,7 +298,7 @@ export const T = {
     'ai.q2':'EMG jest modelini anlat.',
     'ai.q3':'İş için müsait mi?',
     'ai.ph':'Ne isterseniz sorun\u2026',
-    'ai.foot':'Groq \u2192 Gemini \u2192 DeepSeek yedeklemesi \u00b7 Mohammed tarafından',
+    'ai.foot':'Yan\u0131tlar \u00fcretilir; \u00f6nemli bir \u015fey varsa do\u011frulay\u0131n.',
     'ai.cold':'İlk yanıt sunucuyu uyandırdı. Sonrakiler hızlı.',
     'ai.error':'Servise ulaşılamadı. Birazdan tekrar deneyin.',
 
@@ -293,11 +308,11 @@ export const T = {
     'hero.role': 'Yapay Zekâ · Otonom Sistemler · Gömülü',
     'hero.loc': 'İstanbul, Türkiye',
     'hero.l1': 'Algılayan,',
-    'hero.l2': 'karar veren,',
+    'hero.l2': '~karar veren~,',
     'hero.l3': 'harekete geçen sistemler.',
     'hero.sub': 'Gerçek sinyaller üzerinde makine öğrenmesi — sensörden ve gömülü yazılımdan modele ve arayüze kadar. Demo değil, sahada çalışan sistemler.',
     'hero.scroll': 'Kaydır',
-    'hero.avail': 'İşe açığım',
+    'hero.now': 'Ara\u015ft\u0131rma \u00b7 YT\u00dc Y\u0131ld\u0131z Teknopark',
 
     'm.params': 'En büyük modelin parametresi',
     'm.latency': 'Uçtan uca çıkarım',

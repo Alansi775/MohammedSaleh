@@ -101,7 +101,7 @@
 
   <div class="wrap hero__in">
     <div class="hero__meta">
-      <span class="pulse mono"><i></i><span data-i18n="hero.avail"></span></span>
+      <span class="pulse mono"><i></i><span data-i18n="hero.now"></span></span>
       <span class="mono" data-i18n="hero.role"></span>
       <span class="dot" aria-hidden="true"></span>
       <span class="mono" data-i18n="hero.loc"></span>
@@ -243,6 +243,7 @@
   <span class="ai__label" data-i18n="ai.open"></span>
 </button>
 
+<div class="ai__veil" id="aiVeil" aria-hidden="true"></div>
 <section class="ai" id="aiPanel" aria-label="AI assistant">
   <header class="ai__head">
     <div class="ai__id">
@@ -252,6 +253,10 @@
         <span class="ai__status mono" id="aiStatus" data-state="idle"><i></i><span></span></span>
       </div>
     </div>
+    <button class="ai__x" id="aiExpand" aria-label="Expand">
+      <svg class="i-grow" viewBox="0 0 24 24"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"/></svg>
+      <svg class="i-shrink" viewBox="0 0 24 24"><path d="M4 9h5V4M20 15h-5v5M15 4v5h5M9 20v-5H4"/></svg>
+    </button>
     <button class="ai__x" id="aiClose" aria-label="Close">
       <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
@@ -267,6 +272,7 @@
   </form>
 
   <p class="ai__foot mono" data-i18n="ai.foot"></p>
+
 </section>
 
 <div class="toast" id="toast" role="status"></div>
