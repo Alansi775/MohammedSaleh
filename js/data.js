@@ -44,6 +44,7 @@ export const PROJECTS = [
     orientation: 'wide',
     media: [],
     links: [
+      { k: 'l.demo', url: 'https://youtube.com/shorts/8I-LCh83mcI' },
       { k: 'l.case', url: 'case/omr.html' },
       { k: 'l.site', url: 'https://msgdeneme.com' }
     ],

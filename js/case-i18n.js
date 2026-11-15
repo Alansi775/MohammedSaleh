@@ -40,6 +40,10 @@ export const C = {
     'c.s3ask':'Stack',
     'c.s3as':'NestJS and TypeScript in strict mode, PostgreSQL through Prisma, BullMQ and Redis for the queues. Image work in OpenCV and sharp, with scanned PDFs rasterised at 200 DPI. A small model reads rows, trained in PyTorch and exported to ONNX so it runs inside the backend rather than behind a second service to deploy and keep alive.',
 
+    'c.demo':'Watch it run',
+    'c.s3b':'What the capture actually has to do',
+    'c.s3bp1':'The hardest case is the ordinary one: a white sheet on a white desk. There is no contrast to find an edge with, and edge detection is how most scanners locate the page at all. The app finds the sheet from the structure printed on it rather than from its border \u2014 the bubbles themselves describe where the page is.',
+    'c.s3bp2':'Once located, the page is rectified. The student holds the phone at whatever angle is comfortable; the frame is corrected to square before a single answer is read, so the grid the reader walks is the grid the form was printed on. Identity, answers and the score come back in the same pass.',
     'c.s4':'Orientation: rank the evidence',
     'c.s4p1':'A sheet arrives in an unknown orientation, and getting it wrong means reading every answer in the wrong place. Rather than guess from the image, the system ranks what it can prove about identity:',
     'c.s4r3':'An ID that passes its checksum <em>and</em> matches a student on the school’s roll.',
@@ -126,6 +130,10 @@ export const C = {
     'c.s3ask':'التقنيات',
     'c.s3as':'NestJS وTypeScript في الوضع الصارم، وPostgreSQL عبر Prisma، وBullMQ وRedis للطوابير. معالجة الصور بـOpenCV وsharp، وملفات PDF الممسوحة تُحوَّل عند ٢٠٠ نقطة في البوصة. نموذج صغير يقرأ الصفوف، مدرَّب بـPyTorch ومصدَّر إلى ONNX ليعمل داخل الخادم بدل خدمة ثانية تُنشر وتُبقى حيّة.',
 
+    'c.demo':'شاهده يعمل',
+    'c.s3b':'ما الذي يجب أن يفعله التصوير فعلاً',
+    'c.s3bp1':'أصعب حالة هي العادية: ورقة بيضاء على مكتب أبيض. لا تباين يُستخرج منه حدّ، وكشف الحواف هو ما تعتمد عليه أغلب الماسحات لتحديد الصفحة أساساً. التطبيق يجد الورقة من البنية المطبوعة عليها لا من إطارها — الفقاعات نفسها تصف أين الصفحة.',
+    'c.s3bp2':'وبعد تحديدها، تُقوَّم الصفحة. الطالب يمسك الجوال بأي زاوية مريحة؛ والإطار يُصحَّح إلى الاستقامة قبل قراءة إجابة واحدة، فتكون الشبكة التي يمشي عليها القارئ هي الشبكة التي طُبع عليها النموذج. الهوية والإجابات والدرجة تعود في المرور نفسه.',
     'c.s4':'الاتجاه: رتّب الأدلة',
     'c.s4p1':'تصل الورقة باتجاه مجهول، وأي خطأ فيه يعني قراءة كل إجابة في غير موضعها. وبدل التخمين من الصورة، يرتّب النظام ما يستطيع إثباته عن الهوية:',
     'c.s4r3':'رقم هوية يجتاز خانة التحقّق <em>ويطابق</em> طالباً في سجل المدرسة.',
@@ -212,6 +220,10 @@ export const C = {
     'c.s3ask':'Teknolojiler',
     'c.s3as':'Katı kipte NestJS ve TypeScript, Prisma üzerinden PostgreSQL, kuyruklar için BullMQ ve Redis. Görüntü işleri OpenCV ve sharp ile; taranan PDF’ler 200 DPI’de rasterleniyor. Satırları okuyan küçük bir model PyTorch ile eğitilip ONNX’e aktarıldı; böylece dağıtılacak ve ayakta tutulacak ikinci bir servis yerine backend içinde çalışıyor.',
 
+    'c.demo':'\u00c7al\u0131\u015f\u0131rken izle',
+    'c.s3b':'Yakalaman\u0131n ger\u00e7ekte yapmas\u0131 gereken',
+    'c.s3bp1':'En zor durum s\u0131radan olan: beyaz masada beyaz k\u00e2\u011f\u0131t. Kenar bulmak i\u00e7in kar\u015f\u0131tl\u0131k yok ve \u00e7o\u011fu tarayc\u0131 sayfay\u0131 zaten kenar tespitiyle buluyor. Uygulama k\u00e2\u011f\u0131d\u0131 s\u0131n\u0131r\u0131ndan de\u011fil, \u00fczerine bas\u0131lm\u0131\u015f yap\u0131dan buluyor \u2014 sayfan\u0131n nerede oldu\u011funu dairelerin kendisi tarif ediyor.',
+    'c.s3bp2':'Bulunduktan sonra sayfa d\u00fczeltiliyor. \u00d6\u011frenci telefonu rahat etti\u011fi a\u00e7\u0131da tutuyor; kare, tek bir cevap okunmadan \u00f6nce dik hale getiriliyor, b\u00f6ylece okuyucunun y\u00fcr\u00fcd\u00fc\u011f\u00fc \u0131zgara formun bas\u0131ld\u0131\u011f\u0131 \u0131zgara oluyor. Kimlik, cevaplar ve puan ayn\u0131 ge\u00e7i\u015fte d\u00f6n\u00fcyor.',
     'c.s4':'Yön: kanıtı sırala',
     'c.s4p1':'Kâğıt bilinmeyen bir yönde geliyor ve bunu yanlış bilmek her cevabı yanlış yerde okumak demek. Görüntüden tahmin etmek yerine sistem, kimlik hakkında kanıtlayabildiklerini sıralıyor:',
     'c.s4r3':'Sağlama toplamını geçen <em>ve</em> okul listesindeki bir öğrenciyle eşleşen bir kimlik.',
