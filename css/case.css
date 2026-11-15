@@ -237,3 +237,17 @@ html[dir="rtl"] .cfoot .btn svg{ transform:scaleX(-1); }
 .nav__right{ display:flex; align-items:center; gap:6px; justify-self:end; }
 .case .nav__in--case{ direction:ltr; }
 @media (max-width:620px){ .case .nav__title{ display:none } }
+
+/* Same as the pipeline figure on the portfolio: a mono font with no
+   Arabic coverage plus letter-spacing was unjoining and reversing the
+   diagram labels. */
+html[dir="rtl"] .fig .lbl,
+html[dir="rtl"] .fig .ans{
+  font-family:var(--ff-ar);
+  letter-spacing:normal;
+  direction:rtl;
+  unicode-bidi:isolate;
+}
+html[dir="rtl"] .fig .lbl{ font-size:12.5px; }
+html[dir="rtl"] .fig .ans{ font-size:16px; font-weight:700; }
+

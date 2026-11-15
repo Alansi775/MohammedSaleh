@@ -1419,3 +1419,27 @@ html[dir="rtl"] .mcard p{ line-height:1.95; }
 }
 .mread svg{ width:15px; height:15px; }
 html[dir="rtl"] .mread svg{ transform:scaleX(-1); }
+
+/* ==================================================================
+   ARABIC INSIDE SVG
+
+   Two things were breaking the diagram labels together:
+
+   1. JetBrains Mono carries no Arabic, so the browser fell back
+      per-character — and a per-character fallback cannot shape a
+      cursive script, which is why the letters came apart.
+   2. letter-spacing pulls joined letters off each other even when the
+      font is right. It is a Latin device and Arabic has no use for it.
+
+   Without shaping, the glyphs were also laid out in logical order
+   rather than reordered, so the words read backwards as well.
+================================================================== */
+html[dir="rtl"] .pipe .lbl,
+html[dir="rtl"] .pipe .ans{
+  font-family:var(--ff-ar);
+  letter-spacing:normal;
+  direction:rtl;
+  unicode-bidi:isolate;
+}
+html[dir="rtl"] .pipe .lbl{ font-size:12.5px; }
+html[dir="rtl"] .pipe .ans{ font-size:16px; font-weight:700; }
