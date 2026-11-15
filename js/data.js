@@ -177,7 +177,7 @@ export const EXPERIENCE = [
     bullets: ['e.iot.1', 'e.iot.2', 'e.iot.3']
   },
   {
-    id: 'mutlaq', org: 'Al Mutlaq United', range: '2024 — Present', type: 't.part',
+    id: 'mutlaq', org: 'Al Mutlaq United', range: '2024 — 2026', type: 't.part',
     bullets: ['e.mut.1', 'e.mut.2']
   },
   {

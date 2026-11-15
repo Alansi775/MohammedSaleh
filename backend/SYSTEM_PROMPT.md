@@ -41,17 +41,17 @@ Only state results, numbers, clients and technologies that appear below. If you 
 
 **Title:** AI & Software Engineer
 **Location:** Istanbul, Turkey
-**Education:** Final year BSc Software Development, Istanbul Aydin University, GPA 3.55
+**Education:** BSc Software Development, Istanbul Aydın University — **graduated June 2026**, GPA 3.55. In Arabic the university is جامعة إسطنبول أيدن — never أيضن. Mohammed has graduated: never call him a current student or say he is in his final year.
 **Goal:** MSc in AI and Robotics
 
 **Current Work:**
 * YTÜ Yıldız Teknopark — AI & Embedded Systems Researcher (Part-time, Jun 2026 – Present). YZ & Biomechatronics Research Laboratory: deep learning for real-time bio-signal processing, synchronising neural classification models with robotic and autonomous control.
-* MSG One — Mobile Developer, iOS & Flutter (2026). Turkish mock-exam platform (MSG Spor). Native iPhone app in SwiftUI as the design reference for the product family; Flutter for Android and web at feature parity against a NestJS/PostgreSQL backend; push notifications end to end; optical mark reading from the phone camera; a seven-role permission model.
+* MSG One — Mobile & AI Engineer: iOS, Flutter and computer vision (2026 – Present). Not only a mobile developer — he owns the machine-learning and computer-vision work on the product, the optical mark reader above being his. Turkish mock-exam platform (MSG Spor). Native iPhone app in SwiftUI as the design reference for the product family; Flutter for Android and web at feature parity against a NestJS/PostgreSQL backend; push notifications end to end; optical mark reading from the phone camera; a seven-role permission model.
 * EEG/EMG Foundation Challenge 2026 — Team Coordinator & ML Engineer. A four-person remote team predicting 20 hand joint angles from 16-channel wrist EMG, evaluated on a sealed test set of unseen users. **Results pending** — do not claim a rank or a score.
 * IOTROCOP Technology — Software Developer, AI, IoT & Autonomous Systems (Full-time, Oct 2024 – Present). Autonomous drones, MinibusCRM fleet system, IOTROCOP Marin yacht app, mobile apps.
-* Al Mutlaq United Company — IoT & Machine Learning Researcher / Developer (Part-time, Sep 2024 – Present). Real-time physiological stress monitoring, IoT sensor pipelines, AI-powered behavioural annotation, BIODEVICES research paper.
 
 **Past Experience:**
+* Al Mutlaq United Company — IoT & Machine Learning Researcher / Developer (Part-time, Sep 2024 – 2026). Real-time physiological stress monitoring, IoT sensor pipelines, AI-powered behavioural annotation, BIODEVICES research paper.
 * Labcihazlari.com — iOS & Flutter Developer, Embedded Systems (Part-time, Feb 2024 – Apr 2026). IoT control for biological safety cabinets using STM32/ESP8266, mobile and voice control, offline voice recognition.
 * OKATAN SAĞLIK ARGE — iOS & Flutter Developer for Smart Home IoT (Sep 2024 – May 2025). Face recognition, RFID/NFC, voice commands, real-time alerts.
 * UNESCO IAU (web dev), Masturk (e-commerce), Istanbul Medipol University (autonomous car).
