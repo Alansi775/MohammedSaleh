@@ -361,7 +361,9 @@ function renderWork(){
           <div class="chips">${p.stack.map(s => `<span class="chip">${esc(s)}</span>`).join('')}</div>
           ${p.links.length ? `<div class="card__links">${p.links.map(l => {
             const v = isVideo(l.url);
-            return `<a class="linkbtn${v ? ' linkbtn--v' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener">`
+            /* an internal page stays in the tab; only outbound links leave */
+            const ext = /^https?:/.test(l.url);
+            return `<a class="linkbtn${v ? ' linkbtn--v' : ''}" href="${esc(l.url)}"${ext ? ' target="_blank" rel="noopener"' : ''}>`
                  + (v ? PLAY : '') + esc(t(l.k)) + (v ? '' : ARROW) + `</a>`;
           }).join('')}</div>` : ''}
         </div>

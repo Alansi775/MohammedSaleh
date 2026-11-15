@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" id="themeColor">
+<title>Reading an answer sheet from a phone camera — Mohammed Saleh</title>
+<meta name="description" content="A case study: matching a thousand-dollar optical mark reader with a phone camera. Sixteen thresholding strategies, evidence-ranked orientation, and a measured decision to reject a feature that cost accuracy.">
+<meta property="og:title" content="Reading an answer sheet from a phone camera">
+<meta property="og:description" content="86 correct, 0 wrong, 2 refused against the commercial scanner it replaced — and what the first, wrong measurement taught me.">
+
+<link rel="icon" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/case.css">
+
+<script>
+(function(){
+  try{
+    var saved = localStorage.getItem('ms.theme');
+    var h = new Date().getHours();
+    var theme = (saved === 'light' || saved === 'dark') ? saved : (h >= 7 && h < 19 ? 'light' : 'dark');
+    document.documentElement.dataset.theme = theme;
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+  }catch(e){ document.documentElement.dataset.theme = 'light'; }
+})();
+</script>
+</head>
+<body class="case">
+
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<header class="nav" id="nav">
+  <div class="nav__in nav__in--case">
+    <a class="backlink" href="../index.html#work">
+      <svg viewBox="0 0 24 24"><path d="M19 12H6M12 5l-7 7 7 7"/></svg>
+      <span>Work</span>
+    </a>
+
+    <span class="mono nav__title">Case study</span>
+
+    <button class="iconbtn" id="themebtn" aria-label="Theme">
+      <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M5.6 5.6 7.2 7.2M16.8 16.8l1.6 1.6M18.4 5.6 16.8 7.2M7.2 16.8l-1.6 1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================ HERO ============================ -->
+<header class="chero">
+  <div class="wrap">
+    <span class="kicker mono"><b>Computer vision · 2026</b></span>
+    <h1 class="chero__t">Reading an answer sheet from a phone camera.</h1>
+    <p class="chero__d">
+      A Turkish mock-exam platform scores paper answer sheets from a photograph.
+      The alternative in that market is a dedicated optical mark reader costing
+      thousands. The goal was to reach its accuracy with a camera most students
+      already own.
+    </p>
+
+    <dl class="facts">
+      <div><dt class="mono">Result</dt><dd>86 correct · 0 wrong · 2 refused</dd></div>
+      <div><dt class="mono">Reference</dt><dd>The commercial scanner's own output</dd></div>
+      <div><dt class="mono">Role</dt><dd>Mobile, backend and the vision pipeline</dd></div>
+      <div><dt class="mono">Built with</dt><dd>OpenCV · ONNX · NestJS · SwiftUI · Flutter</dd></div>
+    </dl>
+  </div>
+</header>
+
+<!-- ============================ 01 ============================ -->
+<section class="sec" id="problem">
+  <div class="wrap col">
+    <span class="num mono">01</span>
+    <h2>The problem</h2>
+
+    <p>
+      A student fills in a paper optical form. They photograph it with a phone, or
+      a school scans a stack of them into a PDF. The system has to read two things
+      off that image — who the sheet belongs to, and what they answered — and turn
+      it into a score.
+    </p>
+    <p>
+      A purpose-built OMR scanner solves this by removing the hard part: controlled
+      light, a fixed transport, a sheet that cannot be rotated. A phone gives you
+      none of that. It gives you glare across half the page, a sheet at an angle,
+      a sheet upside down, shadows from the hand holding it, and a resolution that
+      varies with how close the student stood.
+    </p>
+    <p class="pull">
+      The bar was not "does it mostly work". The bar was the output of the machine
+      it was replacing, on the same sheets.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ 02 ============================ -->
+<section class="sec" id="hard">
+  <div class="wrap col">
+    <span class="num mono">02</span>
+    <h2>Why it was hard</h2>
+
+    <p>
+      Every individual step has a textbook answer. Thresholding turns a photo into
+      black and white. Hough circles find the bubbles. The difficulty is that each
+      textbook answer has a parameter, and no single value of that parameter
+      survives the range of photographs real students send.
+    </p>
+    <p>
+      A threshold that reads a bubble correctly in flat light merges two bubbles
+      under glare. A radius that finds every circle on a close photograph finds
+      printed decorations on a distant one. Tune for one page and you lose another.
+    </p>
+    <p>
+      So the pipeline does not try to pick the right parameter. It runs many, and
+      treats each one as a witness.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ 03 ============================ -->
+<section class="sec" id="approach">
+  <div class="wrap col">
+    <span class="num mono">03</span>
+    <h2>The approach: gather evidence, then decide</h2>
+
+    <p>
+      Circles are detected under <strong>sixteen thresholding strategies in
+      parallel</strong>. Each produces its own set of candidate circles. They are
+      merged by majority vote, and the radii trimmed to the agreed range — a
+      circle that only one strategy saw is noise; a circle fourteen of them saw is
+      a bubble.
+    </p>
+    <p>
+      The surviving circles are then assembled into a <strong>graph</strong>:
+      neighbours by distance and alignment, which yields the columns and rows of
+      the form without anyone having told the system what the form looks like.
+      A reader walks that graph and turns it into answers.
+    </p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 900 260" role="img" aria-label="Pipeline: one image, sixteen thresholding strategies, majority vote, graph, answers">
+        <g class="dim">
+          <rect x="20" y="96" width="92" height="68" rx="10"/>
+          <path d="M44 130 h44 M44 142 h30 M44 118 h34"/>
+        </g>
+        <text class="lbl" x="66" y="188">photo</text>
+
+        <path class="wire" d="M112 130 H176"/>
+
+        <g class="dim">
+          <rect x="176" y="34" width="150" height="26" rx="6"/>
+          <rect x="176" y="68" width="150" height="26" rx="6"/>
+          <rect x="176" y="102" width="150" height="26" rx="6"/>
+          <rect x="176" y="136" width="150" height="26" rx="6"/>
+          <rect x="176" y="170" width="150" height="26" rx="6"/>
+          <rect x="176" y="204" width="150" height="26" rx="6"/>
+        </g>
+        <text class="lbl" x="251" y="250">16 thresholds, in parallel</text>
+
+        <path class="wire" d="M326 47 C 370 47 372 130 400 130
+                               M326 81 C 370 81 376 130 400 130
+                               M326 115 C 372 115 380 130 400 130
+                               M326 149 C 372 149 380 130 400 130
+                               M326 183 C 370 183 376 130 400 130
+                               M326 217 C 370 217 372 130 400 130"/>
+
+        <g class="acc">
+          <circle cx="440" cy="130" r="40"/>
+          <path d="M424 130 l11 11 l21 -23"/>
+        </g>
+        <text class="lbl" x="440" y="192">majority vote</text>
+
+        <path class="wire" d="M480 130 H540"/>
+
+        <g class="dim">
+          <circle cx="566" cy="100" r="7"/><circle cx="606" cy="100" r="7"/><circle cx="646" cy="100" r="7"/>
+          <circle cx="566" cy="130" r="7"/><circle cx="606" cy="130" r="7"/><circle cx="646" cy="130" r="7"/>
+          <circle cx="566" cy="160" r="7"/><circle cx="606" cy="160" r="7"/><circle cx="646" cy="160" r="7"/>
+          <path d="M566 100 h80 M566 130 h80 M566 160 h80 M566 100 v60 M606 100 v60 M646 100 v60" opacity=".45"/>
+        </g>
+        <text class="lbl" x="606" y="196">graph → rows, columns</text>
+
+        <path class="wire" d="M672 130 H736"/>
+
+        <g class="dim">
+          <rect x="736" y="96" width="140" height="68" rx="10"/>
+        </g>
+        <text class="ans" x="806" y="136">A B D C</text>
+        <text class="lbl" x="806" y="188">answers</text>
+      </svg>
+      <figcaption>
+        No single strategy and no single image scale is trusted. Sixteen are run,
+        and the circles they agree on are the ones that survive.
+      </figcaption>
+    </figure>
+
+    <p class="aside">
+      <span class="mono">Stack</span>
+      NestJS and TypeScript in strict mode, PostgreSQL through Prisma, BullMQ and
+      Redis for the queues. Image work in OpenCV and sharp, with scanned PDFs
+      rasterised at 200 DPI. A small model reads rows, trained in PyTorch and
+      exported to ONNX so it runs inside the backend rather than behind a second
+      service to deploy and keep alive.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ 04 ============================ -->
+<section class="sec" id="orientation">
+  <div class="wrap col">
+    <span class="num mono">04</span>
+    <h2>Orientation: rank the evidence</h2>
+
+    <p>
+      A sheet arrives in an unknown orientation, and getting it wrong means reading
+      every answer in the wrong place. Rather than guess from the image, the system
+      ranks what it can prove about identity:
+    </p>
+
+    <ol class="rank">
+      <li><span class="mono">3</span> An ID that passes its checksum <em>and</em> matches a student on the school's roll.</li>
+      <li><span class="mono">2</span> An ID that passes its checksum, matching nobody on file.</li>
+      <li><span class="mono">1</span> A name that matches.</li>
+      <li><span class="mono">0</span> Nothing legible.</li>
+    </ol>
+
+    <p>
+      Above that sits a second source: <strong>layout consensus across the upload.</strong>
+      A single page cannot tell you much, but a batch of a hundred from the same
+      form can. The mean offset between the digit block and the letter block,
+      measured across every page, describes that form's shape — and any page whose
+      offset is inverted is upside down, including the pages that carry no identity
+      evidence of their own.
+    </p>
+    <p>
+      One page is a guess. A hundred pages of the same form is a measurement.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ 05 ============================ -->
+<section class="sec" id="rotation">
+  <div class="wrap col">
+    <span class="num mono">05</span>
+    <h2>A feature removed because the number said so</h2>
+
+    <p>
+      The answer reader originally tried a 180° rotation when a first pass looked
+      poor. It is an obvious thing to do, and it was wrong.
+    </p>
+    <p>
+      An upside-down read of an answer grid comes back looking <em>formally</em>
+      valid — the right number of rows, one mark per row, nothing to flag — while
+      being entirely fabricated. And because it looks valid, it gets saved.
+    </p>
+
+    <table class="tbl">
+      <thead>
+        <tr><th>Half-turn retry in the answer reader</th><th class="mono">Accuracy</th><th class="mono">Fabricated answers</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Allowed</td><td class="mono">−1.6 pts</td><td class="mono bad">49</td></tr>
+        <tr><td>Refused</td><td class="mono">baseline</td><td class="mono good">30</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      So it was removed, and the problem solved with information the camera path
+      already had: <strong>the student is signed in.</strong> We know whose sheet it
+      should be before we read a single bubble. The half-turn is attempted on the
+      identity field alone, and accepted only if it names that same student.
+    </p>
+    <p>
+      When it does, the student is asked to retake the photo the right way up —
+      rather than being told, by a system that cannot actually tell, that they
+      photographed somebody else's paper.
+    </p>
+    <p class="pull">
+      A rotation that produces a plausible wrong answer is worse than one that
+      produces no answer. Only the identity field is safe to rotate, because it is
+      the only field that can disprove itself.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ 06 ============================ -->
+<section class="sec" id="booklet">
+  <div class="wrap col">
+    <span class="num mono">06</span>
+    <h2>Finding the booklet box nobody labelled</h2>
+
+    <p>
+      Exams ship in variants — booklet A, booklet B — with the same questions in a
+      different order. Grade a sheet against the wrong key and every answer is
+      wrong. The original approach inferred the variant from the answers: score the
+      sheet against every key, take the highest net, and send ties to a human.
+    </p>
+    <p>
+      The sheet states its variant in a small box. The difficulty is that
+      <strong>one page cannot tell that box apart from any other printed pair of
+      circles</strong> — and there are many.
+    </p>
+    <p>
+      A hundred pages can, because of one thing that separates the booklet box from
+      every decorative pair on the form: <strong>people mark it.</strong> So the
+      system nominates the pair of circles in which exactly one circle is filled on
+      the greatest number of pages — and then projects that position back onto each
+      page's own detected circles, because a scanner shifts a sheet by more than
+      the width of a bubble.
+    </p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 900 230" role="img" aria-label="Across many pages, the pair where exactly one circle is filled is the booklet box">
+        <g class="dim">
+          <rect x="20"  y="30" width="120" height="160" rx="8"/>
+          <rect x="160" y="30" width="120" height="160" rx="8"/>
+          <rect x="300" y="30" width="120" height="160" rx="8"/>
+        </g>
+        <text class="lbl" x="220" y="214">many pages of the same form</text>
+
+        <!-- a decorative pair: never filled -->
+        <g class="dim">
+          <circle cx="52"  cy="66" r="8"/><circle cx="80"  cy="66" r="8"/>
+          <circle cx="192" cy="66" r="8"/><circle cx="220" cy="66" r="8"/>
+          <circle cx="332" cy="66" r="8"/><circle cx="360" cy="66" r="8"/>
+        </g>
+        <text class="lbl sm" x="108" y="70">decoration</text>
+
+        <!-- the booklet box: exactly one filled, every page -->
+        <g class="dim"><circle cx="52" cy="140" r="8"/><circle cx="192" cy="140" r="8"/><circle cx="360" cy="140" r="8"/></g>
+        <g class="fill"><circle cx="80" cy="140" r="8"/><circle cx="220" cy="140" r="8"/><circle cx="332" cy="140" r="8"/></g>
+        <rect class="acc-box" x="38" y="124" width="58" height="32" rx="8"/>
+        <rect class="acc-box" x="178" y="124" width="58" height="32" rx="8"/>
+        <rect class="acc-box" x="318" y="124" width="58" height="32" rx="8"/>
+
+        <path class="wire" d="M440 110 H510"/>
+        <g class="acc"><circle cx="556" cy="110" r="40"/><path d="M540 110 l11 11 l21 -23"/></g>
+        <text class="lbl" x="556" y="172">exactly one filled, on most pages</text>
+
+        <path class="wire" d="M596 110 H660"/>
+        <g class="dim"><rect x="660" y="80" width="200" height="60" rx="10"/></g>
+        <text class="ans" x="760" y="116">booklet = B</text>
+      </svg>
+      <figcaption>
+        Frequency alone would nominate a printed decoration. The signal is not that
+        the pair appears often — it is that exactly one of its two circles is
+        marked, page after page.
+      </figcaption>
+    </figure>
+
+    <p>
+      The box does not override the answers. <strong>120 questions is a stronger
+      measurement than one box</strong>, so the answers stay the judge; the box
+      decides ties only. When the two disagree, the sheet is flagged for a reviewer
+      rather than silently regraded. And it costs nothing to compute: the reader
+      already hands over every circle it found.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ 07 ============================ -->
+<section class="sec" id="measurement">
+  <div class="wrap col">
+    <span class="num mono">07</span>
+    <h2>The measurement</h2>
+
+    <p>
+      Booklet detection, scored against the commercial scanner's own output on the
+      same 88 pages:
+    </p>
+
+    <table class="tbl tbl--result">
+      <tbody>
+        <tr><th>Correct</th><td class="mono big good">86</td></tr>
+        <tr><th>Wrong</th><td class="mono big">0</td></tr>
+        <tr><th>Refused</th><td class="mono big">2</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      The two refusals were boxes the students had left blank. There was nothing to
+      read, and the system said so instead of inventing an answer — which is the
+      behaviour you want from it.
+    </p>
+    <p class="pull">
+      Zero wrong matters more than 86 right. A system that refuses when it cannot
+      see is one a school can trust; a system that guesses is one that has to be
+      checked, which is the job it was bought to remove.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ 08 ============================ -->
+<section class="sec" id="wrong">
+  <div class="wrap col">
+    <span class="num mono">08</span>
+    <h2>What I got wrong</h2>
+
+    <p>Both of these were caught before delivery. Both were measurement errors, not code errors.</p>
+
+    <h3>A number that seemed to refute the design</h3>
+    <p>
+      The first run of booklet detection returned <span class="mono">58 correct,
+      35 wrong</span>. The obvious reading was that students mis-mark the box about
+      36% of the time, and that reading the box was therefore a bad idea.
+    </p>
+    <p>
+      It was an alignment bug in the evaluation. Page number is not row number in
+      the ground-truth file: the numbering drifts every time a page is skipped for
+      not matching. Against the correct mapping, the same run was
+      <span class="mono">86 correct, 0 wrong</span>.
+    </p>
+    <p class="lesson">
+      Before you accept a number that refutes your design, check that you are
+      comparing the right rows. A result that convenient to misread deserves a
+      second look at the harness, not just the hypothesis.
+    </p>
+
+    <h3>Frequency is not evidence</h3>
+    <p>
+      The first version of booklet detection nominated the <em>most frequent</em>
+      pair of circles. It confidently picked a printed decoration that appears on
+      every page and that nobody ever marks — and refused all 88 sheets.
+    </p>
+    <p class="lesson">
+      Repetition is not a signal. Use is. The thing that distinguishes a form field
+      from an ornament is that a human reaches for it.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ 09 ============================ -->
+<section class="sec" id="process">
+  <div class="wrap col">
+    <span class="num mono">09</span>
+    <h2>How the work was run</h2>
+
+    <ul class="plain">
+      <li>Every threshold and design decision is backed by a number measured on real sheets, compared against the golden reference — the commercial device's own output.</li>
+      <li>Changes go through an issue, then a separate pull request, then CI running a matrix of accuracy tests for the reader. <span class="mono">main</span> is protected.</li>
+      <li>Decisions are written down in an architecture decision log — <strong>including the rejected ones, with their measurements</strong>, so nobody spends a week rediscovering that the half-turn retry costs 1.6 points.</li>
+    </ul>
+
+    <p class="aside">
+      <span class="mono">Note on privacy</span>
+      No student names, identity numbers or sheet images appear in this write-up or
+      in any of the figures. Every diagram here is drawn, not captured.
+    </p>
+  </div>
+</section>
+
+<footer class="cfoot wrap">
+  <a class="btn btn--solid" href="../index.html#work">
+    <svg viewBox="0 0 24 24"><path d="M19 12H6M12 5l-7 7 7 7"/></svg>
+    All work
+  </a>
+  <a class="btn btn--ghost" href="mailto:mohamedalezzi6@gmail.com">Get in touch</a>
+</footer>
+
+</main>
+
+<script type="module" src="../js/case.js"></script>
+</body>
+</html>

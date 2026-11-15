@@ -44,6 +44,7 @@ export const PROJECTS = [
     orientation: 'wide',
     media: [],
     links: [
+      { k: 'l.case', url: 'case/omr.html' },
       { k: 'l.site', url: 'https://msgdeneme.com' }
     ],
     stack: ['OpenCV', 'ONNX', 'NestJS', 'SwiftUI', 'Flutter', 'PostgreSQL'],
@@ -160,7 +161,11 @@ export const SKILLS = [
 export const EXPERIENCE = [
   {
     id: 'msgone', org: 'MSG One', range: '2026 — Present', type: 't.full',
-    bullets: ['e.msg.1', 'e.msg.2', 'e.msg.3', 'e.msg.4']
+    bullets: ['e.msg.1', 'e.msg.2', 'e.msg.3', 'e.msg.4', 'e.msg.5', 'e.msg.6']
+  },
+  {
+    id: 'emgchal', org: 'EEG/EMG Foundation Challenge 2026 · Track 04', range: 'Oct — Nov 2026', type: 't.team',
+    bullets: ['e.chal.1', 'e.chal.2', 'e.chal.3', 'e.chal.4', 'e.chal.5']
   },
   {
     id: 'ytu', org: 'YTÜ Yıldız Teknopark', range: '2026 — Present', type: 't.part',
