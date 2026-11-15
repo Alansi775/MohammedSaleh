@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+
+# Real secrets never get committed. The .example template does: it
+# documents which variables the backend needs, and holds none of them.
+.env
+.env.local
+.env.*.local
+*.key

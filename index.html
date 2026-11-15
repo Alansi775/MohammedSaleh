@@ -1,1111 +1,244 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-en="Mohammed Saleh - AI Software Engineer" data-ar="محمد صالح - مهندس ذكاء اصطناعي" data-tr="Mohammed Saleh - AI Yazılım Mühendisi">Mohammed Saleh - AI Software Engineer</title>
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#4c86af">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="/favicon.png?v=2">
-    <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png?v=2">
-    <link rel="stylesheet" href="style.css">
-    <!-- Prevent theme flash on load -->
-    <script>
-        (function() {
-            function getThemeByTime() {
-                const hour = new Date().getHours();
-                return (hour >= 6 && hour < 18) ? 'light' : 'dark';
-            }
-            
-            const themeMode = localStorage.getItem('themeMode');
-            const storedTheme = localStorage.getItem('theme');
-            let theme;
-            
-            if (themeMode === 'manual' && storedTheme) {
-                theme = storedTheme;
-            } else if (themeMode === 'auto') {
-                theme = getThemeByTime();
-            } else {
-                theme = getThemeByTime();
-            }
-            
-            if (theme === 'light') {
-                document.documentElement.classList.add('light-mode-preload');
-            } else {
-                document.documentElement.classList.add('dark-mode-preload');
-            }
-        })();
-    </script>
-    <style>
-        html.light-mode-preload { background-color: #f0f2f5; }
-        html.dark-mode-preload { background-color: #0d0d0d; }
-        
-        /* Featured Video Styles just for the video container for the featured video */
-        /* This ensures the video is responsive and maintains its aspect ratio via padding-bottom */
-        .featured-video-container {
-            position: relative;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(76, 134, 175, 0.15);
-            background: rgba(76, 134, 175, 0.05);
-            border: 1px solid rgba(76, 134, 175, 0.1);
-        }
-        
-        .featured-video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-        
-        .featured-video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/dist/phosphor.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" id="themeColor">
+<title>Mohammed Saleh — AI, Autonomous & Embedded Systems</title>
+<meta name="description" content="Mohammed Saleh — engineer working on machine learning over real signals: EMG gesture recognition, autonomous drones, embedded systems and the software around them.">
+<meta property="og:title" content="Mohammed Saleh — AI, Autonomous & Embedded Systems">
+<meta property="og:description" content="Systems that sense, decide and act. From the sensor and the firmware up to the model and the interface.">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<script>
+/* Inline and blocking on purpose: the theme has to be on <html> before
+   the first paint, or a night visitor gets a white flash. */
+(function(){
+  try{
+    var saved = localStorage.getItem('ms.theme');
+    var h = new Date().getHours();
+    var theme = (saved === 'light' || saved === 'dark') ? saved : (h >= 7 && h < 19 ? 'light' : 'dark');
+    document.documentElement.dataset.theme = theme;
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+  }catch(e){ document.documentElement.dataset.theme = 'light'; }
+})();
+</script>
 </head>
 <body>
 
-    <div class="background-animation"></div>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
 
-    <header id="main-header">
-        <h1 id="site-logo" data-en="Mohammed Saleh" data-ar="محمد صالح" data-tr="Mohammed Saleh">Mohammed Saleh</h1>
+<!-- ======================== NAV ======================== -->
+<header class="nav" id="nav">
+  <div class="nav__in">
 
-        <nav id="main-nav">
-            <a href="#home"       data-en="Home"       data-ar="الرئيسية" data-tr="Anasayfa">Home</a>
-            <a href="#about"      data-en="About"      data-ar="عني"      data-tr="Hakkımda">About</a>
-            <a href="#skills"     data-en="Skills"     data-ar="المهارات" data-tr="Beceriler">Skills</a>
-            <a href="#projects"   data-en="Projects"   data-ar="المشاريع" data-tr="Projeler">Projects</a>
-            <a href="#experience" data-en="Experience" data-ar="الخبرة"   data-tr="Deneyim">Experience</a>
-            <a href="#contact"    data-en="Contact"    data-ar="تواصل"    data-tr="İletişim">Contact</a>
-        </nav>
+    <div class="nav__left">
+      <div class="seg" role="group" aria-label="Language">
+        <span class="seg__pill" aria-hidden="true"></span>
+        <button data-setlang="en">EN</button>
+        <button data-setlang="ar">ع</button>
+        <button data-setlang="tr">TR</button>
+      </div>
 
-        <div class="header-actions">
-            <select id="language-switcher" class="lang-select">
-                <option value="en">EN</option>
-                <option value="ar">العربية</option>
-                <option value="tr">TR</option>
-            </select>
-            <button id="theme-toggle" class="btn-icon">
-                <img src="assets/sun-light-icon.png" alt="Light Mode" class="icon-light-mode">
-                <img src="assets/moon-dark-icon.png" alt="Dark Mode" class="icon-dark-mode">
-            </button>
-            <a href="#contact" class="btn-signing" data-en="Let's Talk" data-ar="تواصل معي" data-tr="İletişim">Let's Talk</a>
-        </div>
+      <button class="langbtn" id="langbtn" aria-label="Language"><span>EN</span></button>
 
-        <!-- Mobile hamburger -->
-        <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
-            <span></span><span></span><span></span>
-        </button>
-    </header>
-
-    <!-- Mobile nav drawer -->
-    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
-        <a href="#home"       data-en="Home"       data-ar="الرئيسية" data-tr="Anasayfa">Home</a>
-        <a href="#about"      data-en="About"      data-ar="عني"      data-tr="Hakkımda">About</a>
-        <a href="#skills"     data-en="Skills"     data-ar="المهارات" data-tr="Beceriler">Skills</a>
-        <a href="#projects"   data-en="Projects"   data-ar="المشاريع" data-tr="Projeler">Projects</a>
-        <a href="#experience" data-en="Experience" data-ar="الخبرة"   data-tr="Deneyim">Experience</a>
-        <a href="#contact"    data-en="Contact"    data-ar="تواصل"    data-tr="İletişim">Contact</a>
+      <button class="iconbtn" id="themebtn" aria-label="Theme">
+        <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M5.6 5.6 7.2 7.2M16.8 16.8l1.6 1.6M18.4 5.6 16.8 7.2M7.2 16.8l-1.6 1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2z"/></svg>
+      </button>
     </div>
 
-    <main>
-        <section id="home" class="hero-section">
-            <div class="hero-content content">
-                <div class="tag-box">
-                    <i class="ph ph-sparkle"></i>
-                    <span data-en="Innovative Solutions" data-ar="حلول مبتكرة" data-tr="Yenilikçi Çözümler">Innovative Solutions</span>
-                </div>
+    <nav class="nav__links">
+      <a href="#work" data-i18n="nav.work"></a>
+      <a href="#system" data-i18n="nav.system"></a>
+      <a href="#stack" data-i18n="nav.stack"></a>
+      <a href="#path" data-i18n="nav.path"></a>
+      <a href="#contact" data-i18n="nav.contact"></a>
+    </nav>
 
-                <h1 id="main-title"
-                    data-en="Building Intelligent Systems, from AI Models to Real-World Products"
-                    data-ar="بناء الأنظمة الذكية، من نماذج الذكاء الاصطناعي إلى المنتجات الحقيقية"
-                    data-tr="Yapay Zeka Modellerinden Gerçek Dünya Ürünlerine Kadar Akıllı Sistemler Geliştiriyorum">
-                    Building Intelligent Systems, <br>from AI Models to Real-World Products
-                </h1>
+    <a class="mark" href="#top" aria-label="Mohammed Saleh">
+      <span class="mark__g">MS</span>
+      <span class="mark__n">Mohammed&nbsp;Saleh</span>
+    </a>
 
-                <p class="description"
-                   data-en="I design and train AI models, then integrate them into real-world systems. My expertise spans mobile apps, embedded systems, autonomous drones, cloud platforms, and databases — creating intelligent solutions that solve complex problems."
-                   data-ar="أصمم وأدرب نماذج الذكاء الاصطناعي، ثم أدمجها في الأنظمة الحقيقية. تغطي مهاراتي تطبيقات الجوال والأنظمة المدمجة والطائرات بدون طيار والمنصات السحابية وقواعد البيانات — مما يخلق حلولاً ذكية تحل المشاكل المعقدة."
-                   data-tr="Yapay Zeka modellerini tasarlar ve eğitirim, ardından gerçek dünya sistemlerine entegre ederim. Uzmanlığım mobil uygulamalar, gömülü sistemler, otonom dronlar, bulut platformları ve veritabanlarını kapsıyor — karmaşık sorunları çözen akıllı çözümler yaratıyorum.">
-                    I design and train AI models, then integrate them into real-world systems. My expertise spans mobile apps, embedded systems, autonomous drones, cloud platforms, and databases — creating intelligent solutions that solve complex problems.
-                </p>
+    <button class="burger" id="burger" aria-label="Menu"><i></i><i></i></button>
 
-                <div class="buttons">
-                    <a href="#projects" class="btn-get-started" data-en="Explore My Work" data-ar="استكشف أعمالي" data-tr="Çalışmalarımı Keşfet">Explore My Work</a>
-                    <a href="#contact" class="btn-signing" data-en="Let's Connect" data-ar="تواصل معي" data-tr="İletişime Geç">Let's Connect</a>
-                </div>
-            </div>
+  </div>
+</header>
 
-            <!-- Scroll indicator -->
-            <div class="hero-scroll-indicator">
-                <div class="hero-scroll-line"></div>
-            </div>
+<div class="menu" id="menu">
+  <button class="menu__close" id="menuClose" aria-label="Close">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
 
-        </section>
+  <nav class="menu__links">
+    <a href="#work" data-i18n="nav.work"></a>
+    <a href="#system" data-i18n="nav.system"></a>
+    <a href="#stack" data-i18n="nav.stack"></a>
+    <a href="#path" data-i18n="nav.path"></a>
+    <a href="#contact" data-i18n="nav.contact"></a>
+  </nav>
 
-        <!-- About Section -->
-        <section id="about" class="about-me-section content" data-animation="fadeIn" data-delay="0.2">
-            <h2 class="section-title" data-en="About Me" data-ar="عني" data-tr="Hakkımda">About Me</h2>
-            
-            <p class="description" 
-               data-en="I love turning ideas into real, working apps. Over the years, I've built skills across mobile development, cloud platforms, and smart technologies. I focus on creating apps that are easy to use and solve real problems." 
-               data-ar="أحب تحويل الأفكار إلى تطبيقات حقيقية تعمل بشكل ممتاز. على مر السنوات، طورت مهاراتي في تطوير التطبيقات والخدمات السحابية والتقنيات الذكية. أركز على بناء تطبيقات سهلة الاستخدام وتحل مشاكل حقيقية." 
-               data-tr="Fikirleri gerçek, çalışan uygulamalara dönüştürmeyi seviyorum. Yıllar içinde mobil geliştirme, bulut platformları ve akıllı teknolojiler konusunda becerilerimi geliştirdim. Kullanımı kolay ve gerçek sorunları çözen uygulamalar oluşturmaya odaklanıyorum.">
-                I love turning ideas into real, working apps. Over the years, I've built skills across mobile development, cloud platforms, and smart technologies. I focus on creating apps that are easy to use and solve real problems.
-            </p>
-            
-            <div class="welcome-message card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                <h2 data-en="My Philosophy" data-ar="فلسفتي" data-tr="Felsefem">My Philosophy</h2>
-                <p data-en="Technology should be simple and helpful. I always aim to build high-quality apps that not only meet expectations but go beyond them. Every project is a chance to learn and improve." 
-                   data-ar="التكنولوجيا يجب أن تكون بسيطة ومفيدة. أسعى دائماً لبناء تطبيقات عالية الجودة لا تلبي التوقعات فحسب، بل تتجاوزها. كل مشروع فرصة للتعلم والتطور." 
-                   data-tr="Teknoloji basit ve yararlı olmalı. Her zaman beklentileri karşılamakla kalmayıp aşan yüksek kaliteli uygulamalar oluşturmayı hedefliyorum. Her proje öğrenmek ve gelişmek için bir fırsat.">
-                    Technology should be simple and helpful. I always aim to build high-quality apps that not only meet expectations but go beyond them. Every project is a chance to learn and improve.
-                </p>
-            </div>
-        </section>
+  <div class="menu__langs" role="group" aria-label="Language">
+    <button data-setlang="en">English</button>
+    <button data-setlang="ar">العربية</button>
+    <button data-setlang="tr">Türkçe</button>
+  </div>
+</div>
 
-        <!-- Skills Sections -->
-        <section id="skills" class="skills-section content" data-animation="fadeIn" data-delay="0.2">
-            <h2 class="section-title" data-en="My Technical Skills" data-ar="مهاراتي التقنية" data-tr="Teknik Becerilerim">My Technical Skills</h2>
-            
-            <div class="features-grid">
-                <!-- AI & Machine Learning -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-brain"></i>
-                    <h3 data-en="AI & Machine Learning" data-ar="الذكاء الاصطناعي وتعلم الآلة" data-tr="Yapay Zeka ve Makine Öğrenimi">AI & Machine Learning</h3>
-                    <a href="https://youtu.be/5tWGJeg-cWQ?si=D2uZssCQ0vVOq4ZB" target="_blank" style="display: inline-block; margin-bottom: 12px;" class="btn-get-started" data-en="View Demo" data-ar="عرض العرض" data-tr="Demo İzle">View Demo <i class="ph ph-arrow-square-out"></i></a>
-                    <div class="badges-container">
-                        <span class="badge">Neural Networks</span>
-                        <span class="badge">Deep Learning</span>
-                        <span class="badge">Reinforcement Learning</span>
-                        <span class="badge">Transformer Models</span>
-                        <span class="badge">NLP</span>
-                        <span class="badge">Speech Recognition</span>
-                        <span class="badge">Generative AI</span>
-                        <span class="badge">LLMs</span>
-                        <span class="badge">PyTorch</span>
-                        <span class="badge">Keras & TensorFlow</span>   
-                        <span class="badge">Computer Vision</span>
-                        <span class="badge">Voice & Face Recognition</span>
-                        <span class="badge">On-Device ML</span>
-                        <span class="badge">Vector Embeddings</span>
-                        <span class="badge">Vector Databases</span>
-                        <span class="badge">Semantic Search</span>
-                        <span class="badge">RAG</span>
-                        <span class="badge">Recommendation Systems</span>
-                        <span class="badge">User Behavior Modeling</span>
-                    </div>
-                </div>
-                
-                <!-- Autonomous Systems & Drones -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-drone"></i>
-                    <h3 data-en="Autonomous Systems & Drones" data-ar="الأنظمة المستقلة والطائرات" data-tr="Otonom Sistemler ve Dronlar">Autonomous Systems & Drones</h3>
-                    <div class="badges-container">
-                        <span class="badge">PX4 / Pixhawk</span>
-                        <span class="badge">MAVSDK</span>
-                        <span class="badge">ROS</span>
-                        <span class="badge">NVIDIA Jetson</span>
-                        <span class="badge">Autonomous Navigation</span>
-                        <span class="badge">Obstacle Avoidance</span>
-                        <span class="badge">ArduPilot</span>
-                    </div>                
-                </div>
-                
-                <!-- Embedded Systems & IoT -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-microcontroller"></i>
-                    <h3 data-en="Embedded Systems & IoT" data-ar="الأنظمة المدمجة وإنترنت الأشياء" data-tr="Gömülü Sistemler ve IoT">Embedded Systems & IoT</h3>
-                    <div class="badges-container">
-                        <span class="badge">STM32</span>
-                        <span class="badge">ESP32 / ESP8266</span>
-                        <span class="badge">Raspberry Pi</span>
-                        <span class="badge">UART / MQTT</span>
-                        <span class="badge">RFID / NFC</span>
-                        <span class="badge">Real-Time Systems</span>
-                    </div>                
-                </div>
-                
-                <!-- Cloud, Backend & Databases -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.6" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-cloud"></i>
-                    <h3 data-en="Cloud, Backend & Databases" data-ar="الخدمات السحابية والخوادم وقواعد البيانات" data-tr="Bulut, Backend ve Veritabanları">Cloud, Backend & Databases</h3>
-                    <div class="badges-container">
-                        <span class="badge">Firebase</span>
-                        <span class="badge">AWS</span>
-                        <span class="badge">Node.js & Express</span>
-                        <span class="badge">Flask (Python)</span>
-                        <span class="badge">MySQL & PostgreSQL</span>
-                        <span class="badge">REST API</span>
-                    </div>                
-                </div>
-                
-                <!-- Mobile Applications -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.7" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-device-mobile"></i>
-                    <h3 data-en="Mobile Applications (iOS & Android)" data-ar="التطبيقات الجوال" data-tr="Mobil Uygulamalar">Mobile Applications (iOS & Android)</h3>
-                    <div class="badges-container">
-                        <span class="badge">Flutter (Dart)</span>
-                        <span class="badge">Swift & SwiftUI</span>
-                        <span class="badge">Kotlin (Android)</span>
-                        <span class="badge">Native Development</span>
-                        <span class="badge">Responsive UI/UX</span>
-                        <span class="badge">State Management</span>
-                    </div>               
-                </div>
-                
-                <!-- Web Development -->
-                <div class="feature-item card" data-animation="fadeIn" data-delay="0.8" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-code"></i>
-                    <h3 data-en="Web Development" data-ar="تطوير الويب" data-tr="Web Geliştirme">Web Development</h3>
-                    <div class="badges-container">
-                        <span class="badge">HTML & CSS</span>
-                        <span class="badge">JavaScript</span>
-                        <span class="badge">React</span>
-                        <span class="badge">Flutter Web</span>
-                        <span class="badge">Responsive Design</span>
-                    </div> 
-                </div>
-            </div>
-        </section>
+<main id="top">
 
-        <!-- Projects Section -->
-        <section id="projects" class="projects-section content" data-animation="fadeIn" data-delay="0.2">
-            <h2 class="section-title" data-en="My Featured Projects" data-ar="مشاريعي المميزة" data-tr="Öne Çıkan Projelerim">My Featured Projects</h2>
-            
-            <div class="resources-grid">
-                
-                <!-- Project 1: Smart Home -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-house-line"></i>
-                    <h3 data-en="Smart Home Controller" data-ar="نظام تحكم المنزل الذكي" data-tr="Akıllı Ev Kontrol Sistemi">Smart Home Controller</h3>
-                    
-                    <p data-en="Enables remote home automation with AI-powered security using face recognition and voice commands. Integrates embedded systems (STM32) with mobile apps (Flutter, SwiftUI) and cloud infrastructure (Firebase, AWS) for real-time device control and intelligent safety alerts." 
-                       data-ar="يمكّن التحكم بالمنزل الذكي عن بُعد مع أمان مدعوم بالذكاء الاصطناعي باستخدام التعرف على الوجه والأوامر الصوتية. يدمج الأنظمة المدمجة (STM32) مع التطبيقات الجوال (Flutter، SwiftUI) والبنية السحابية (Firebase، AWS) للتحكم الفوري بالأجهزة والتنبيهات الذكية." 
-                       data-tr="Yüz tanıma ve sesli komutlar kullanarak yapay zeka destekli güvenlik ile uzaktan ev otomasyonunu sağlar. Gömülü sistemleri (STM32), mobil uygulamalarla (Flutter, SwiftUI) ve bulut altyapısı (Firebase, AWS) ile gerçek zamanlı cihaz kontrolü ve akıllı güvenlik uyarıları için entegre eder.">
-                        Enables remote home automation with AI-powered security using face recognition and voice commands. Integrates embedded systems (STM32) with mobile apps (Flutter, SwiftUI) and cloud infrastructure (Firebase, AWS) for real-time device control and intelligent safety alerts.
-                    </p>
-                    
-                    <a href="https://youtu.be/SxPO22OO0eE?si=LBCxZOMYHjf6dXpM" target="_blank" class="btn-get-started" data-en="Watch Demo" data-ar="شاهد العرض" data-tr="Demoyu İzle">Watch Demo <i class="ph ph-arrow-square-out"></i></a>
-                </div>
-                
-                <!-- Project 2: Autonomous Drone -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-drone"></i>
-                    <h3 data-en="Autonomous Drone System" data-ar="نظام الطائرة بدون طيار" data-tr="Otonom Drone Sistemi">Autonomous Drone System</h3>
-                    
-                    <p data-en="Demonstrates real-time computer vision for autonomous decision-making. Using PX4, MAVSDK, and OpenCV, the drone detects shapes and autonomously adjusts flight parameters (altitude, navigation patterns) without human intervention — showcasing AI-driven autonomous systems." 
-                       data-ar="يعرض الرؤية الحاسوبية في الوقت الحقيقي لصنع القرارات المستقلة. باستخدام PX4 و MAVSDK و OpenCV، تكتشف الطائرة الأشكال وتعدل معاملات الطيران بشكل مستقل دون تدخل بشري — معروضة الأنظمة المستقلة المدعومة بالذكاء الاصطناعي." 
-                       data-tr="Otonom karar verme için gerçek zamanlı bilgisayarlı görüyü gösterir. PX4, MAVSDK ve OpenCV kullanarak drone şekilleri algılar ve insan müdahalesi olmadan uçuş parametrelerini (irtifa, navigasyon düzenler) otomatik olarak ayarlar — yapay zeka destekli otonom sistemleri gösterir.">
-                        Demonstrates real-time computer vision for autonomous decision-making. Using PX4, MAVSDK, and OpenCV, the drone detects shapes and autonomously adjusts flight parameters (altitude, navigation patterns) without human intervention — showcasing AI-driven autonomous systems.
-                    </p>
-                    
-                    <a href="https://youtu.be/kYjXQ3d8Pcg?si=8vyLEMcdotGKh9Yq" target="_blank" class="btn-get-started" data-en="Watch Demo" data-ar="شاهد العرض" data-tr="Demoyu İzle">Watch Demo <i class="ph ph-arrow-square-out"></i></a>
-                </div>
-                
-                <!-- Project 3: Y-Shop -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-shopping-bag"></i>
-                    <h3 data-en="YSHOP E-Commerce App" data-ar="تطبيق YSHOP للتسوق" data-tr="YSHOP E-Ticaret Uygulaması">Y-Shop E-Commerce App</h3>
-                    
-                    <p
-                    data-en="YSHOP is a full-stack intelligent commerce platform unifying E-Commerce, CRM, ERP, and advanced AI. The recommendation engine is built on vector embeddings — every product interaction is encoded into high-dimensional semantic vectors stored in a vector database, enabling millisecond-precision similarity search. The system builds a persistent taste profile per user (what they love, ignore, or avoid), and the LLM queries the vector store directly rather than relying on keyword matching — producing recommendations that feel eerily accurate. Collaborative filtering emerges naturally from vector proximity: users with overlapping embedding clusters surface each other's preferences automatically. Also integrates real-time AI quality moderation, a 24/7 voice assistant, and autonomous drone delivery via NVIDIA Jetson."
-                    data-ar="YSHOP منصة تجارية ذكية متكاملة. قلب النظام محرك توصيات مبني على التضمينات المتجهية — كل تفاعل مع منتج يُحوَّل إلى متجه دلالي في قاعدة بيانات متجهية، تُمكّن البحث الدلالي الفوري بدقة عالية. النظام يبني ملف تذوق لكل مستخدم يحفظ ما يحبه وما يتجنبه، والـنموذج اللغوي الكبير ( LLM ) يستعلم مباشرة من المتجهات بدل الكلمات المفتاحية — فتبدو التوصيات دقيقة بشكل مذهل. الفلترة التعاونية تعمل تلقائياً عبر قرب المتجهات: المستخدمون بأذواق متشابهة يرون توصيات بعضهم تلقائياً. بالإضافة إلى ذكاء اصطناعي للمراقبة في الوقت الفعلي، مساعد صوتي 24/7، وتوصيل بالطائرات عبر NVIDIA Jetson."
-                    data-tr="YSHOP, E-Ticaret, CRM, ERP ve gelişmiş yapay zekayı birleştiren tam kapsamlı akıllı ticaret platformudur. Öneri motoru vektör embeddingleri üzerine kurulu — her ürün etkileşimi yüksek boyutlu semantik vektörlere dönüştürülüp vektör veritabanında saklanır. Sistem her kullanıcı için kalıcı bir zevk profili oluşturur; LLM anahtar kelime yerine doğrudan vektör deposunu sorgular, bu da etkileyici derecede isabetli öneriler üretir. Kolaboratif filtreleme, vektör yakınlığıyla kendiliğinden ortaya çıkar. Ayrıca gerçek zamanlı AI moderasyonu, 7/24 sesli asistan ve NVIDIA Jetson ile drone teslimatı içerir.">
-                    YSHOP is a full-stack intelligent commerce platform unifying E-Commerce, CRM, ERP, and advanced AI. The recommendation engine is built on vector embeddings — every product interaction is encoded into high-dimensional semantic vectors stored in a vector database, enabling millisecond-precision similarity search. The system builds a persistent taste profile per user, and the LLM queries the vector store directly rather than relying on keyword matching — producing recommendations that feel eerily accurate. Collaborative filtering emerges naturally from vector proximity: users with overlapping embedding clusters surface each other's preferences automatically. Also integrates real-time AI moderation, a 24/7 voice assistant, and drone delivery via NVIDIA Jetson.
-                    </p>
+<!-- ======================== HERO ======================== -->
+<section class="hero">
+  <canvas class="field" id="field" aria-hidden="true"></canvas>
 
-                    <p class="project-tech">
-                        <strong>Tech:</strong> Vector DB • Text Embeddings • LLM • Node.js • Python • Swift & SwiftUI • Flutter • Firebase • NVIDIA Jetson • PX4 • MAVSDK • OpenCV • Drone Delivery • AI Moderation • Voice Assistant
-                    </p>
-
-                    <a href="https://slender-forsythia-e75.notion.site/YSHOP-E-Commerce-APP-172883fb9e358081adb7d402501eac5f" target="_blank" class="btn-get-started" data-en="View Details" data-ar="عرض التفاصيل" data-tr="Detayları Görüntüle">View Details <i class="ph ph-arrow-square-out"></i></a>
-                    <a href="https://youtu.be/5tWGJeg-cWQ?si=D2uZssCQ0vVOq4ZB" target="_blank" class="btn-get-started" data-en="Watch AI Demo" data-ar="شاهد عرض الذكاء الاصطناعي" data-tr="Yapay Zeka Demoyu İzle">Watch AI Demo <i class="ph ph-arrow-square-out"></i></a>
-                    <a href="https://youtu.be/PNgwfYJ0n6g?si=3CP_LYXYYLNvh1RL" target="_blank" class="btn-get-started" data-en="Watch Drone Delivery" data-ar="شاهد توصيل الطائرة" data-tr="Drone Teslimatını İzle">Watch Drone Delivery <i class="ph ph-arrow-square-out"></i></a>
-                    
-                    <div class="project-images-grid">
-                        <img src="assets/y-shop-screen0.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen1.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen2.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen3.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen4.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen5.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen6.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen7.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen8.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen9.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen10.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen11.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen12.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen13.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen14.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen15.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen16.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen17.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen18.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen19.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen20.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen21.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen22.png" alt="Y-Shop Screenshot">
-                        <img src="assets/y-shop-screen23.png" alt="Y-Shop Screenshot">                    </div>
-                </div>
-                
-                <!-- Project 4: Noota -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-microphone"></i>
-                    <h3 data-en="Noota - Voice Translation App" data-ar="Noota - تطبيق الترجمة الصوتية" data-tr="Noota - Sesli Çeviri Uygulaması">Noota - Voice Translation App</h3>
-                    
-                    <p
-                    data-en="Imagine breaking language barriers instantly. Whether in a café with friends, at international conferences, or during job interviews — everyone hears the conversation in their native language while the original speaker's voice is perfectly preserved. Real-time voice translation with AI voice cloning and neural networks. Built with Swift, Node.js, Firebase, and custom Transformer models trained on 1.5M parameters. Deployed on dedicated GPU servers for enterprise security and scalability."
-                    data-ar="تخيّل التحدث بلغتك والاستماع بلغتهم — فوراً! سواء في مقهى مع الأصدقاء أو في مؤتمر دولي أو مقابلة عمل. التطبيق يترجم الصوت في الحقيقة مع الحفاظ على صوتك الأصلي. قوة الذكاء الاصطناعي والشبكات العصبية الصناعية. 1.5 مليون معامل وسيرفرات GPU عالية الأداء."
-                    data-tr="Dilinizde konuşun, onlar kendi dillerinde dinlesin — anında! Kafede arkadaşlarla, uluslararası konferansda veya iş görüşmesinde. Gerçek zamanlı sesli çeviri yapay zeka ve sinir ağları ile. Orijinal sesiniz korunarak. 1.5 milyon parametre ile eğitilmiş özel AI modeller."
-                    >
-Eliminates language barriers through real-time AI voice cloning and neural translation. Custom Transformer-based AI models (1.5M parameters, 50K training iterations) integrated with production infrastructure (Swift/SwiftUI, Node.js, Firebase) enable seamless multilingual communication for enterprise environments.
-                    </p>
-
-                    
-                    <p class="project-tech">
-                        <strong>Tech:</strong> Swift & SwiftUI • Node.js • Python (Flask) • Firebase • Custom Voice Model
-                    </p>
-                    
-                    <a href="https://youtu.be/37KYB2-55Kk?si=M__kGwKftzlxyCqf" target="_blank" class="btn-get-started" data-en="Watch Demo" data-ar="شاهد العرض" data-tr="Demoyu İzle">Watch Demo <i class="ph ph-arrow-square-out"></i></a>
-                    
-                    <div class="project-images-grid portrait-grid">
-                        <img src="assets/0.png" alt="Noota Screenshot">
-                        <img src="assets/1.png" alt="Noota Screenshot">
-                        <img src="assets/2.png" alt="Noota Screenshot">
-                        <img src="assets/3.png" alt="Noota Screenshot">
-                        <img src="assets/4.png" alt="Noota Screenshot">
-                        <img src="assets/5.png" alt="Noota Screenshot">
-                        <img src="assets/6.png" alt="Noota Screenshot">
-                        <img src="assets/7.png" alt="Noota Screenshot">
-                        <img src="assets/8.png" alt="Noota Screenshot">
-                        <img src="assets/9.png" alt="Noota Screenshot">
-                        <img src="assets/10.png" alt="Noota Screenshot">
-                        <img src="assets/11.png" alt="Noota Screenshot">
-                        <img src="assets/12.png" alt="Noota Screenshot">
-                        <img src="assets/13.png" alt="Noota Screenshot">
-                        <img src="assets/14.png" alt="Noota Screenshot">
-                    </div>
-                </div>
-                
-                <!-- Project 5: IOTROCOP Marin -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-anchor"></i>
-                    <h3 data-en="IOTROCOP Marin - Yacht App" data-ar="IOTROCOP Marin - تطبيق اليخوت" data-tr="IOTROCOP Marin - Yat Uygulaması">IOTROCOP Marin - Yacht App</h3>
-                    
-                    <p data-en="Delivers end-to-end IoT automation from embedded firmware to mobile control. Built entire system architecture — hardware integration, backend infrastructure, and native/cross-platform apps (iOS/Android) — enabling real-time remote monitoring, device control, and secure multi-user access for complex autonomous systems." 
-                       data-ar="يوفر أتمتة IoT متكاملة من البرامج المدمجة إلى التحكم عبر الهاتف الجوال. بنيت معمارية النظام كاملة — تكامل الأجهزة والبنية التحتية للخادم والتطبيقات الأصلية والمتعددة المنصات (iOS/Android) — مما يمكّن المراقبة الفورية عن بُعد والتحكم بالأجهزة والوصول الآمن متعدد المستخدمين." 
-                       data-tr="Gömülü yazılımdan mobil kontrol için end-to-end IoT otomasyonu sunar. Tüm sistem mimarisini oluşturdum — donanım entegrasyonu, backend altyapısı ve native/çapraz platform uygulamalar (iOS/Android) — gerçek zamanlı uzaktan izleme, cihaz kontrolü ve güvenli çok kullanıcılı erişim sağlıyor.">
-                        Delivers end-to-end IoT automation from embedded firmware to mobile control. Built entire system architecture — hardware integration, backend infrastructure, and native/cross-platform apps (iOS/Android) — enabling real-time remote monitoring, device control, and secure multi-user access for complex autonomous systems.
-                    </p>
-                    
-                    <a href="https://slender-forsythia-e75.notion.site/IOTROCOP-Marin-240883fb9e35803ca422c3cb6dab7bf9?source=copy_link" target="_blank" class="btn-get-started" data-en="View Details" data-ar="عرض التفاصيل" data-tr="Detayları Görüntüle">View Details <i class="ph ph-arrow-square-out"></i></a>
-                    
-                    <div class="project-images-grid portrait-grid">
-                        <img src="assets/marin0.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin1.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin2.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin3.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin4.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin5.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin6.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin7.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin8.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin9.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin10.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin11.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin12.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin13.png" alt="IOTROCOP Screenshot">
-                        <img src="assets/marin14.png" alt="IOTROCOP Screenshot">
-                    </div>
-                </div>
-                
-                <!-- Project 6: Autonomous AI Drone System -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.6" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-drone"></i>
-                    
-                    <h3 
-                    data-en="Autonomous AI-Powered Industrial Drone System" 
-                    data-ar="نظام درون صناعي ذاتي مدعوم بالذكاء الاصطناعي" 
-                    data-tr="Yapay Zeka Destekli Otonom Endüstriyel Drone Sistemi">
-                        Autonomous AI-Powered Industrial Drone System
-                    </h3>
-                    
-                    <p class="project-meta" 
-                    data-en="Role: AI & Autonomous Systems Engineer" 
-                    data-ar="الدور: مهندس الذكاء الاصطناعي والأنظمة المستقلة" 
-                    data-tr="Rol: Yapay Zeka ve Otonom Sistemler Mühendisi">
-                        Role: AI & Autonomous Systems Engineer
-                    </p>
-                    
-                    <p class="project-meta" 
-                    data-en="Status: Completed & Delivered" 
-                    data-ar="الحالة: مكتمل وتم تسليمه" 
-                    data-tr="Durum: Tamamlandı ve Teslim Edildi">
-                        Status: Completed & Delivered
-                    </p>
-             
-
-                    <p
-                    data-en="Solves large-scale building maintenance through fully autonomous AI-powered drone systems with computer vision and precision navigation. Custom AI models trained for real-time object detection, obstacle avoidance, and autonomous decision-making enable safe operation in complex urban environments. Engineered complete system architecture — from AI/CV integration and flight autonomy to custom hardware control units with RTK-GNSS centimeter-level positioning and multi-sensor fusion (LiDAR, sonar, vision). Delivered as lead AI & autonomy engineer within 4 months to meet urgent operational requirements."
-                    
-                    data-ar="نظام درون صناعي ذاتي متطور تم تطويره لأعمال صيانة وغسيل المباني والواجهات الخارجية على نطاق واسع. يعتمد الدرون على نظام ذكاء اصطناعي عالي الدقة تم تدريبه خصيصًا لمهام الرؤية الحاسوبية مثل اكتشاف الأجسام، تفادي العقبات، والملاحة الذاتية في الوقت الحقيقي. يمكّن هذا النموذج الدرون من التعرف على الجدران، النوافذ، الحواف، والعقبات المتحركة والعمل بأمان داخل البيئات الحضرية المعقدة. تم تطوير متحكم خاص بالدرون (Commander) من الصفر، مزوّد بشاشة مدمجة لعرض الموقع المباشر، تخطيط المهام، مراقبة بيانات الطيران، وتنفيذ الأوامر. يدعم النظام تنفيذ المهام بشكل ذاتي مع تدخل بشري محدود، ويشمل خصائص مثل التثبيت، وضع الثبات (Hold Mode)، العودة التلقائية إلى نقطة الإقلاع (Return to Home)، وأنظمة أمان احتياطية. تم تصميم هيكل الدرون مستوحى من منصات صناعية احترافية، مع دمج نظام GNSS عالي الدقة يدعم RTK للحصول على تحديد موقع بمستوى السنتيمتر، بالإضافة إلى مستشعرات عمق متعددة مثل LiDAR، السونار، وأنظمة تقدير العمق البصرية. شاركت كمطور برمجيات رئيسي ضمن الفريق، وأسهمت في تطوير منطق الطيران، أنظمة الاستقلالية، ودمج الذكاء الاصطناعي، وتم إنجاز المشروع خلال فترة زمنية قصيرة بلغت أربعة أشهر لتلبية احتياج تشغيلي عاجل."
-                    
-                    data-tr="Büyük ölçekli bina bakım ve dış cephe temizliği operasyonları için geliştirilen gelişmiş ve otonom bir endüstriyel drone sistemidir. Drone, gerçek zamanlı nesne algılama, engelden kaçınma ve otonom navigasyon gibi bilgisayarlı görü görevleri için özel olarak eğitilmiş yüksek hassasiyetli bir yapay zeka sistemiyle donatılmıştır. Bu sistem, karmaşık kentsel ortamlarda duvarları, pencereleri, kenarları ve hareketli engelleri güvenli şekilde algılamayı sağlar. Drone için sıfırdan özel bir kontrol ünitesi (Commander) geliştirilmiş olup, canlı konum, görev planlama, telemetri izleme ve görev yürütme için entegre bir ekran içerir. Sistem, minimum insan müdahalesiyle otonom görev icrasını destekler; stabilizasyon, hold modu, otomatik eve dönüş ve güvenlik mekanizmalarını kapsar. Drone mimarisi profesyonel endüstriyel platformlardan ilham almıştır ve santimetre seviyesinde konumlama sağlayan RTK destekli yüksek hassasiyetli GNSS sistemi ile LiDAR, sonar ve görsel derinlik sensörleri entegre edilmiştir. Ekip içinde baş yazılım geliştirici olarak görev aldım ve uçuş mantığı, otonomi sistemleri ve yapay zeka entegrasyonuna katkı sağlayarak projeyi dört aylık kısa bir sürede başarıyla teslim ettik."
-                    >
-                    Solves large-scale building maintenance through autonomous AI-powered drone systems with computer vision and precision navigation.
-                    </p>
-
-                    
-                    <p class="project-tech">
-                        <strong>Tech:</strong> Computer Vision • Autonomous Navigation • RTK-GNSS • Multi-Sensor Fusion • Embedded Systems
-                    </p>
-                    
-                    <a href="https://youtu.be/PXxgTgSYX7Y?si=QWy87PHnSKmxxOLe" target="_blank" class="btn-get-started" data-en="Watch Demo" data-ar="شاهد العرض" data-tr="Demoyu İzle">Watch Demo <i class="ph ph-arrow-square-out"></i></a>
-                </div>
-                
-                <!-- Project 7: MinibusCRM -->
-                <div class="resource-item card" data-animation="fadeIn" data-delay="0.7" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-bus"></i>
-                    
-                    <h3 
-                    data-en="MinibusCRM – Smart Fleet Management Platform" 
-                    data-ar="MinibusCRM – منصة ذكية لإدارة الأساطيل" 
-                    data-tr="MinibusCRM – Akıllı Filo Yönetim Platformu">
-                        MinibusCRM – Smart Fleet Management Platform
-                    </h3>
-                    
-                    <p class="project-meta" 
-                    data-en="Role: AI & Systems Engineer" 
-                    data-ar="الدور: مهندس الذكاء الاصطناعي والأنظمة" 
-                    data-tr="Rol: Yapay Zeka ve Sistemler Mühendisi">
-                        Role: AI & Systems Engineer
-                    </p>
-                    
-                    <p class="project-meta" 
-                    data-en="Company: IOTROCOP Technology" 
-                    data-ar="الشركة: IOTROCOP Technology" 
-                    data-tr="Şirket: IOTROCOP Technology">
-                        Company: IOTROCOP Technology
-                    </p>
-                    
-                    <p class="project-meta" 
-                    data-en="Status: Delivered & Actively Running" 
-                    data-ar="الحالة: تم التسليم ويعمل فعليًا" 
-                    data-tr="Durum: Teslim Edildi ve Aktif Olarak Çalışıyor">
-                        Status: Delivered & Actively Running
-                    </p>
-                    
-                    <p 
-                    data-en="Streamlines fleet management for transportation companies through intelligent real-time tracking and autonomous reporting. Delivers live vehicle monitoring, intelligent route optimization, performance analytics, and secure role-based access — built as a scalable, multi-tenant commercial platform for deployment across multiple fleet operations." 
-                    data-ar="منصة متكاملة وقابلة للتوسع لإدارة الأساطيل، مصممة لشركات النقل لمتابعة الحافلات الصغيرة في الوقت الحقيقي. يوفّر النظام تتبعًا مباشرًا للمركبات، إدارة المسارات، تقارير التأخير والأداء، والتحكم الآمن بصلاحيات المستخدمين. تم بناء المنصة لتكون قابلة لإعادة الاستخدام والتسويق لشركات أساطيل متعددة. يعرض الفيديو بالأسفل نموذجًا توضيحيًا باستخدام بيانات تجريبية، بينما تمثل الحافلات والمسارات سيناريوهات تشغيل حقيقية." 
-                    data-tr="Taşımacılık şirketleri için minibüslerin gerçek zamanlı takibini ve yönetimini sağlayan ölçeklenebilir bir filo yönetim platformudur. Canlı araç takibi, rota yönetimi, gecikme ve performans raporları ile rol tabanlı güvenli erişim sunar. Platform, birden fazla filo işletmecisine ticari olarak sunulabilecek şekilde tasarlanmıştır. Aşağıdaki demo videosu örnek verilerle gösterilmiştir, ancak araçlar ve rotalar gerçek operasyon senaryolarını yansıtmaktadır.">
-                        A scalable fleet management platform designed for transportation companies to monitor and manage minibuses in real time.
-                    </p>
-                    
-                    <p class="project-tech">
-                        <strong>Tech:</strong> Flutter • Node.js • REST APIs • Google Maps • PostgreSQL • Cloud Deployment
-                    </p>
-                    
-                    <a href="https://youtu.be/UitvurZKe0U" target="_blank" class="btn-get-started" 
-                    data-en="Watch Live Demo" 
-                    data-ar="شاهد العرض" 
-                    data-tr="Canlı Demoyu İzle">
-                        Watch Live Demo <i class="ph ph-arrow-square-out"></i>
-                    </a>
-                </div>
-
-        </section>
-        
-        <!-- Featured Video Section -->
-        <section class="featured-video-section content" data-animation="fadeIn" data-delay="0.2">
-            <h2 class="section-title" data-en="Drone In Action" data-ar="الدرون في العمل" data-tr="İş Başında Drone">Drone In Action</h2>
-            
-            <p class="description" data-en="Real-time autonomous flight tests demonstrating manual and autonomous flight control capabilities." 
-               data-ar="اختبارات الطيران المستقل في الوقت الفعلي تظهر قدرات التحكم اليدوي والمستقل بالطيران." 
-               data-tr="Manuel ve otonom uçuş kontrol yeteneklerini gösteren gerçek zamanlı otonom uçuş testleri.">
-                Real-time autonomous flight tests demonstrating manual and autonomous flight control capabilities.
-            </p>
-            
-            <div class="video-grid">
-                <!-- Video 1: Joystick Control -->
-                <div class="premium-video-card">
-                    <div class="video-facade" onclick="loadVideo(this, 'PXxgTgSYX7Y')">
-                        <img src="https://img.youtube.com/vi/PXxgTgSYX7Y/maxresdefault.jpg" alt="Live Joystick & Throttle Control" class="thumbnail">
-                        <div class="play-overlay">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="video-title" data-en="Live Joystick & Throttle Control" data-ar="التحكم الحي بالجويستيك والثروتل" data-tr="Canlı Joystick ve Gaz Kontrolü">Live Joystick & Throttle Control</p>
-                </div>
-
-                <!-- Video 2: Manual Flight & Real-Time Actuation -->
-                <div class="premium-video-card">
-                    <div class="video-facade" onclick="loadVideo(this, 'PNgwfYJ0n6g')">
-                        <img src="https://img.youtube.com/vi/PNgwfYJ0n6g/maxresdefault.jpg" alt="Manual Flight & Real-Time Actuation" class="thumbnail">
-                        <div class="play-overlay">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="video-title" data-en="Manual Flight & Real-Time Actuation" data-ar="الطيران اليدوي والتفعيل الحقيقي" data-tr="Manuel Uçuş ve Gerçek Zamanlı Aktüasyon">Manual Flight & Real-Time Actuation</p>
-                </div>
-
-                <!-- Video 3: Indoor System Validation -->
-                <div class="premium-video-card">
-                    <div class="video-facade" onclick="loadVideo(this, 'y0WCCdwhtbY')">
-                        <img src="https://img.youtube.com/vi/y0WCCdwhtbY/maxresdefault.jpg" alt="Indoor System Validation" class="thumbnail">
-                        <div class="play-overlay">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="video-title" data-en="Indoor System Validation" data-ar="التحقق من النظام داخل المكتب" data-tr="İç Mekan Sistem Doğrulaması">Indoor System Validation</p>
-                </div>
-
-                <!-- Video 4: Manual Takeoff & Stable Hover -->
-                <div class="premium-video-card">
-                    <div class="video-facade" onclick="loadVideo(this, 'k9V0ieSYL88')">
-                        <img src="https://img.youtube.com/vi/k9V0ieSYL88/maxresdefault.jpg" alt="Manual Takeoff & Stable Hover" class="thumbnail">
-                        <div class="play-overlay">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="video-title" data-en="Manual Takeoff & Stable Hover" data-ar="الإقلاع اليدوي والثبات في الجو" data-tr="Manuel Kalkış ve İstikrarlı Hover">Manual Takeoff & Stable Hover</p>
-                </div>
-
-                <!-- Video 5: Fully Autonomous Takeoff & Hover -->
-                <div class="premium-video-card">
-                    <div class="video-facade" onclick="loadVideo(this, 'ygoqMg5XZ6c')">
-                        <img src="https://img.youtube.com/vi/ygoqMg5XZ6c/maxresdefault.jpg" alt="Fully Autonomous Takeoff & Hover" class="thumbnail">
-                        <div class="play-overlay">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="video-title" data-en="Fully Autonomous Takeoff & Hover" data-ar="الإقلاع المستقل الكامل والثبات" data-tr="Tam Otonom Kalkış ve Hover">Fully Autonomous Takeoff & Hover</p>
-                </div>
-
-                <!-- Video 6: From Manual Control to Full Automation (FPV Drone) -->
-                <div class="premium-video-card">
-                    <div class="video-facade" onclick="loadVideo(this, 'EE52iLK9Y8M')">
-                        <img src="https://img.youtube.com/vi/EE52iLK9Y8M/maxresdefault.jpg" alt="From Manual Control to Full Automation" class="thumbnail">
-                        <div class="play-overlay">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="video-title" data-en="From Manual Control to Full Automation" data-ar="من التحكم اليدوي إلى الأتمتة الكاملة" data-tr="Manuel Kontrolden Tam Otomasyona">From Manual Control to Full Automation</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- AI in Action Section -->
-        <section class="featured-video-section content" data-animation="fadeIn" data-delay="0.2">
-            <h2 class="section-title" data-en="AI in Action" data-ar="الذكاء الاصطناعي في العمل" data-tr="AI İş Başında">AI in Action</h2>
-            
-            <p class="description" data-en="Custom AI models I trained from scratch — demonstrating real-world machine learning in production systems." 
-               data-ar="نماذج ذكاء اصطناعي مخصصة دربتها من الصفر — توضح تطبيق التعلم الآلي في الأنظمة الحقيقية." 
-               data-tr="Sıfırdan eğittim özel AI modelleri — gerçek dünya makine öğrenimini üretim sistemlerinde gösteriyor.">
-                Custom AI models I trained from scratch — demonstrating real-world machine learning in production systems.
-            </p>
-            
-            <div class="video-grid">
-                <!-- Video: YSHOP AI Demo - STT & LLM -->
-                <div class="premium-video-card">
-                    <div style="position: relative; margin-bottom: 0.5rem;">
-                        <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">YSHOP</span>
-                    </div>
-                    <div class="video-facade" onclick="loadVideo(this, '5tWGJeg-cWQ')">
-                        <img src="https://img.youtube.com/vi/5tWGJeg-cWQ/maxresdefault.jpg" alt="YSHOP AI Demo" class="thumbnail">
-                        <div class="play-overlay">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="video-title" data-en="No Search Bar. No Filters. Just Talk." data-ar="لا شريط بحث. بلا فلاتر. فقط تحدث" data-tr="Arama Çubuğu Yok. Filtre Yok. Sadece Konuş.">No Search Bar. No Filters. Just Talk.</p>
-                </div>
-
-                <!-- Video: NOOTA AI Voice Translation -->
-                <div class="premium-video-card">
-                    <div style="position: relative; margin-bottom: 0.5rem;">
-                        <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">NOOTA</span>
-                    </div>
-                    <div class="video-facade" onclick="loadVideo(this, '37KYB2-55Kk')">
-                        <img src="https://img.youtube.com/vi/37KYB2-55Kk/maxresdefault.jpg" alt="NOOTA AI Voice Translation" class="thumbnail">
-                        <div class="play-overlay">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="video-title" data-en="One Voice, Every Language" data-ar="صوت واحد، كل اللغات" data-tr="Bir Ses, Her Dil">One Voice, Every Language</p>
-                </div>
-
-                <!-- Video: EMG Gesture Recognition — YTÜ Biomechatronics Lab -->
-                <div class="premium-video-card">
-                    <div style="position: relative; margin-bottom: 0.5rem;">
-                        <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">YTÜ Yıldız Teknopark</span>
-                    </div>
-                    <div class="video-facade" onclick="loadVideo(this, 'uGS7Rv67E7w')">
-                        <img src="https://img.youtube.com/vi/uGS7Rv67E7w/maxresdefault.jpg" alt="EMG Gesture Recognition" class="thumbnail">
-                        <div class="play-overlay">
-                            <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="video-title" data-en="Real-Time EMG Gesture Recognition — 95% Accuracy" data-ar="التعرف على إيماءات EMG في الوقت الفعلي — دقة 95%" data-tr="Gerçek Zamanlı EMG Hareket Tanıma — %95 Doğruluk">Real-Time EMG Gesture Recognition — 95% Accuracy</p>
-                </div>
-            </div>
-
-            <!-- EMG Research Subsection -->
-            <div style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                <h3 data-en="EMG Gesture Recognition — AI & Biomechatronics Lab, YTÜ Yıldız Teknopark"
-                    data-ar="التعرف على إيماءات EMG — مختبر الذكاء الاصطناعي والبيوميكاترونيكس، YTÜ يلدز تكنوبارك"
-                    data-tr="EMG Hareket Tanıma — AI & Biyomekatronik Lab, YTÜ Yıldız Teknopark">
-                    EMG Gesture Recognition — AI & Biomechatronics Lab, YTÜ Yıldız Teknopark
-                </h3>
-
-                <p style="margin-top: 1rem; line-height: 1.6;"
-                   data-en="Real-time hand gesture recognition using EMG signals from a Myo Armband to control a prosthetic arm and quadcopter drone. Collected our own dataset (6 gestures × 6 rounds × 5 seconds) with a guided recording script to ensure clean labels. Trained a CNN+LSTM model — CNN extracts muscle activation patterns from 8 EMG channels, LSTM captures temporal changes. Key breakthrough: fixing a normalization mismatch between training and real-time inference jumped accuracy from under 5% to over 94% in live testing. Final model achieves ~95% average accuracy with under 100ms latency across 6 gestures: rest, fist, open hand, wave in, wave out, pinch."
-                   data-ar="نظام التعرف على إيماءات اليد في الوقت الفعلي باستخدام إشارات EMG من سوار Myo للتحكم بذراع اصطناعية وطائرة درون رباعية. جمعنا بياناتنا الخاصة (6 إيماءات × 6 جولات × 5 ثوانٍ) بنص توجيهي لضمان دقة التسميات. دربنا نموذج CNN+LSTM — يستخرج CNN أنماط تنشيط العضلات من 8 قنوات EMG، ويلتقط LSTM التغيرات الزمنية. الاختراق الرئيسي: إصلاح عدم تطابق التطبيع بين التدريب والاستدلال الفوري رفع الدقة من أقل من 5% إلى أكثر من 94% في الاختبار الحي. النموذج النهائي يحقق ~95% دقة متوسطة مع كمون أقل من 100 ميلي ثانية."
-                   data-tr="Myo Armband'dan EMG sinyalleri kullanarak gerçek zamanlı el hareketi tanıma sistemi — protez kol ve quadcopter drone kontrolü için. Kendi veri setimizi oluşturduk (6 hareket × 6 tur × 5 saniye). CNN+LSTM modeli eğittik — CNN, 8 EMG kanalından kas aktivasyon örüntülerini çıkarır; LSTM zamansal değişimleri yakalar. Anahtar atılım: eğitim ile gerçek zamanlı çıkarım arasındaki normalizasyon uyumsuzluğunu düzeltmek, doğruluğu %5'in altından canlı testte %94'ün üzerine çıkardı.">
-                    Real-time hand gesture recognition using EMG signals from a Myo Armband to control a prosthetic arm and quadcopter drone. CNN+LSTM model — CNN extracts muscle activation patterns from 8 EMG channels, LSTM captures temporal dynamics. Key breakthrough: fixing a normalization mismatch between training and live inference jumped accuracy from under 5% to over 94%. Final model: ~95% accuracy, &lt;100ms latency, 6 gestures.
-                </p>
-
-                <p class="project-tech" style="margin-top: 1rem;">
-                    <strong>Tech:</strong> CNN • LSTM • PyTorch • EMG Signal Processing • Myo Armband • Python • Real-Time Inference
-                </p>
-
-                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; justify-content: center;">
-                    <a href="https://huggingface.co/malansi/EMG-Gesture-Recognition" target="_blank" class="btn-get-started"
-                       data-en="Model on HuggingFace" data-ar="النموذج على HuggingFace" data-tr="HuggingFace'de Model">
-                        Model on HuggingFace <i class="ph ph-arrow-square-out"></i>
-                    </a>
-                    <a href="https://huggingface.co/datasets/malansi/EMG-Gesture-Dataset" target="_blank" class="btn-get-started"
-                       data-en="Dataset on HuggingFace" data-ar="البيانات على HuggingFace" data-tr="HuggingFace'de Veri Seti">
-                        Dataset on HuggingFace <i class="ph ph-arrow-square-out"></i>
-                    </a>
-                    <a href="https://github.com/AI-Biomechatornics-Lab/Controlling-Prosthetic-Arm-AI-Module" target="_blank" class="btn-get-started"
-                       data-en="Code on GitHub" data-ar="الكود على GitHub" data-tr="GitHub'da Kod">
-                        Code on GitHub <i class="ph ph-arrow-square-out"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- YSHOP Delivery & Logistics Subsection -->
-            <div style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                <h3 data-en="YSHOP — Intelligent Logistics & Real-Time Delivery" data-ar="YSHOP — الخدمات اللوجستية الذكية والتسليم الفوري" data-tr="YSHOP — Akıllı Lojistik ve Gerçek Zamanlı Teslimat">YSHOP — Intelligent Logistics & Real-Time Delivery</h3>
-                
-                <p style="margin-top: 1rem; line-height: 1.6; color: var(--text-color);" data-en="Advanced delivery system with live map integration, adaptive courier workflows, and real-time synchronization across customer, store, and admin dashboards. Every delivery step—from navigation to secure handover—is automated and continuously synced."
-                   data-ar="نظام توصيل متقدم مع خريطة حية وسهلة الاستخدام. الموصل يرى الطريق والمسافة والعملاء والمتجر والمسؤول كلهم يشوفون موقعه في نفس الوقت. كل شي مضبوط وتلقائي من البداية للنهاية."
-                   data-tr="Canlı harita entegrasyonu, uyumlu kurye iş akışları ve müşteri, mağaza ve yönetici panellerinde gerçek zamanlı senkronizasyon ile gelişmiş teslimat sistemi. Her teslimat adımı otomatikleştirilir.">
-                    Advanced delivery system with live map integration, adaptive courier workflows, and real-time synchronization across customer, store, and admin dashboards.
-                </p>
-                
-                <div class="video-grid" style="margin-top: 2rem;">
-                    <!-- Delivery Video 1: Navigation & QR Pickup -->
-                    <div class="premium-video-card">
-                        <div style="position: relative; margin-bottom: 0.5rem;">
-                            <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">YSHOP</span>
-                        </div>
-                        <div class="video-facade" onclick="loadVideo(this, '80miH6PeC-4')">
-                            <img src="https://img.youtube.com/vi/80miH6PeC-4/maxresdefault.jpg" alt="YSHOP Delivery Navigation" class="thumbnail">
-                            <div class="play-overlay">
-                                <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <p class="video-title" data-en="Real-Time Delivery Navigation with Adaptive Workflow & QR Verification" data-ar="الملاحة الفورية مع سير عمل قابل للتكيف والتحقق برمز QR" data-tr="Gerçek Zamanlı Teslimat Navigasyonu ve Uyumlu İş Akışı & QR Doğrulama">Real-Time Delivery Navigation with Adaptive Workflow & QR Verification</p>
-                    </div>
-
-                    <!-- Delivery Video 2: Multi-View Tracking & Live Sync -->
-                    <div class="premium-video-card">
-                        <div style="position: relative; margin-bottom: 0.5rem;">
-                            <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">YSHOP</span>
-                        </div>
-                        <div class="video-facade" onclick="loadVideo(this, 'zFJkywuC9EM')">
-                            <img src="https://img.youtube.com/vi/zFJkywuC9EM/maxresdefault.jpg" alt="YSHOP Courier Navigation" class="thumbnail">
-                            <div class="play-overlay">
-                                <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <p class="video-title" data-en="Multi-View Tracking & Live System Sync Across Dashboards" data-ar="تتبع متعدد الآراء والمزامنة الحية عبر لوحات التحكم" data-tr="Çoklu Görüntü Takibi ve Panolar Arasında Canlı Sistem Senkronizasyonu">Multi-View Tracking & Live System Sync Across Dashboards</p>
-                    </div>
-
-                    <!-- Delivery Video 3: Final Handover & Completion -->
-                    <div class="premium-video-card">
-                        <div style="position: relative; margin-bottom: 0.5rem;">
-                            <span style="font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; color: var(--text-color);">YSHOP</span>
-                        </div>
-                        <div class="video-facade" onclick="loadVideo(this, 'ydj1ZET5sC0')">
-                            <img src="https://img.youtube.com/vi/ydj1ZET5sC0/maxresdefault.jpg" alt="YSHOP Delivery Completion" class="thumbnail">
-                            <div class="play-overlay">
-                                <svg class="play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <p class="video-title" data-en="Last-Mile Arrival & Secure Handover with Proximity Verification" data-ar="وصول آخر ميل والتسليم الآمن مع التحقق من القرب" data-tr="Son Mile Varışı ve Yakınlık Doğrulaması ile Güvenli El Değiştirme">Last-Mile Arrival & Secure Handover with Proximity Verification</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 3rem; padding: 2rem; background: rgba(76, 134, 175, 0.05); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                <h3 data-en="How Custom AI Models Work" data-ar="كيفية عمل نماذج الذكاء الاصطناعي المخصصة" data-tr="Özel AI Modelleri Nasıl Çalışır">How Custom AI Models Work</h3>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
-                    <div style="padding: 1.5rem; background: rgba(76, 134, 175, 0.05); border-radius: 8px;">
-                        <h4 data-en="Speech-to-Text Model (STT)" data-ar="نموذج تحويل الكلام إلى نص" data-tr="Konuş-Metin Modeli (STT)" style="margin-bottom: 0.5rem;">Speech-to-Text Model (STT)</h4>
-                        <p style="font-size: 0.9rem; line-height: 1.6;">
-                            <span data-en="1.8B parameters • Transformer encoder" data-ar="1.8 مليار معامل • مشفر تحويلي" data-tr="1,8 milyar parametre • Transformer encoder">1.8B parameters • Transformer encoder</span><br>
-                            <span data-en="LoRA r16/a32 fine-tuning" data-ar="ضبط LoRA r16/a32" data-tr="LoRA r16/a32 ince ayarı">LoRA r16/a32 fine-tuning</span><br>
-                            <span data-en="Trained on ~480h of audio" data-ar="مدرب على ~480 ساعة صوت" data-tr="~480 saat ses ile eğitilmiş">Trained on ~480h of audio</span><br>
-                            <span data-en="Inference: ~320ms" data-ar="الاستدلال: ~320 ميلي ثانية" data-tr="Çıkarım: ~320ms">Inference: ~320ms</span>
-                        </p>
-                    </div>
-                    
-                    <div style="padding: 1.5rem; background: rgba(76, 134, 175, 0.05); border-radius: 8px;">
-                        <h4 data-en="Language Model (LLM)" data-ar="نموذج اللغة" data-tr="Dil Modeli (LLM)" style="margin-bottom: 0.5rem;">Language Model (LLM)</h4>
-                        <p style="font-size: 0.9rem; line-height: 1.6;">
-                            <span data-en="3.4B parameters • 28-layer decoder" data-ar="3.4 مليار معامل • فاك 28 طبقة" data-tr="3,4 milyar parametre • 28 katmanlı çözücü">3.4B parameters • 28-layer decoder</span><br>
-                            <span data-en="GQA + RoPE architecture" data-ar="معمارية GQA + RoPE" data-tr="GQA + RoPE mimarisi">GQA + RoPE architecture</span><br>
-                            <span data-en="LoRA r32/a64 fine-tuning" data-ar="ضبط LoRA r32/a64" data-tr="LoRA r32/a64 ince ayarı">LoRA r32/a64 fine-tuning</span><br>
-                            <span data-en="120K+ commerce conversations" data-ar="120K+ محادثات تجارية" data-tr="120K+ ticaret konuşması">120K+ commerce conversations</span>
-                        </p>
-                    </div>
-                    
-                    <div style="padding: 1.5rem; background: rgba(76, 134, 175, 0.05); border-radius: 8px;">
-                        <h4 data-en="Product Verification (CNN)" data-ar="التحقق من المنتج" data-tr="Ürün Doğrulama (CNN)" style="margin-bottom: 0.5rem;">Product Verification (CNN)</h4>
-                        <p style="font-size: 0.9rem; line-height: 1.6;">
-                            <span data-en="ResNet-50 architecture" data-ar="معمارية ResNet-50" data-tr="ResNet-50 mimarisi">ResNet-50 architecture</span><br>
-                            <span data-en="94.3% accuracy" data-ar="94.3٪ دقة" data-tr="%94,3 doğruluk">94.3% accuracy</span><br>
-                            <span data-en="Trained on 15K+ images" data-ar="مدرب على 15K+ صورة" data-tr="15K+ görüntü ile eğitilmiş">Trained on 15K+ images</span><br>
-                            <span data-en="Real-time inference" data-ar="الاستدلال الفوري" data-tr="Gerçek zamanlı çıkarım">Real-time inference</span>
-                        </p>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(76, 134, 175, 0.1);">
-                    <p data-en="Status: Under active development. Multi-turn memory, Arabic support, and lower latency optimizations in progress." 
-                       data-ar="الحالة: قيد التطوير النشط. التحسينات جاري العمل عليها: دعم ذاكرة متعددة الأدوار والعربية وخفض التأخير." 
-                       data-tr="Durum: Aktif geliştirme altında. Çok turlu bellek, Arapça desteği ve daha düşük gecikme optimizasyonları devam ediyor.">
-                        Status: Under active development. Multi-turn memory, Arabic support, and lower latency optimizations in progress.
-                    </p>
-                </div>
-                
-                <!-- NOOTA Section -->
-                <div style="margin-top: 2rem; padding: 2rem; background: rgba(100, 150, 200, 0.08); border: 1px solid rgba(100, 150, 200, 0.15); border-radius: 12px;">
-                    <h3 data-en="NOOTA — Multilingual Voice Communication" data-ar="NOOTA — الاتصال الصوتي متعدد اللغات" data-tr="NOOTA — Çok Dilli Ses İletişimi">NOOTA — Multilingual Voice Communication</h3>
-                    
-                    <p style="margin-top: 1rem; line-height: 1.6;" data-en="Real-time translation platform where speakers maintain their original voice across different languages. Built with custom voice synthesis architecture through extensive experimentation across 50,000+ optimization iterations. Voice model achieves consistent clarity, stability, and natural multilingual expression." 
-                       data-ar="منصة ترجمة فورية يحتفظ فيها المتحدثون بأصواتهم الأصلية عبر لغات مختلفة. تم بناؤها بمعمارية تجميع الصوت المخصصة من خلال تجارب شاملة عبر 50,000+ تكرار تحسين. النموذج يحقق وضوحاً ثابتاً واستقراراً وتعبيراً طبيعياً متعدد اللغات." 
-                       data-tr="Konuşmacıların orijinal seslerini farklı diller arasında koruyarak gerçek zamanlı çeviri platformu. Özel ses sentezi mimarisi ile 50,000+ optimizasyon iterasyonunda kapsamlı deneyler yoluyla oluşturulmuştur. Model tutarlı netlik, stabilite ve doğal çok dilli ekspresyon sağlar.">
-                        Real-time translation platform where speakers maintain their original voice across different languages. Built with custom voice synthesis architecture through extensive optimization iterations.
-                    </p>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
-                        <div>
-                            <strong data-en="Mobile Frontend" data-ar="الواجهة الأمامية للهاتف" data-tr="Mobil Arayüzü">Mobile Frontend</strong>
-                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Swift • SwiftUI</p>
-                        </div>
-                        <div>
-                            <strong data-en="Backend API" data-ar="خادم الواجهة" data-tr="Arka Uç API'si">Backend API</strong>
-                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Node.js • Express.js</p>
-                        </div>
-                        <div>
-                            <strong data-en="Voice Engine" data-ar="محرك الصوت" data-tr="Ses Motoru">Voice Engine</strong>
-                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Python • Flask • GPU</p>
-                        </div>
-                        <div>
-                            <strong data-en="Infrastructure" data-ar="الخدمات الأساسية" data-tr="Altyapı">Infrastructure</strong>
-                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Firebase • GPU Servers</p>
-                        </div>
-                    </div>
-                    
-                    <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #999;" data-en="Status: Under active development. Preparing for deployment on high-performance GPU infrastructure for production-ready real-time performance." 
-                       data-ar="الحالة: قيد التطوير النشط. التحضير للنشر على بنية تحتية قوية من GPU لأداء فوري جاهز للإنتاج." 
-                       data-tr="Durum: Aktif geliştirme altında. Üretim hazır gerçek zamanlı performans için yüksek performanslı GPU altyapısına dağıtım hazırlanıyor.">
-                        Status: Under active development. Preparing for deployment on high-performance GPU infrastructure for production-ready real-time performance.
-                    </p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Experience Section -->
-        <section id="experience" class="experience-section content" data-animation="fadeIn" data-delay="0.2">
-            <h2 class="section-title" data-en="Work Experience" data-ar="الخبرة العملية" data-tr="İş Deneyimi">Work Experience</h2>
-            
-            <div class="docs-grid">
-                <!-- Job 0: YTÜ Yıldız Teknopark -->
-                <div class="doc-item card full-width-experience" data-animation="fadeIn" data-delay="0.2" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-flask"></i>
-                    <h3 data-en="AI & Embedded Systems Researcher" data-ar="باحث أنظمة الذكاء الاصطناعي والمدمجة" data-tr="Yapay Zeka ve Gömülü Sistemler Araştırmacısı">AI & Embedded Systems Researcher</h3>
-                    <p class="company-name" data-en="YTÜ Yıldız Teknopark · Part-time | Jun 2026 - Present" data-ar="YTÜ يلدز تكنوبارك · بدوام جزئي | يونيو 2026 - حتى الآن" data-tr="YTÜ Yıldız Teknopark · Yarı Zamanlı | Haziran 2026 - Halen">YTÜ Yıldız Teknopark · Part-time | Jun 2026 - Present</p>
-                    <p data-en="Istanbul, Turkey · On-site" data-ar="اسطنبول، تركيا · حضوري" data-tr="İstanbul, Türkiye · Yerinde">Istanbul, Turkey · On-site</p>
-
-                    <p style="margin-top: 1rem; line-height: 1.6;"
-                    data-en="Joined the YZ & Biomechatronics Research Laboratory at Yıldız Technical University Technopark to design and optimize intelligent AI frameworks bridging machine learning with embedded hardware. Developing and fine-tuning deep learning architectures for real-time bio-signal processing and classification. Engineering scalable software infrastructures to synchronize neural classification models with robotic and autonomous control devices. Implementing feature extraction and signal analysis pipelines for high-accuracy, low-latency systems. Collaborating on end-to-end intelligent architectures for human-machine interfacing."
-                    data-ar="انضممت إلى مختبر بحوث الذكاء الاصطناعي والبيوميكاترونيكس في التكنوبارك بجامعة يلدز التقنية لتصميم وتطوير أطر ذكاء اصطناعي متقدمة تجمع بين تعلم الآلة والأجهزة المدمجة. أطور معماريات تعلم عميق لمعالجة الإشارات الحيوية في الوقت الفعلي وتصنيفها. أبني بنى تحتية برمجية قابلة للتوسع لمزامنة نماذج التصنيف العصبي مع أنظمة التحكم الروبوتية المستقلة. أطور خطوط استخلاص الميزات وتحليل الإشارات لأنظمة دقيقة ومنخفضة الكمون."
-                    data-tr="Yıldız Teknik Üniversitesi Teknopark'taki YZ & Biyomekatronik Araştırma Laboratuarı'na katılarak makine öğrenimi ile gömülü donanım mimarileri arasındaki köprüyü kuran gelişmiş yapay zeka çerçeveleri tasarlıyorum. Gerçek zamanlı biyosignal işleme ve sınıflandırma için derin öğrenme mimarileri geliştiriyor ve ince ayar yapıyorum. Sinir sınıflandırma modellerini robotik ve otonom kontrol cihazlarıyla senkronize eden ölçeklenebilir yazılım altyapıları mühendisliğini yapıyorum.">
-                        Joined the YZ & Biomechatronics Research Laboratory at Yıldız Technical University Technopark to design and optimize intelligent AI frameworks bridging machine learning with embedded hardware. Developing deep learning architectures for real-time bio-signal processing and classification. Engineering scalable software to synchronize neural classification models with robotic and autonomous control systems. Implementing feature extraction pipelines for high-accuracy, low-latency applications. Architecting end-to-end intelligent systems for human-machine interfacing.
-                    </p>
-
-                    <p class="project-tech">
-                        <strong>Tech:</strong> Deep Learning • Bio-Signal Processing • Embedded AI • Python • Real-Time Systems • Human-Machine Interfacing
-                    </p>
-                </div>
-
-                <!-- Job 1: Al Mutlaq United Company -->
-                <div class="doc-item card full-width-experience" data-animation="fadeIn" data-delay="0.2" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-briefcase"></i>
-                    <h3 data-en="IoT & Machine Learning Researcher / Developer" data-ar="باحث ومطور إنترنت الأشياء والتعلم الآلي" data-tr="IoT & Makine Öğrenimi Araştırmacısı / Geliştirici">IoT & Machine Learning Researcher / Developer</h3>
-                    <p class="company-name" data-en="Al Mutlaq United Company · Part-time | Sep 2024 - Present" data-ar="Al Mutlaq United Company · بدوام جزئي | سبتمبر 2024 - حتى الآن" data-tr="Al Mutlaq United Company · Yarı Zamanlı | Eylül 2024 - Halen">Al Mutlaq United Company · Part-time | Sep 2024 - Present</p>
-                    <p data-en="Istanbul, Türkiye · Remote" data-ar="اسطنبول، تركيا · عن بُعد" data-tr="İstanbul, Türkiye · Uzaktan">Istanbul, Türkiye · Remote</p>
-                    
-                    <p style="margin-top: 1rem; line-height: 1.6;" data-en="Built real-time physiological stress monitoring system with IoT sensors, automated data pipeline, and AI-powered annotations. Created web-based workflow automation syncing sensor data with video recordings. Integrated vision-based AI for behavioral annotation and dataset validation. Research outcomes planned for BIODEVICES 2027."
-
-                    data-ar="بنيت نظام مراقبة إجهاد فسيولوجي في الوقت الفعلي مع مستشعرات IoT وأنابيب بيانات آلية وتعليقات بقوة الذكاء الاصطناعي. أنشأت أتمتة سير عمل قائم على الويب يزامن بيانات المستشعرات مع تسجيلات الفيديو. دمجت الذكاء الاصطناعي القائم على الرؤية لتعليق السلوك والتحقق من صحة مجموعة البيانات. نتائج البحث مخطط لعرضها في BIODEVICES 2027."
-
-                    data-tr="IoT sensörleri, otomatik veri işlem hattı ve yapay zeka destekli ek açıklamalar ile gerçek zamanlı fizyolojik stres izleme sistemi geliştirdim. Sensör verilerini video kayıtlarıyla senkronize eden web tabanlı iş akışı otomasyonu oluşturdum. Davranış açıklaması ve veri seti doğrulaması için görüş tabanlı yapay zeka entegre ettim. Araştırma sonuçları BIODEVICES 2027'da sunulmak üzere planlandı.">
-                    Built real-time physiological stress monitoring system with IoT sensors, automated data pipeline, and AI-powered annotations. Created web-based workflow automation syncing sensor data with video recordings. Integrated vision-based AI for behavioral annotation and dataset validation.
-                    </p>
-                    
-                    <p class="project-tech">
-                        <strong>Tech:</strong> IoT • Embedded Systems • Python • Data Science • Computer Vision • TensorFlow • Web Development
-                    </p>
-                    
-                    <a href="https://github.com/Alansi775/GSR-COSSINUS_VOLUNTEERS_DATA_FOR_ML/tree/main" target="_blank" class="btn-get-started" data-en="View Dataset & Code" data-ar="عرض مجموعة البيانات والكود" data-tr="Veri Setini ve Kodu Görüntüle">View Dataset & Code <i class="ph ph-arrow-square-out"></i></a>
-                </div>
-                
-                <!-- Job 1 -->
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-briefcase"></i>
-                    <h3 data-en="Software Developer (AI, IoT & Autonomous Systems)" data-ar="مطور برمجيات (ذكاء اصطناعي، إنترنت الأشياء وأنظمة مستقلة)" data-tr="Yazılım Geliştirici (Yapay Zeka, IoT & Otonom Sistemler)">Software Developer (AI, IoT & Autonomous Systems)</h3>
-                    <p class="company-name" data-en="IOTROCOP Technology · Full-time | Oct 2024 - Present" data-ar="IOTROCOP Technology · دوام كامل | أكتوبر 2024 - حتى الآن" data-tr="IOTROCOP Technology · Tam Zamanlı | Ekim 2024 - Halen">IOTROCOP Technology · Full-time | Oct 2024 - Present</p>
-                    <ul>
-                        <li data-en="Built smart home systems using ESP32 and STM32 with real-time control via WiFi" data-ar="بنيت أنظمة المنزل الذكي باستخدام ESP32 و STM32 مع تحكم فوري عبر WiFi" data-tr="ESP32 ve STM32 kullanarak WiFi üzerinden gerçek zamanlı kontrollü akıllı ev sistemleri geliştirdim">Built smart home systems using ESP32 and STM32 with real-time control via WiFi</li>
-                        <li data-en="Created mobile apps with Flutter for remote monitoring and control" data-ar="أنشأت تطبيقات جوال بـ Flutter للمراقبة والتحكم عن بُعد" data-tr="Uzaktan izleme ve kontrol için Flutter ile mobil uygulamalar oluşturdum">Created mobile apps with Flutter for remote monitoring and control</li>
-                        <li data-en="Developed face and voice recognition models trained on real data" data-ar="طورت نماذج التعرف على الوجه والصوت مدربة على بيانات حقيقية" data-tr="Gerçek verilerle eğitilmiş yüz ve ses tanıma modelleri geliştirdim">Developed face and voice recognition models trained on real data</li>
-                        <li data-en="Built backend APIs and connected them to Flutter apps" data-ar="بنيت واجهات الخوادم وربطتها بتطبيقات Flutter" data-tr="Backend API'leri oluşturdum ve Flutter uygulamalarına bağladım">Built backend APIs and connected them to Flutter apps</li>
-                    </ul>
-                </div>
-                
-                <!-- Job 2 -->
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-briefcase"></i>
-                    <h3 data-en="iOS & Flutter Developer (Embedded Systems)" data-ar="مطور iOS و Flutter (أنظمة مدمجة)" data-tr="iOS & Flutter Geliştirici (Gömülü Sistemler)">iOS & Flutter Developer (Embedded Systems)</h3>
-                    <p class="company-name" data-en="Labcihazlari.com · Part-time | Feb 2024 - Apr 2026" data-ar="Labcihazlari.com · بدوام جزئي | فبراير 2024 - أبريل 2026" data-tr="Labcihazlari.com · Yarı Zamanlı | Şubat 2024 - Nisan 2026">Labcihazlari.com · Part-time | Feb 2024 - Apr 2026</p>
-                    <ul>
-                        <li data-en="Built an IoT control system for biological safety cabinets using STM32 and ESP8266" data-ar="بنيت نظام تحكم IoT لخزانات السلامة البيولوجية باستخدام STM32 و ESP8266" data-tr="STM32 ve ESP8266 kullanarak biyolojik güvenlik kabinleri için IoT kontrol sistemi geliştirdim">Built an IoT control system for biological safety cabinets using STM32 and ESP8266</li>
-                        <li data-en="Created Flutter apps and websites with offline control capability" data-ar="أنشأت تطبيقات Flutter ومواقع ويب تعمل بدون إنترنت" data-tr="Çevrimdışı kontrol özelliğine sahip Flutter uygulamaları ve web siteleri oluşturdum">Created Flutter apps and websites with offline control capability</li>
-                        <li data-en="Designed full-stack systems using Flask and Node.js" data-ar="صممت أنظمة متكاملة باستخدام Flask و Node.js" data-tr="Flask ve Node.js kullanarak full-stack sistemler tasarladım">Designed full-stack systems using Flask and Node.js</li>
-                        <li data-en="Built apps for iOS, Android, web, and macOS" data-ar="بنيت تطبيقات لـ iOS و Android والويب و macOS" data-tr="iOS, Android, web ve macOS için uygulamalar geliştirdim">Built apps for iOS, Android, web, and macOS</li>
-                    </ul>
-                </div>
-                
-                <!-- Job 3 -->
-                <div class="doc-item card full-width-experience" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-briefcase"></i>
-                    <h3 data-en="iOS & Flutter Developer for Smart Home IoT" data-ar="مطور iOS و Flutter لإنترنت الأشياء للمنزل الذكي" data-tr="Akıllı Ev IoT için iOS & Flutter Geliştirici">iOS & Flutter Developer for Smart Home IoT</h3>
-                    <p class="company-name" data-en="OKATAN SAĞLIK ARGE | Sep 2024 - May 2025" data-ar="OKATAN SAĞLIK ARGE | سبتمبر 2024 - مايو 2025" data-tr="OKATAN SAĞLIK ARGE | Eylül 2024 - Mayıs 2025">OKATAN SAĞLIK ARGE | Sep 2024 - May 2025</p>
-                    <ul>
-                        <li data-en="Built iOS apps with SwiftUI and cross-platform apps with Flutter" data-ar="بنيت تطبيقات iOS بـ SwiftUI وتطبيقات متعددة المنصات بـ Flutter" data-tr="SwiftUI ile iOS uygulamaları ve Flutter ile çapraz platform uygulamalar geliştirdim">Built iOS apps with SwiftUI and cross-platform apps with Flutter</li>
-                        <li data-en="Added smart features like face recognition, voice control, and home monitoring" data-ar="أضفت ميزات ذكية مثل التعرف على الوجه والتحكم الصوتي ومراقبة المنزل" data-tr="Yüz tanıma, ses kontrolü ve ev izleme gibi akıllı özellikler ekledim">Added smart features like face recognition, voice control, and home monitoring</li>
-                        <li data-en="Integrated RFID/NFC for secure access and cloud database sync" data-ar="دمجت RFID/NFC للوصول الآمن ومزامنة قاعدة البيانات السحابية" data-tr="Güvenli erişim için RFID/NFC entegre ettim ve bulut veritabanı senkronizasyonu sağladım">Integrated RFID/NFC for secure access and cloud database sync</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education" class="education-section content" data-animation="fadeIn" data-delay="0.2">
-            <h2 class="section-title" data-en="Education" data-ar="التعليم" data-tr="Eğitim">Education</h2>
-            
-            <div class="docs-grid">
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-graduation-cap"></i>
-                    <h3 data-en="Bachelor of Software Development" data-ar="بكالوريوس تطوير البرمجيات" data-tr="Yazılım Geliştirme Lisans">Bachelor of Software Development</h3>
-                    <p class="company-name" data-en="Istanbul Aydin University" data-ar="جامعة اسطنبول أيدين" data-tr="İstanbul Aydın Üniversitesi">Istanbul Aydin University</p>
-                    <p data-en="GPA: 3.5" data-ar="المعدل: 3.5" data-tr="GPA: 3.5">GPA: 3.5</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Languages Section -->
-        <section id="languages" class="languages-section content" data-animation="fadeIn" data-delay="0.2">
-            <h2 class="section-title" data-en="Languages" data-ar="اللغات" data-tr="Diller">Languages</h2>
-            
-            <div class="docs-grid">
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-globe-hemisphere-east"></i>
-                    <h3 data-en="Arabic" data-ar="العربية" data-tr="Arapça">Arabic</h3>
-                    <p data-en="Native" data-ar="اللغة الأم" data-tr="Anadil">Native</p>
-                </div>
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-globe-hemisphere-east"></i>
-                    <h3 data-en="English" data-ar="الإنجليزية" data-tr="İngilizce">English</h3>
-                    <p data-en="Fluent" data-ar="طلاقة" data-tr="Akıcı">Fluent</p>
-                </div>
-                <div class="doc-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <i class="ph ph-globe-hemisphere-east"></i>
-                    <h3 data-en="Turkish" data-ar="التركية" data-tr="Türkçe">Turkish</h3>
-                    <p data-en="Intermediate" data-ar="متوسط" data-tr="Orta">Intermediate</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section content" data-animation="fadeIn" data-delay="0.2">
-            <h2 class="section-title" data-en="Get in Touch" data-ar="تواصل معي" data-tr="İletişime Geçin">Get in Touch</h2>
-            
-            <p class="description" data-en="Have a project idea or just want to say hi? I'd love to hear from you!" 
-               data-ar="لديك فكرة مشروع أو تريد إلقاء التحية؟ يسعدني التواصل معك!" 
-               data-tr="Bir proje fikriniz mi var veya sadece merhaba demek mi istiyorsunuz? Sizden haber almak isterim!">
-                Have a project idea or just want to say hi? I'd love to hear from you!
-            </p>
-            
-            <div class="contact-info-grid">
-                <div class="contact-item card" data-animation="fadeIn" data-delay="0.3" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <div class="icon-wrapper-small"><i class="ph ph-phone"></i></div>
-                    <h3 data-en="Phone" data-ar="الهاتف" data-tr="Telefon">Phone</h3>
-                    <p><a href="tel:+905392554609"><bdi>+90 539 255 46 09</bdi></a></p>
-                </div>
-                <div class="contact-item card" data-animation="fadeIn" data-delay="0.4" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <div class="icon-wrapper-small"><i class="ph ph-envelope"></i></div>
-                    <h3 data-en="Email" data-ar="البريد الإلكتروني" data-tr="E-posta">Email</h3>
-                    <p><a href="mailto:mohamedalezzi6@gmail.com">mohamedalezzi6@gmail.com</a></p>
-                </div>
-                <div class="contact-item card" data-animation="fadeIn" data-delay="0.5" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                    <div class="icon-wrapper-small"><i class="ph ph-map-pin"></i></div>
-                    <h3 data-en="Location" data-ar="الموقع" data-tr="Konum">Location</h3>
-                    <p data-en="Avcilar, Istanbul" data-ar="أفجلار، اسطنبول" data-tr="Avcılar, İstanbul">Avcilar, Istanbul</p>
-                </div>
-            </div>
-
-            <form id="contact-form" class="contact-form" data-animation="fadeIn" data-delay="0.6" style="margin-top: 3.5rem; padding: 2rem; background: rgba(76, 134, 175, 0.03); border: 1px solid rgba(76, 134, 175, 0.1); border-radius: 12px;">
-                <h3 class="section-subtitle" data-en="Send a Message" data-ar="أرسل رسالة" data-tr="Mesaj Gönderin">Send a Message</h3>
-                
-                <div id="form-success-msg" style="display:none; color: #4c86af; margin-bottom: 2rem; margin-top: 2.5rem; padding: 2rem; background-color: rgba(76, 134, 175, 0.1); border-radius: 8px; text-align: center;">
-                    <p style="font-size: 1.4rem; font-weight: 600; margin: 0;" data-en="Thank you! Message sent successfully! I'll get back to you soon." data-ar="شكراً لك! تم إرسال الرسالة بنجاح! محمد سيرد عليك في اقرب وقت." data-tr="Teşekkürler! Mesaj başarıyla gönderildi! Size yakında geri döneceğim.">Thank you! Message sent successfully! I'll get back to you soon.</p>
-                </div>
-                <div id="form-error-msg" style="display:none; color: #e74c3c; margin-bottom: 1rem;"></div>
-                
-                <input type="text" id="name" name="name" data-en-placeholder="Your Name" data-ar-placeholder="اكتب الاسم مع اللقب" data-tr-placeholder="Adınız Soyadınız" placeholder="Your Name" required class="form-input">
-                <span data-fs-error="name" style="display:none; color: #e74c3c; font-size: 0.85rem;"></span>
-
-                <input type="email" id="email" name="email" data-en-placeholder="Your Email" data-ar-placeholder="اكتب ايميلك" data-tr-placeholder="E-postanız" placeholder="Your Email" required class="form-input form-input-ltr">
-                <span data-fs-error="email" style="display:none; color: #e74c3c; font-size: 0.85rem;"></span>
-
-                <textarea id="message" name="message" data-en-placeholder="Your Message" data-ar-placeholder="اكتب رسالتك لكي تصل" data-tr-placeholder="Mesajınızı yazın" placeholder="Your Message" rows="6" required class="form-input"></textarea>
-                <span data-fs-error="message" style="display:none; color: #e74c3c; font-size: 0.85rem;"></span>
-
-                <button type="submit" class="btn-submit" data-en="Send Message" data-ar="إرسال الرسالة" data-tr="Mesaj Gönder">Send Message</button>
-            </form>
-
-            <div class="social-media-links" data-animation="fadeIn" data-delay="0.8">
-                <h3 class="section-subtitle" data-en="Find Me On" data-ar="تابعني على" data-tr="Beni Takip Edin">Find Me On</h3>
-                <a href="https://linkedin.com/in/mohamed-saleh-a2a496276" target="_blank" title="LinkedIn"><img src="assets/linkedin-icon.png" alt="LinkedIn" class="social-icon-img"></a>
-                <a href="https://github.com/Alansi775" target="_blank" title="GitHub"><img src="assets/github-icon.png" alt="GitHub" class="social-icon-img"></a>
-                <a href="https://x.com/alansi775?s=21&t=3_boCDyRuF0MZWgcVDxqGg" target="_blank" title="Twitter"><img src="assets/twitter-icon.png" alt="Twitter" class="social-icon-img"></a>
-                <a href="https://www.youtube.com/@mohamedsaleh-77" target="_blank" title="Youtube"><img src="assets/youtube-icon.png" alt="Youtube" class="social-icon-img"></a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- AI Chatbot Button -->
-    <button id="chatbot-button" class="chatbot-button">
-        <i class="ph ph-robot"></i>
-        <span class="chatbot-tooltip" data-en="Chat with Assistant" data-ar="تحدث مع المساعد" data-tr="Asistanla Konuşun">Chat with Assistant</span>
-    </button>
-
-    <!-- Chatbot Overlay (for expanded mode) -->
-    <div class="chat-overlay" onclick="toggleExpandChat()"></div>
-
-    <!-- Chatbot Modal -->
-    <div id="chatbot-modal" class="chatbot-modal">
-        <div class="chatbot-content">
-            <div class="chatbot-header">
-                <h3 data-en="Assistant" data-ar="المساعد" data-tr="Asistan">Assistant</h3>
-                <div class="chatbot-header-buttons">
-                    <button class="expand-btn btn-icon" onclick="toggleExpandChat()" title="Expand">
-                        <img src="new-tab.png" alt="Expand" class="expand-icon">
-                    </button>
-                    <button class="close-chatbot-btn btn-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="chatbot-messages">
-                <div class="message ai-message" data-initial-message="Hello! How can I help you today?" data-en-initial-message="Hello! How can I help you today?" data-ar-initial-message="مرحباً! كيف يمكنني مساعدتك؟" data-tr-initial-message="Merhaba! Size nasıl yardımcı olabilirim?">
-                    Hello! How can I help you today?
-                </div>
-            </div>
-            <div class="chatbot-input-area">
-                <input type="text" id="chatbot-input" data-en-placeholder="Type your message..." data-ar-placeholder="اكتب رسالتك..." data-tr-placeholder="Mesajınızı yazın..." placeholder="Type your message...">
-                <button id="send-chatbot-message" class="send-chatbot-btn">
-                    <i class="ph-bold ph-paper-plane-tilt"></i>
-                </button>
-            </div>
-        </div>
+  <div class="wrap hero__in">
+    <div class="hero__meta">
+      <span class="pulse mono"><i></i><span data-i18n="hero.avail"></span></span>
+      <span class="mono" data-i18n="hero.role"></span>
+      <span class="dot" aria-hidden="true"></span>
+      <span class="mono" data-i18n="hero.loc"></span>
     </div>
 
-    <script src="script.js" defer></script>
-    
-    <!-- Video Loader Function for Custom Facade -->
-    <script>
-        function loadVideo(element, videoId) {
-            // بناء رابط يوتيوب مع إخفاء العناصر المزعجة وتفعيل التشغيل التلقائي
-            const iframeUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&showinfo=0`;
-            
-            // إنشاء عنصر iframe
-            const iframe = document.createElement('iframe');
-            iframe.setAttribute('src', iframeUrl);
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            iframe.setAttribute('allowfullscreen', 'true');
-            
-            // تفريغ الغلاف المخصص ووضع الـ iframe مكانه
-            element.innerHTML = '';
-            element.appendChild(iframe);
-            element.style.cursor = 'default'; // إزالة مؤشر الضغط بعد التحميل
-        }
-    </script>
+    <h1 class="hero__title">
+      <span class="hl" data-split data-i18n="hero.l1"></span>
+      <span class="hl" data-split data-i18n="hero.l2"></span>
+      <span class="hl" data-split data-i18n="hero.l3"></span>
+    </h1>
 
+    <p class="lede hero__sub" data-i18n="hero.sub"></p>
+
+    <div class="hero__cta">
+      <a class="btn btn--solid" href="#work">
+        <span data-i18n="nav.work"></span>
+        <svg viewBox="0 0 24 24"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+      </a>
+      <a class="btn btn--ghost" href="#contact" data-i18n="nav.contact"></a>
+    </div>
+  </div>
+
+  <div class="hero__foot">
+    <span class="mono" data-i18n="hero.scroll"></span>
+    <span class="hero__rail"><i></i></span>
+  </div>
+</section>
+
+<!-- ======================= METRICS ====================== -->
+<section class="metrics" id="metrics" aria-label="Key figures"></section>
+
+<!-- ======================== SYSTEM ====================== -->
+<section class="system" id="system" aria-label="How the systems work">
+  <div class="system__stage">
+
+    <div class="system__head">
+      <span class="kicker mono"><b data-i18n="sys.k"></b></span>
+      <h2 class="display" data-i18n="sys.h"></h2>
+    </div>
+
+    <svg class="loop" id="loop" viewBox="-160 -160 320 320" aria-hidden="true">
+      <circle cx="0" cy="0" r="120"/>
+      <path class="loop__arc" id="loopArc" d=""/>
+      <g id="loopNodes"></g>
+    </svg>
+
+    <div class="stages" id="stages"></div>
+
+    <div class="system__hud">
+      <span class="mono" id="sysCount">01 / 04</span>
+      <span class="system__rail" id="sysRail"><i></i></span>
+      <span class="mono" data-i18n="sys.k"></span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================= WORK ======================= -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker mono"><b data-i18n="work.k"></b></span>
+      <h2 class="display reveal-lines" data-i18n="work.h"></h2>
+      <p class="lede reveal" data-i18n="work.sub"></p>
+    </div>
+
+    <div class="filters" id="filters">
+      <span class="filters__pill" aria-hidden="true"></span>
+    </div>
+
+    <div class="grid" id="workGrid"></div>
+  </div>
+</section>
+
+<!-- ======================== STACK ======================= -->
+<section class="sec" id="stack">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker mono"><b data-i18n="stack.k"></b></span>
+      <h2 class="display reveal-lines" data-i18n="stack.h"></h2>
+    </div>
+    <div class="stackgrid" id="stackGrid"></div>
+  </div>
+</section>
+
+<!-- ========================= PATH ======================= -->
+<section class="sec path" id="path">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker mono"><b data-i18n="exp.k"></b></span>
+      <h2 class="display reveal-lines" data-i18n="exp.h"></h2>
+    </div>
+    <div id="pathList"></div>
+  </div>
+</section>
+
+<!-- ======================= PROFILE ====================== -->
+<section class="sec">
+  <div class="wrap profile">
+    <div class="reveal">
+      <span class="kicker mono"><b data-i18n="edu.k"></b></span>
+      <div class="edu">
+        <b data-i18n="edu.d"></b>
+        <span data-i18n="edu.o"></span>
+        <span class="mono" data-i18n="edu.g"></span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <span class="kicker mono"><b data-i18n="lang.k"></b></span>
+      <div id="langList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CONTACT ====================== -->
+<section class="sec contact" id="contact">
+  <div class="wrap">
+    <div class="head head--mid">
+      <span class="kicker mono"><b data-i18n="c.k"></b></span>
+      <h2 class="display reveal-lines" data-i18n="c.h"></h2>
+      <p class="lede reveal" data-i18n="c.sub"></p>
+    </div>
+    <div class="cards" id="contactCards"></div>
+  </div>
+</section>
+
+<footer class="wrap foot">
+  <span class="mono">© <b id="yr"></b> Mohammed Saleh</span>
+  <span class="mono" data-i18n="foot.r"></span>
+  <span class="foot__s" id="social"></span>
+</footer>
+
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
