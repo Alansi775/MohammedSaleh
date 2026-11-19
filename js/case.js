@@ -6,7 +6,10 @@
    get out of the way.
 ================================================================== */
 
-import { C } from './case-i18n.js';
+/* Each case page names its own dictionary on <body data-copy="...">,
+   so this one file drives all of them and a reader only ever
+   downloads the prose for the page they opened. */
+const { C } = await import(`./${document.body.dataset.copy || 'case-i18n'}.js`);
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];

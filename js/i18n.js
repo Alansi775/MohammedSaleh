@@ -12,6 +12,10 @@ export const T = {
   en: {
     'meta.title': 'Mohammed Saleh — AI, Autonomous & Embedded Systems',
 
+    'pcbai.t':'An inspection station that finds the missing part',
+    'pcbai.o':'IOTROCOP Technology · Compotech · deployed in an Istanbul SMT factory',
+    'pcbai.d':'A machine photographs an assembled panel of circuit boards and tells the operator which component is missing, and on which board. No per-board programming: it learns a new board type from a few good boards and the Pick & Place file. It finds each board by matching what is physically on the copper to the design’s placements, which also removes camera perspective. Against engineer-confirmed labels: 40 of 40 missing components found, 0 false positives, and alignment held to 0.10 mm where it had been 1–2.5 mm.',
+    's.pcb':'confirmed defects found / missed',
     'omr.t':'Optical mark reading from a phone camera',
     'omr.o':'MSG One \u00b7 Turkish mock-exam platform \u00b7 iOS, Flutter, backend, CV',
     'omr.d':'A student photographs a paper answer sheet and the system returns a scored result. The alternative in this market is a dedicated OMR scanner costing thousands; the goal was to reach its accuracy with a phone camera. Circles are detected under 16 thresholding strategies in parallel, merged by majority vote, then assembled into a graph that yields columns, rows and answers. Measured against that commercial scanner on the same papers: 86 correct, 0 wrong, 2 refused \u2014 and both refusals were boxes the student left blank.',
@@ -182,6 +186,10 @@ export const T = {
   ar: {
     'meta.title': 'محمد صالح — ذكاء اصطناعي وأنظمة ذاتية ومدمجة',
 
+    'pcbai.t':'محطة فحص تعرف القطعة الناقصة',
+    'pcbai.o':'IOTROCOP Technology · Compotech · تعمل في مصنع لوحات إلكترونية بإسطنبول',
+    'pcbai.d':'آلة تصوّر لوحة فيها عدة بوردات مجمّعة، وتقول للعامل أي قطعة ناقصة وفي أي بوردة. لا برمجة لكل بوردة: يتعلّم النوع الجديد من بضع بوردات سليمة ومن ملف التركيب. يلقى كل بوردة بمطابقة ما هو موجود فعلاً على النحاس مع مواضع التصميم، وهذي نفسها تشيل ميلان الكاميرا. وبالقياس على أخطاء أكّدها مهندس: 40 قطعة ناقصة من 40 اكتُشفت، وصفر إنذار كاذب، ودقة المطابقة صارت 0.10 ملم بعد ما كانت 1 إلى 2.5 ملم.',
+    's.pcb':'عيب مؤكَّد اكتُشف / فات',
     'omr.t':'قراءة الأوبتك من كاميرا الجوال',
     'omr.o':'MSG One \u00b7 منصة اختبارات تجريبية تركية \u00b7 iOS وFlutter ورؤية حاسوبية',
     'omr.d':'الطالب يصوّر ورقة الإجابة والنظام يعيد نتيجة مصحّحة. البديل في السوق جهاز قارئ أوبتك بآلاف الدولارات، والهدف كان بلوغ دقته بكاميرا جوال. تُكشف الدوائر بستّ عشرة استراتيجية تعتيم بالتوازي، تُدمج بتصويت الأغلبية، ثم تُبنى منها شبكة تُستخرج منها الأعمدة والصفوف والإجابات. وبالقياس على الجهاز التجاري نفسه وبنفس الأوراق: 86 صحيحة، صفر خاطئة، واثنتان مرفوضتان \u2014 وكلتاهما مربّع تركه الطالب فارغاً.',
@@ -352,6 +360,10 @@ export const T = {
   tr: {
     'meta.title': 'Mohammed Saleh — Yapay Zekâ, Otonom ve Gömülü Sistemler',
 
+    'pcbai.t':'Eksik parçayı bulan bir muayene istasyonu',
+    'pcbai.o':'IOTROCOP Technology · Compotech · İstanbul’da bir SMT fabrikasında çalışıyor',
+    'pcbai.d':'Makine, dizgisi yapılmış bir kart panelini fotoğramlıyor ve operatöre hangi kartta hangi parçanın eksik olduğunu söylüyor. Kart başına programlama yok: yeni bir kart tipini birkaç sağlam karttan ve Pick & Place dosyasından öğreniyor. Her kartı, bakırda fiziksel olarak bulunanı tasarımın yerleşimleriyle eşleyerek buluyor; bu aynı zamanda kamera perspektifini de kaldırıyor. Mühendis onaylı etiketlere karşı: 40 eksik parçanın 40’ı bulundu, 0 yanlış alarm ve hizalama hatası 1–2,5 mm’den 0,10 mm’ye indi.',
+    's.pcb':'onaylı kusur bulundu / kaçtı',
     'omr.t':'Telefon kamerasından optik form okuma',
     'omr.o':'MSG One \u00b7 T\u00fcrk deneme s\u0131nav\u0131 platformu \u00b7 iOS, Flutter, CV',
     'omr.d':'\u00d6\u011frenci cevap k\u00e2\u011f\u0131d\u0131n\u0131 foto\u011fraf\u0131yor, sistem puanlanm\u0131\u015f sonucu d\u00f6nd\u00fcr\u00fcyor. Pazardaki alternatif binlerce dolarl\u0131k optik okuyucu; hedef ayn\u0131 do\u011fruluk seviyesine telefon kameras\u0131yla ula\u015fmakt\u0131. Daireler 16 farkl\u0131 e\u015fikleme stratejisiyle paralel tespit ediliyor, \u00e7o\u011funluk oyuyla birle\u015ftiriliyor, ard\u0131ndan s\u00fctun, sat\u0131r ve cevaplar\u0131 veren bir graf kuruluyor. Ayn\u0131 k\u00e2\u011f\u0131tlarda ticari tarayc\u0131yla kar\u015f\u0131la\u015ft\u0131r\u0131ld\u0131\u011f\u0131nda: 86 do\u011fru, 0 yanl\u0131\u015f, 2 reddedilen \u2014 ve her iki reddedilen de \u00f6\u011frencinin bo\u015f b\u0131rakt\u0131\u011f\u0131 kutuydu.',

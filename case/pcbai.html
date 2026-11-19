@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" id="themeColor">
+<title>An AOI station that finds the missing part — Mohammed Saleh</title>
+<meta name="description" content="A case study: an automatic optical inspection station for PCB assembly. Bottom-up board registration with RANSAC, a lock-on margin instead of a residual threshold, and thresholds scaled to the photograph they came from.">
+<meta property="og:title" content="An inspection station that finds the missing part">
+<meta property="og:description" content="40 of 40 confirmed missing components found, 0 false positives, alignment held to 0.10 mm — and the silent failure every grid-based approach hides.">
+
+<link rel="icon" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/case.css">
+
+<script>
+(function(){
+  try{
+    var saved = localStorage.getItem('ms.theme');
+    var h = new Date().getHours();
+    var theme = (saved === 'light' || saved === 'dark') ? saved : (h >= 7 && h < 19 ? 'light' : 'dark');
+    document.documentElement.dataset.theme = theme;
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+  }catch(e){ document.documentElement.dataset.theme = 'light'; }
+})();
+</script>
+</head>
+<body class="case" data-copy="pcb-i18n">
+
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<header class="nav" id="nav">
+  <div class="nav__in nav__in--case">
+    <a class="backlink" href="../index.html#work">
+      <svg viewBox="0 0 24 24"><path d="M19 12H6M12 5l-7 7 7 7"/></svg>
+      <span data-i18n="c.back"></span>
+    </a>
+
+    <span class="mono nav__title" data-i18n="c.label"></span>
+
+    <div class="nav__right">
+      <div class="seg" role="group" aria-label="Language">
+        <span class="seg__pill" aria-hidden="true"></span>
+        <button data-setlang="en">EN</button>
+        <button data-setlang="ar">ع</button>
+        <button data-setlang="tr">TR</button>
+      </div>
+
+      <button class="langbtn" id="langbtn" aria-label="Language"><span>EN</span></button>
+
+      <button class="iconbtn" id="themebtn" aria-label="Theme">
+      <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M5.6 5.6 7.2 7.2M16.8 16.8l1.6 1.6M18.4 5.6 16.8 7.2M7.2 16.8l-1.6 1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================ HERO ============================ -->
+<header class="chero">
+  <div class="wrap">
+    <span class="kicker mono"><b data-i18n="c.kick"></b></span>
+    <h1 class="chero__t" data-i18n="c.h"></h1>
+    <p class="chero__d" data-i18n="c.lede"></p>
+
+    <div class="cdemos">
+      <a class="btn btn--solid cdemo" href="https://youtube.com/shorts/JvQUW6NvBrA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></svg><span data-i18n="c.demo"></span>
+      </a>
+      <a class="btn btn--ghost cdemo" href="https://youtube.com/shorts/vMxfmSaS2uY" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></svg><span data-i18n="c.demo2"></span>
+      </a>
+    </div>
+
+    <dl class="facts">
+      <div><dt class="mono" data-i18n="c.f1k"></dt><dd data-i18n="c.f1v"></dd></div>
+      <div><dt class="mono" data-i18n="c.f2k"></dt><dd data-i18n="c.f2v"></dd></div>
+      <div><dt class="mono" data-i18n="c.f3k"></dt><dd data-i18n="c.f3v"></dd></div>
+      <div><dt class="mono" data-i18n="c.f4k"></dt><dd data-i18n="c.f4v"></dd></div>
+    </dl>
+  </div>
+</header>
+
+<!-- =========================== METRICS ========================== -->
+<section class="sec sec--tight" id="measured">
+  <div class="wrap">
+    <span class="num mono" data-i18n="c.mk"></span>
+    <div class="mgrid">
+      <div class="mcard"><b data-i18n="c.m1v"></b><span data-i18n="c.m1k"></span></div>
+      <div class="mcard"><b data-i18n="c.m2v"></b><span data-i18n="c.m2k"></span></div>
+      <div class="mcard"><b data-i18n="c.m3v"></b><span data-i18n="c.m3k"></span></div>
+      <div class="mcard"><b data-i18n="c.m4v"></b><span data-i18n="c.m4k"></span></div>
+      <div class="mcard"><b data-i18n="c.m5v"></b><span data-i18n="c.m5k"></span></div>
+      <div class="mcard"><b data-i18n="c.m6v"></b><span data-i18n="c.m6k"></span></div>
+      <div class="mcard"><b data-i18n="c.m7v"></b><span data-i18n="c.m7k"></span></div>
+      <div class="mcard"><b data-i18n="c.m8v"></b><span data-i18n="c.m8k"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 01 ============================ -->
+<section class="sec" id="problem">
+  <div class="wrap col">
+    <span class="num mono">01</span>
+    <h2 data-i18n="c.s1"></h2>
+
+    <p data-i18n="c.s1p1"></p>
+    <p data-i18n="c.s1p2"></p>
+    <p class="pull" data-i18n="c.s1pull"></p>
+  </div>
+</section>
+
+<!-- ============================ 02 ============================ -->
+<section class="sec" id="registration">
+  <div class="wrap col">
+    <span class="num mono">02</span>
+    <h2 data-i18n="c.s2"></h2>
+
+    <p data-i18n="c.s2p1"></p>
+    <p data-i18n-html="c.s2p2"></p>
+    <p data-i18n="c.s2p3"></p>
+  </div>
+</section>
+
+<!-- ============================ 03 ============================ -->
+<section class="sec" id="lockon">
+  <div class="wrap col">
+    <span class="num mono">03</span>
+    <h2 data-i18n="c.s3"></h2>
+
+    <p data-i18n-html="c.s3p1"></p>
+    <p data-i18n-html="c.s3p2"></p>
+    <p class="pull" data-i18n="c.s3pull"></p>
+  </div>
+</section>
+
+<!-- ============================ 04 ============================ -->
+<section class="sec" id="thresholds">
+  <div class="wrap col">
+    <span class="num mono">04</span>
+    <h2 data-i18n="c.s4"></h2>
+
+    <p data-i18n="c.s4p1"></p>
+    <p data-i18n-html="c.s4p2"></p>
+    <p data-i18n="c.s4p3"></p>
+  </div>
+</section>
+
+<!-- ============================ 05 ============================ -->
+<section class="sec" id="evaluation">
+  <div class="wrap col">
+    <span class="num mono">05</span>
+    <h2 data-i18n="c.s5"></h2>
+
+    <p data-i18n="c.s5p1"></p>
+    <p data-i18n-html="c.s5p2"></p>
+    <p class="lesson" data-i18n="c.s5l1"></p>
+  </div>
+</section>
+
+<!-- ============================ 06 ============================ -->
+<section class="sec" id="limit">
+  <div class="wrap col">
+    <span class="num mono">06</span>
+    <h2 data-i18n="c.s6"></h2>
+
+    <p data-i18n-html="c.s6p1"></p>
+    <p data-i18n="c.s6p2"></p>
+  </div>
+</section>
+
+<!-- ============================ 07 ============================ -->
+<section class="sec" id="system">
+  <div class="wrap col">
+    <span class="num mono">07</span>
+    <h2 data-i18n="c.s7"></h2>
+
+    <ul class="plain">
+      <li data-i18n-html="c.s7a"></li>
+      <li data-i18n-html="c.s7b"></li>
+      <li data-i18n-html="c.s7c"></li>
+      <li data-i18n-html="c.s7d"></li>
+      <li data-i18n-html="c.s7e"></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ 08 ============================ -->
+<section class="sec" id="wrong">
+  <div class="wrap col">
+    <span class="num mono">08</span>
+    <h2 data-i18n="c.s8"></h2>
+
+    <p data-i18n-html="c.s8p1"></p>
+    <p data-i18n="c.s8p2"></p>
+    <p class="lesson" data-i18n="c.s8l1"></p>
+  </div>
+</section>
+
+<!-- ============================ 09 ============================ -->
+<section class="sec" id="next">
+  <div class="wrap col">
+    <span class="num mono">09</span>
+    <h2 data-i18n="c.s9"></h2>
+
+    <p data-i18n="c.s9a"></p>
+  </div>
+</section>
+
+<footer class="cfoot wrap">
+  <a class="btn btn--solid" href="../index.html#work">
+    <svg viewBox="0 0 24 24"><path d="M19 12H6M12 5l-7 7 7 7"/></svg><span data-i18n="c.all"></span>
+  </a>
+  <a class="btn btn--ghost" href="mailto:mohamedalezzi6@gmail.com" data-i18n="c.touch"></a>
+</footer>
+
+</main>
+
+<script type="module" src="../js/case.js"></script>
+</body>
+</html>

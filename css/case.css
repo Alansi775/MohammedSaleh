@@ -257,3 +257,49 @@ html[dir="rtl"] .fig .ans{ font-size:16px; font-weight:700; }
 .cdemo svg{ width:14px; height:14px; }
 html[dir="rtl"] .cdemo svg{ transform:none; }
 .col .cdemo{ margin-top:8px; }
+
+/* ==================================================================
+   MEASURED
+
+   A recruiter reads this strip in ten seconds and stops; an engineer
+   reads it and then reads section 02. So the numbers lead and the
+   sentence under each one says what was actually counted — a bare
+   "40/40" claims nothing you can check.
+================================================================== */
+.sec--tight{ padding-block:clamp(26px,4vh,44px); }
+
+.mgrid{
+  margin-top:18px;
+  display:grid; gap:1px;
+  grid-template-columns:repeat(4,1fr);
+  background:var(--line-soft);
+  border:1px solid var(--line-soft);
+  border-radius:var(--r-l);
+  overflow:hidden;
+}
+@media (max-width:900px){ .mgrid{ grid-template-columns:repeat(2,1fr) } }
+@media (max-width:520px){ .mgrid{ grid-template-columns:1fr } }
+
+.mcard{
+  background:var(--bg);
+  padding:clamp(18px,2.2vw,26px);
+  display:flex; flex-direction:column; gap:8px;
+}
+.mcard b{
+  font-family:var(--ff-mono);
+  font-size:clamp(21px,2.4vw,28px); font-weight:600;
+  letter-spacing:-.03em; line-height:1;
+}
+html[dir="rtl"] .mcard b{ font-family:var(--ff); letter-spacing:normal; }
+.mcard span{
+  font-size:12.5px; line-height:1.55; color:var(--muted);
+  text-wrap:pretty;
+}
+
+/* two videos side by side: the same action, once with the customer
+   watching and once alone */
+.cdemos{
+  display:flex; flex-wrap:wrap; gap:10px;
+  margin:clamp(26px,4vh,38px) 0 clamp(26px,3.5vh,38px);
+}
+.cdemos .cdemo{ margin-top:0; }

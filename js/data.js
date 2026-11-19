@@ -37,6 +37,21 @@ const shots = (prefix, n, from = 0) =>
 
 export const PROJECTS = [
   {
+    id: 'pcbai',
+    span: 6,
+    year: '2026',
+    cat: 'ai',
+    orientation: 'wide',
+    media: [],
+    links: [
+      { k: 'l.demo',  url: 'https://youtube.com/shorts/JvQUW6NvBrA' },
+      { k: 'l.demo2', url: 'https://youtube.com/shorts/vMxfmSaS2uY' },
+      { k: 'l.case',  url: 'case/pcbai.html' }
+    ],
+    stack: ['OpenCV', 'SIFT + RANSAC', 'scikit-learn', 'Flask', 'Raspberry Pi', 'Stepper control'],
+    stat: { v: '40/40', k: 's.pcb' }
+  },
+  {
     id: 'omr',
     span: 6,
     year: '2026',

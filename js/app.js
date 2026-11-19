@@ -206,6 +206,62 @@ const isVideo = url => /youtu\.be|youtube\.com|vimeo\.com/.test(url);
    are actually documented. */
 const GLYPH = {
 
+  /* PCBAI: a panel of four boards under a camera on its rail. The
+     dots are placements from the design file; the crosses are what
+     the detector actually found on the copper. One board is marked
+     with a missing part. A plan view, which is how a stencil or a
+     placement program is drawn. */
+  pcbai: `<svg class="glyph" viewBox="0 0 520 200" preserveAspectRatio="xMidYMax meet">
+      <!-- the rail and the camera head -->
+      <path d="M40 22 H480" opacity=".4"/>
+      <rect x="226" y="10" width="54" height="24" rx="5"/>
+      <circle cx="253" cy="22" r="6"/>
+      <path d="M253 34 v16" opacity=".35"/>
+      <path d="M235 50 L253 34 L271 50" opacity=".3"/>
+
+      <!-- the panel -->
+      <rect x="54" y="58" width="412" height="130" rx="8"/>
+      <path d="M260 58 v130" opacity=".2"/>
+      <path d="M54 123 h412" opacity=".2"/>
+
+      <!-- four boards, each with its own placements -->
+      <g opacity=".75">
+        <rect x="70" y="70" width="176" height="44" rx="4" opacity=".5"/>
+        <rect x="274" y="70" width="176" height="44" rx="4" opacity=".5"/>
+        <rect x="70" y="132" width="176" height="44" rx="4" opacity=".5"/>
+        <rect x="274" y="132" width="176" height="44" rx="4" opacity=".5"/>
+      </g>
+
+      <!-- placements: small pads -->
+      <g opacity=".9">
+        <rect x="86" y="86" width="13" height="7" rx="1.5"/><rect x="112" y="86" width="13" height="7" rx="1.5"/>
+        <rect x="138" y="86" width="7" height="13" rx="1.5"/><rect x="164" y="86" width="13" height="7" rx="1.5"/>
+        <rect x="196" y="86" width="13" height="7" rx="1.5"/><rect x="220" y="86" width="7" height="13" rx="1.5"/>
+
+        <rect x="290" y="86" width="13" height="7" rx="1.5"/><rect x="316" y="86" width="7" height="13" rx="1.5"/>
+        <rect x="342" y="86" width="13" height="7" rx="1.5"/><rect x="368" y="86" width="13" height="7" rx="1.5"/>
+        <rect x="400" y="86" width="7" height="13" rx="1.5"/><rect x="424" y="86" width="13" height="7" rx="1.5"/>
+
+        <rect x="86" y="148" width="13" height="7" rx="1.5"/><rect x="112" y="148" width="7" height="13" rx="1.5"/>
+        <rect x="138" y="148" width="13" height="7" rx="1.5"/><rect x="164" y="148" width="13" height="7" rx="1.5"/>
+        <rect x="196" y="148" width="7" height="13" rx="1.5"/><rect x="220" y="148" width="13" height="7" rx="1.5"/>
+
+        <rect x="290" y="148" width="13" height="7" rx="1.5"/><rect x="316" y="148" width="13" height="7" rx="1.5"/>
+        <rect x="342" y="148" width="7" height="13" rx="1.5"/><rect x="368" y="148" width="13" height="7" rx="1.5"/>
+        <rect x="400" y="148" width="13" height="7" rx="1.5"/><rect x="424" y="148" width="7" height="13" rx="1.5"/>
+      </g>
+
+      <!-- the one that is not there -->
+      <g opacity=".95">
+        <rect x="136" y="146" width="17" height="11" rx="2" stroke-dasharray="3 3"/>
+        <path d="M130 140 l29 23 M159 140 l-29 23" opacity=".6"/>
+      </g>
+
+      <!-- the matched point pattern that locates a board -->
+      <path d="M86 86 L138 92 L196 86 L220 92 Z" opacity=".16"/>
+      <path d="M290 148 L342 154 L400 148 L424 154 Z" opacity=".16"/>
+    </svg>`,
+
   /* EMG: eight channels of raw signal, a detection window, and the
      classified gesture after it. */
   emg: `<svg class="glyph" viewBox="0 0 520 190" preserveAspectRatio="xMidYMax meet">
