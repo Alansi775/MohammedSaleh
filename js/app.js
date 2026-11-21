@@ -568,6 +568,15 @@ const ICON = {
   x: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41z"/></svg>'
 };
 
+/* An address too long for its card has to break somewhere. Left to
+   itself the browser broke it mid-word and left a lone "m" on a line
+   of its own. The only sensible seam in an email address is after the
+   @, so that is the only break offered — and because a break point now
+   exists, the desperate break-anywhere rule never has to fire. */
+function breakable(v){
+  return esc(v).replace(/@/g, '@<wbr>');
+}
+
 function renderContact(){
   const host = $('#contactCards'); if (!host) return;
   const items = [
@@ -581,7 +590,7 @@ function renderContact(){
        ${i.copy ? `data-copy="${esc(i.copy)}"` : ''}>
       ${ICON[i.icon]}
       <span class="mono">${esc(t(i.k))}</span>
-      <span class="ccard__v" dir="ltr">${esc(i.v)}</span>
+      <span class="ccard__v" dir="ltr">${breakable(i.v)}</span>
       <span class="ccard__ar">↗</span>
     </a>`).join('');
   observe('.ccard');
