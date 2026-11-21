@@ -776,8 +776,8 @@ html[dir="rtl"] .bar::after{ transform-origin:right;
 @media (max-width:480px){ .cards{ grid-template-columns:1fr } }
 .ccard{
   position:relative; background:var(--surface); border-radius:var(--r-l);
-  padding:clamp(22px,2.4vw,30px);
-  display:flex; flex-direction:column; gap:12px; min-height:150px;
+  padding:clamp(24px,2.6vw,32px);
+  display:flex; flex-direction:column; gap:12px; min-height:168px;
   opacity:0; transform:translateY(20px);
   transition:opacity .7s var(--e),transform .8s var(--e),background .4s var(--e);
 }
@@ -785,7 +785,15 @@ html[dir="rtl"] .bar::after{ transform-origin:right;
 .ccard:hover{ background:var(--surface-2); }
 .ccard svg{ width:22px; height:22px; color:var(--muted); transition:color .35s; }
 .ccard:hover svg{ color:var(--fg); }
-.ccard__v{ margin-top:auto; font-size:15px; font-weight:500; word-break:normal; overflow-wrap:break-word; }
+/* One line, always. An address broken across two lines reads as a
+   mistake however tidy the seam is, so the card is given room and the
+   type is sized to the longest value rather than the other way round. */
+.ccard__v{
+  margin-top:auto; font-weight:500;
+  font-size:clamp(12.5px,1.05vw,15px);
+  white-space:nowrap;
+  word-break:normal;
+}
 .ccard__ar{
   position:absolute; top:clamp(22px,2.4vw,30px); inset-inline-end:clamp(22px,2.4vw,30px);
   font-size:15px; color:var(--faint); opacity:0; transform:translate(-4px,4px);
@@ -799,8 +807,28 @@ html[dir="rtl"] .ccard__ar{ transform:translate(4px,4px); }
   padding-block:clamp(34px,5vh,54px) calc(clamp(34px,5vh,54px) + var(--safe-b));
   display:flex; flex-wrap:wrap; gap:14px clamp(18px,4vw,50px); align-items:center;
 }
-.foot__s{ display:flex; gap:6px; margin-inline-start:auto; }
-@media (max-width:620px){ .foot__s{ margin-inline-start:0 } }
+/* The icons used to sit small in a corner, which is where a footer
+   puts something it does not expect anyone to use. They are the last
+   thing on the page and the only way out of it, so they take the
+   centre, on their own line, at a size worth aiming at. */
+.foot{ flex-direction:column; justify-content:center; text-align:center; }
+.foot__s{
+  display:flex; justify-content:center; gap:clamp(10px,1.4vw,18px);
+  margin-top:clamp(18px,2.6vh,26px);
+}
+.foot__s .iconbtn{
+  width:clamp(44px,3.6vw,52px); height:clamp(44px,3.6vw,52px);
+  border:1px solid var(--line-soft); border-radius:50%;
+  color:var(--muted);
+  transition:color .35s var(--e), background .35s var(--e),
+             border-color .35s var(--e), transform .4s var(--e);
+}
+.foot__s .iconbtn svg{ width:21px; height:21px; }
+.foot__s .iconbtn:hover{
+  color:var(--inv-fg); background:var(--inv-bg); border-color:transparent;
+  transform:translateY(-3px);
+}
+.foot > .mono{ color:var(--faint); }
 
 /* ======================= 12. MOTION PRIMITIVES ================= */
 .reveal{ opacity:0; transform:translateY(22px); }
@@ -1570,3 +1598,21 @@ html[dir="rtl"] .ai__form textarea{ line-height:1.95; min-height:50px; }
    reads as a step rather than a glitch */
 .think{ transition:opacity .22s var(--e), transform .22s var(--e); }
 .think:not(.is-in){ opacity:.25; transform:translateY(3px); }
+
+/* ==================================================================
+   THE ASSISTANT STAYS PUT
+
+   inset-inline-end mirrors with the writing direction, so switching
+   to Arabic threw the launcher and the panel across to the left.
+   The chat is a control, not prose — it belongs where the reader
+   last left it, in every language — so it is pinned to the physical
+   right and keeps its corner.
+================================================================== */
+html[dir="rtl"] .ai__launcher,
+html[dir="rtl"] .ai{ inset-inline-end:auto; right:22px; }
+html[dir="rtl"] .ai:not(.is-big){ left:auto; }
+@media (max-width:620px){
+  html[dir="rtl"] .ai__launcher{ right:16px; }
+}
+/* expanded, it still centres itself */
+html[dir="rtl"] .ai.is-big{ right:auto; left:50%; }
