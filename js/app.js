@@ -214,6 +214,46 @@ const isVideo = url => /youtu\.be|youtube\.com|vimeo\.com/.test(url);
    are actually documented. */
 const GLYPH = {
 
+  /* PHONON: the loop the evaluation actually runs. A line of text goes
+     into the synthesiser, comes out as audio, is heard back by the
+     recogniser, and the two strings are compared — so the respelling
+     search is scored by a machine that was not told what it should
+     have heard. The dashed path is the feedback that picks the next
+     spelling to try. */
+  phonon: `<svg class="glyph" viewBox="0 0 520 190" preserveAspectRatio="xMidYMax meet">
+      <!-- the text going in -->
+      <rect x="18" y="52" width="96" height="46" rx="8"/>
+      <path d="M34 70 h50 M34 80 h34" opacity=".55"/>
+
+      <path d="M114 75 H150"/>
+      <path d="M142 70 l8 5 -8 5" opacity=".8"/>
+
+      <!-- the synthesiser -->
+      <rect x="150" y="44" width="62" height="62" rx="10"/>
+      <path d="M170 75 h6 l7 -11 v22 l7 -11 h6" opacity=".9"/>
+
+      <!-- what it produced -->
+      <path d="M212 75 H236"/>
+      <path d="M240 75 l6 0 M250 61 v28 M258 52 v46 M266 64 v22 M274 46 v58
+               M282 66 v18 M290 56 v38 M298 70 v10 M306 60 v30 M314 68 v14
+               M322 75 h6" opacity=".75"/>
+
+      <!-- the recogniser hearing it back -->
+      <path d="M328 75 H358"/>
+      <rect x="358" y="44" width="62" height="62" rx="10"/>
+      <path d="M389 60 a7 7 0 0 1 7 7 v8 a7 7 0 0 1 -14 0 v-8 a7 7 0 0 1 7 -7z"/>
+      <path d="M376 78 a13 13 0 0 0 26 0 M389 91 v7" opacity=".7"/>
+
+      <!-- the two strings, compared -->
+      <path d="M420 75 H456"/>
+      <rect x="456" y="52" width="48" height="46" rx="8"/>
+      <path d="M468 70 h24 M468 80 h16" opacity=".55"/>
+
+      <!-- the respelling fed back in -->
+      <path d="M480 98 v26 H66 V98" stroke-dasharray="4 5" opacity=".5"/>
+      <path d="M61 104 l5 -6 5 6" opacity=".7"/>
+    </svg>`,
+
   /* PCBAI: a panel of four boards under a camera on its rail. The
      dots are placements from the design file; the crosses are what
      the detector actually found on the copper. One board is marked

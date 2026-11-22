@@ -82,6 +82,19 @@ export const PROJECTS = [
     stat: { v: '8', k: 's.channels' }
   },
   {
+    id: 'phonon',
+    span: 6,
+    year: '2026',
+    cat: 'ai',
+    orientation: 'wide',
+    media: [],
+    links: [
+      { k: 'l.code', url: 'https://github.com/Alansi775/phonon-realworld-eval' }
+    ],
+    stack: ['Phonon TTS', 'Whisper', 'Gemma 4 (Ollama)', 'Python'],
+    stat: { v: '0.321 \u2192 0.300', k: 's.cer' }
+  },
+  {
     id: 'noota',
     span: 3,
     year: '2025',

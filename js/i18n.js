@@ -83,7 +83,7 @@ export const T = {
     'm.c3d':'A single sheet cannot tell the booklet box from any printed pair of circles. A batch can, because people mark it. Scored against the commercial scanner on the same 88 pages \u2014 and both refusals were boxes left blank.',
     'm.read':'Read the full case study',
     'work.k': 'Selected work',
-    'work.h': 'Nine systems.',
+    'work.h': 'Ten systems.',
     'work.sub': 'Research, products and things that are running right now.',
     'f.all': 'All', 'f.ai': 'AI / ML', 'f.auto': 'Autonomous', 'f.iot': 'Embedded / IoT', 'f.full': 'Full-stack',
 
@@ -91,6 +91,10 @@ export const T = {
     'emg.o': 'AI & Biomechatronics Lab, YTÜ',
     'emg.d': 'Real-time hand gesture recognition from forearm muscle signals, driving a prosthetic arm and a quadcopter. The CNN reads spatial structure across the electrode array; the LSTM reads how a gesture unfolds in time. Trained on recordings we captured ourselves, and published as an open model and dataset.',
 
+    'phonon.t':'Phonon Real-World Eval',
+    'phonon.o':'Speech evaluation \u00b7 on-device TTS',
+    'phonon.d':'Gradium\u2019s on-device text-to-speech, tested on the things a demo script never contains: acronyms, prices, dates and names crossing languages. Where it mispronounces a name, an ASR-in-the-loop search looks for a respelling that makes it come out right \u2014 scored by a recogniser that is never told what it should have heard, and confirmed on a held-out voice so the spelling is not merely tuned to one speaker. Held-out name character error rate: 0.321 down to 0.300.',
+    's.cer':'held-out name CER',
     'noota.t': 'Noota — Voice Translation',
     'noota.o': 'Independent product',
     'noota.d': 'Speak in one language and come out the other side in another, still sounding like yourself. A custom Transformer handles translation while a cloned voice profile carries the speaker’s timbre across. Fine-tuned with LoRA so it fits and runs where it has to.',
@@ -257,7 +261,7 @@ export const T = {
     'm.c3d':'ورقة واحدة ما تكفي لتمييز مربع نوع الكتيّب عن أي زوج دوائر آخر في الصفحة. لكن دفعة كاملة تكفي، لأن الطلاب يعلّمون هذا المربع ولا يعلّمون غيره. وبالقياس على الجهاز التجاري وبنفس الـ88 صفحة، كان المرفوضان مربعين تركهما الطالب فارغين.',
     'm.read':'اقرأ دراسة الحالة كاملة',
     'work.k': 'أعمال مختارة',
-    'work.h': 'تسعة أنظمة.',
+    'work.h': 'عشرة أنظمة.',
     'work.sub': 'بحث ومنتجات وأشياء تعمل الآن.',
     'f.all': 'الكل', 'f.ai': 'ذكاء اصطناعي', 'f.auto': 'أنظمة ذاتية', 'f.iot': 'مدمجة', 'f.full': 'متكاملة',
 
@@ -265,6 +269,10 @@ export const T = {
     'emg.o': 'مختبر الذكاء الاصطناعي والميكاترونكس الحيوي — YTÜ',
     'emg.d': 'تمييز فوري لإيماءات اليد من إشارة عضلات الساعد، يقود ذراعاً صناعية وطائرة رباعية. الشبكة الالتفافية تقرأ توزّع الإشارة على الأقطاب، وLSTM تقرأ كيف تتكوّن الإيماءة مع الوقت. دُرّب على تسجيلات التقطناها بأنفسنا، ونُشر نموذجاً ومجموعة بيانات مفتوحة للجميع.',
 
+    'phonon.t':'تقييم Phonon على كلام الواقع',
+    'phonon.o':'تقييم نطق \u00b7 تحويل نصّ إلى كلام على الجهاز',
+    'phonon.d':'نظام Gradium لتحويل النص إلى كلام على الجهاز، مختبَراً على ما لا يرد في أي عرض تجريبي: الاختصارات، والأسعار، والتواريخ، والأسماء التي تنتقل بين اللغات. وحين يخطئ في نطق اسم، يبحث النظام عن طريقة كتابة أخرى تجعله يخرج صحيحاً — والحكم في ذلك نظامُ تعرّفٍ على الكلام لا يُقال له ما الذي كان يُفترض أن يسمعه. ثم تُؤكَّد النتيجة بصوت محجوز لم يدخل البحث أصلاً، حتى لا تكون الكتابة مضبوطة على متحدّث واحد. معدّل خطأ الحروف في الأسماء على الصوت المحجوز نزل من 0.321 إلى 0.300.',
+    's.cer':'خطأ الحروف على صوت محجوز',
     'noota.t': 'نوتا — ترجمة صوتية',
     'noota.o': 'منتج مستقل',
     'noota.d': 'تتكلّم بلغة فيخرج الكلام بلغة أخرى، وصوتك يبقى صوتك أنت. نموذج محوّل مخصّص يتولّى الترجمة، ونسخة من صوتك تنقل طابعك في النطق. دُرّب بـLoRA ليشتغل ضمن الموارد المتاحة.',
@@ -431,7 +439,7 @@ export const T = {
     'm.c3d':'Tek k\u00e2\u011f\u0131t, kitap\u00e7\u0131k kutusunu bas\u0131l\u0131 herhangi bir daire \u00e7iftinden ay\u0131ramaz. Bir y\u0131\u011f\u0131n ay\u0131rabilir, \u00e7\u00fcnk\u00fc insanlar onu i\u015faretler. Ayn\u0131 88 sayfada ticari tarayc\u0131ya kar\u015f\u0131 \u00f6l\u00e7\u00fcld\u00fc \u2014 iki reddedilen de bo\u015f b\u0131rak\u0131lm\u0131\u015f kutuydu.',
     'm.read':'Tam vaka \u00e7al\u0131\u015fmas\u0131n\u0131 oku',
     'work.k': 'Seçilmiş çalışmalar',
-    'work.h': 'Dokuz sistem.',
+    'work.h': 'On sistem.',
     'work.sub': 'Araştırma, ürünler ve şu anda çalışan işler.',
     'f.all': 'Tümü', 'f.ai': 'Yapay zekâ', 'f.auto': 'Otonom', 'f.iot': 'Gömülü', 'f.full': 'Full-stack',
 
@@ -439,6 +447,10 @@ export const T = {
     'emg.o': 'Yapay Zekâ & Biyomekatronik Lab, YTÜ',
     'emg.d': 'Önkol kas sinyallerinden gerçek zamanlı el jesti tanıma; bir protez kolu ve bir quadcopter’ı sürüyor. CNN elektrot dizisindeki uzamsal yapıyı, LSTM ise jestin zamanla nasıl geliştiğini okuyor. Kendi kaydettiğimiz verilerle eğitildi, açık model ve veri kümesi olarak yayımlandı.',
 
+    'phonon.t':'Phonon Ger\u00e7ek D\u00fcnya De\u011ferlendirmesi',
+    'phonon.o':'Konu\u015fma de\u011ferlendirmesi \u00b7 cihaz \u00fczerinde TTS',
+    'phonon.d':'Gradium\u2019un cihaz \u00fczerinde \u00e7al\u0131\u015fan metin okuma sistemi, hi\u00e7bir tan\u0131t\u0131m metninde ge\u00e7meyen \u015feylerle s\u0131nand\u0131: k\u0131saltmalar, fiyatlar, tarihler ve diller aras\u0131 ge\u00e7en isimler. Bir ismi yanl\u0131\u015f okudu\u011funda, d\u00f6ng\u00fcye konmu\u015f bir tan\u0131y\u0131c\u0131yla do\u011fru \u00e7\u0131kmas\u0131n\u0131 sa\u011flayan alternatif bir yaz\u0131m aran\u0131yor \u2014 puan\u0131 veren tan\u0131y\u0131c\u0131ya ne duymas\u0131 gerekti\u011fi hi\u00e7 s\u00f6ylenmiyor. Sonu\u00e7, yaz\u0131m\u0131n tek bir konu\u015fmac\u0131ya g\u00f6re ayarlanmad\u0131\u011f\u0131ndan emin olmak i\u00e7in aramaya hi\u00e7 girmemi\u015f bir sesle do\u011frulan\u0131yor. Ayr\u0131lm\u0131\u015f sesteki isim karakter hata oran\u0131 0,321\u2019den 0,300\u2019e indi.',
+    's.cer':'ayr\u0131lm\u0131\u015f seste isim CER\u2019i',
     'noota.t': 'Noota — Sesli Çeviri',
     'noota.o': 'Bağımsız ürün',
     'noota.d': 'Bir dilde konuşun, başka bir dilde çıkın — ses yine sizin sesiniz. Çeviriyi özel bir Transformer yapıyor, klonlanmış ses profili konuşmacının tınısını taşıyor. LoRA ile ince ayar yapıldı.',
