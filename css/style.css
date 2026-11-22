@@ -439,6 +439,11 @@ body.is-ready .hero__foot{ animation:fadeUp 1s var(--e) .9s forwards; }
   background:var(--bg);
   padding:clamp(28px,4vw,46px) clamp(16px,2.4vw,30px);
   display:flex; flex-direction:column; gap:10px;
+  /* centred, so the row is identical in every language. Aligned to
+     the start it jumped from the left edge to the right one the
+     moment the language changed, which made switching look like the
+     page had been rebuilt rather than translated. */
+  align-items:center; text-align:center;
 }
 .metric__v{
   font-family:var(--ff-mono);
