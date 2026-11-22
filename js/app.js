@@ -140,7 +140,7 @@ const io = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if (!e.isIntersecting) return;
     e.target.classList.add('is-in');
-    if (e.target.classList.contains('metric__v')) runCount(e.target);
+    if (e.target.classList.contains('metric__v')) revealNumber(e.target);
     io.unobserve(e.target);
   });
 }, { threshold: .15, rootMargin: '0px 0px -8% 0px' });
@@ -153,69 +153,44 @@ function renderMetrics(){
   const host = $('#metrics'); if (!host) return;
   host.innerHTML = METRICS.map(m => `
     <div class="metric">
-      <b class="metric__v" data-to="${m.value}" data-dec="${m.decimals}" data-unit="${esc(m.unit)}">0</b>
+      <b class="metric__v">${glyphs(m)}</b>
       <span class="metric__k">${esc(t(m.key))}</span>
     </div>`).join('');
   observe('.metric__v');
 }
 
+/* The final string, number and unit, split one glyph to a box. It is
+   written at render time so the row is already its full width before
+   anything animates. */
+function glyphs(m){
+  const box = (c, i, cls) =>
+    `<span class="dg ${cls}" style="--i:${i}"><i>${esc(c)}</i></span>`;
+  let i = 0;
+  return [...m.value.toFixed(m.decimals)].map(c => box(c, i++, 'dg--n')).join('')
+       /* +2 so the unit waits for the last digit to land */
+       + [...m.unit].map((c, n) => box(c, i++ + 2, n ? 'dg--u' : 'dg--u dg--u1')).join('');
+}
+
 /* ==================================================================
    THE NUMBERS
 
-   The old version rewrote the whole element every frame, which meant
-   the unit — B, ms, h, + — did not exist until the count finished and
-   then appeared out of nowhere. And a linear-ish climb through four
-   digits is a water meter, not a result.
+   Modelled on the one place this already works: the student home
+   screen of the exam app, where a net score is a monospaced-digit
+   Text with .contentTransition(.numericText(...)) on a snappy spring.
+   SwiftUI does not COUNT to the new value — it moves each digit that
+   changed, rising from below and resolving out of a blur, and leaves
+   the rest alone. A count-up through four digits is a water meter;
+   this is a value arriving.
 
-   Both the number and its unit are built ONCE and never replaced, so
-   each can be animated on its own. The count runs on an exponential
-   ease-out: most of the distance is covered immediately and the last
-   stretch is slow, so the value settles into place rather than
-   stopping dead. The unit arrives on its own curve, timed to land
-   with the number instead of after it.
+   So nothing counts here either, and nothing is written into the
+   element when it scrolls into view. The whole string — digits AND
+   unit — is in the DOM from the first paint, each glyph in a box that
+   clips it. That is what fixes the shove: the unit cannot push the
+   digits aside when it appears, because the space was never anything
+   but its own. All that happens on screen is that each glyph rises
+   into its own box, on a stagger, with the unit last.
 ================================================================== */
-function runCount(el){
-  const to   = parseFloat(el.dataset.to) || 0;
-  const dec  = parseInt(el.dataset.dec, 10) || 0;
-  const unit = el.dataset.unit || '';
-
-  el.innerHTML = `<i class="metric__n"></i><span class="metric__u">${esc(unit)}</span>`;
-  const num = el.firstElementChild;
-
-  const land = ()=>{
-    num.textContent = to.toFixed(dec);
-    el.style.setProperty('--p', '1');
-    el.style.setProperty('--u', '1');
-    el.classList.add('is-done');
-  };
-  if (RM){ land(); return; }
-
-  const dur = 1900, t0 = performance.now();
-
-  /* exponential ease-out: fast away, slow home */
-  const ease = x => x >= 1 ? 1 : 1 - Math.pow(2, -7 * x);
-  /* the unit's own ramp, from 45% of the run to the end */
-  const unitIn = x => {
-    const u = Math.min(Math.max((x - 0.45) / 0.55, 0), 1);
-    return u * u * (3 - 2 * u);
-  };
-
-  const tick = now=>{
-    const raw = Math.min((now - t0) / dur, 1);
-    if (raw >= 1){ land(); return; }
-
-    const p = ease(raw);
-    el.style.setProperty('--p', p.toFixed(4));
-    el.style.setProperty('--u', unitIn(raw).toFixed(4));
-    num.textContent = (to * p).toFixed(dec);
-    requestAnimationFrame(tick);
-  };
-
-  el.style.setProperty('--p', '0');
-  el.style.setProperty('--u', '0');
-  num.textContent = (0).toFixed(dec);
-  requestAnimationFrame(tick);
-}
+function revealNumber(el){ el.classList.add('is-done'); }
 
 /* ---- work ------------------------------------------------------ */
 
