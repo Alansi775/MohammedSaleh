@@ -153,7 +153,7 @@ function renderMetrics(){
   const host = $('#metrics'); if (!host) return;
   host.innerHTML = METRICS.map(m => `
     <div class="metric">
-      <b class="metric__v">${glyphs(m)}</b>
+      <b class="metric__v" aria-label="${esc(m.value.toFixed(m.decimals) + m.unit)}">${glyphs(m)}</b>
       <span class="metric__k">${esc(t(m.key))}</span>
     </div>`).join('');
   observe('.metric__v');
@@ -163,8 +163,10 @@ function renderMetrics(){
    written at render time so the row is already its full width before
    anything animates. */
 function glyphs(m){
+  /* the boxes are decoration over the aria-label above, so a screen
+     reader hears "320ms" and not three digits and two letters */
   const box = (c, i, cls) =>
-    `<span class="dg ${cls}" style="--i:${i}"><i>${esc(c)}</i></span>`;
+    `<span class="dg ${cls}" style="--i:${i}" aria-hidden="true"><i>${esc(c)}</i></span>`;
   let i = 0;
   return [...m.value.toFixed(m.decimals)].map(c => box(c, i++, 'dg--n')).join('')
        /* +2 so the unit waits for the last digit to land */

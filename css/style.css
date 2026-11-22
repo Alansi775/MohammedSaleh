@@ -447,7 +447,15 @@ body.is-ready .hero__foot{ animation:fadeUp 1s var(--e) .9s forwards; }
   /* tabular figures, as the app uses .monospacedDigit(): a column
      that never changes width cannot twitch */
   font-variant-numeric:tabular-nums;
-  display:inline-flex; align-items:baseline;
+  /* NOT a flex container. Flex items are block-level boxes, so the
+     glyphs became one line each when the number was copied — and in
+     Arabic the flow reversed them, turning 1.8B into B8.1. An inline
+     run on a line that cannot wrap keeps them where they belong. */
+  display:inline-block;
+  white-space:nowrap;
+  /* a measurement reads left to right in every language: 320ms, not
+     sm023. The number is data, not prose. */
+  direction:ltr;
 }
 
 /* One glyph, one clipping box. The box is laid out from the first
@@ -456,6 +464,7 @@ body.is-ready .hero__foot{ animation:fadeUp 1s var(--e) .9s forwards; }
    clipped against without changing the line box. */
 .dg{
   display:inline-block; overflow:hidden;
+  vertical-align:bottom;
   padding-block:.18em; margin-block:-.18em;
 }
 .dg > i{
