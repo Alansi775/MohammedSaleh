@@ -444,17 +444,36 @@ body.is-ready .hero__foot{ animation:fadeUp 1s var(--e) .9s forwards; }
   font-family:var(--ff-mono);
   font-size:clamp(34px,4.6vw,58px);
   font-weight:600; letter-spacing:-.04em; line-height:1;
+  /* tabular figures: proportional digits change width as they climb,
+     which makes the whole number twitch sideways while it counts */
   font-variant-numeric:tabular-nums;
-  display:inline-block;
-  transform:translateY(calc((1 - var(--p,0)) * .3em));
-  filter:blur(calc((1 - var(--p,0)) * 9px));
-  opacity:calc(.2 + .8 * var(--p,0));
+  display:inline-flex; align-items:baseline;
+  /* the block rises and sharpens as a whole */
+  transform:translateY(calc((1 - var(--p,0)) * .22em));
+  opacity:calc(.25 + .75 * var(--p,0));
+}
+/* only the digits blur, and they clear well before the count ends, so
+   the last and slowest part of the climb is perfectly legible */
+.metric__n{
+  font-style:normal;
+  filter:blur(calc((1 - var(--p,0)) * 14px));
+}
+/* the unit rides in on its own ramp and lands with the number */
+.metric__u{
+  color:var(--faint);
+  margin-inline-start:.06em;
+  opacity:var(--u,0);
+  transform:translate(calc((1 - var(--u,0)) * -.28em), calc((1 - var(--u,0)) * .12em));
 }
 .metric__v.is-done{
-  transform:none; filter:none; opacity:1;
-  transition:transform .45s var(--e),filter .45s var(--e),opacity .45s var(--e);
+  transform:none; opacity:1;
+  transition:transform .5s var(--e),opacity .5s var(--e);
 }
-.metric__v span{ color:var(--faint); }
+.metric__v.is-done .metric__n{ filter:none; transition:filter .5s var(--e); }
+.metric__v.is-done .metric__u{
+  opacity:1; transform:none;
+  transition:opacity .5s var(--e),transform .6s var(--e);
+}
 .metric__k{ font-size:13.5px; color:var(--muted); }
 
 /* ============================ 6. SYSTEM ======================== */
